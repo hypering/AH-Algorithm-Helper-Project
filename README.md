@@ -1,2 +1,31 @@
-# AH-Algorithm-Helper-Project
-Algorithm Helper Project
+# AH (Algorithm Helper)
+
+## 개발 시간 (매일)
+
+- ### 10 ~ 12시
+
+- ### 13 ~ 17시
+
+## 그룹원
+
+- ### 이기훈
+
+- ### 박진형
+
+## Front-End
+
+- ### Javascript
+
+- ### React
+
+- ### Redux
+
+## Back-End
+
+- ### Javascript
+
+- ### Node Express
+
+- ### Rest API
+
+- ### MongoDB
