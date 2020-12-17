@@ -1,6 +1,15 @@
 import styled from "@emotion/styled";
 export const Container = styled.div`
-  width: 250px;
+  margin-top: 15px;
+
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: calc(100% - 350px);
+`;
+export const CategoriesScroll = styled.div`
+  overflow-y: auto;
 `;
 export const Categories = styled.div`
   display: flex;
@@ -11,4 +20,8 @@ export const Category = styled.span`
   border: 1px solid #efefef;
   border-radius: 12px;
   padding: 10px;
+  margin-bottom: 5px;
+`;
+export const Subtitle = styled.span`
+  font-weight: 600;
 `;
