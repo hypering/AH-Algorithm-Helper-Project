@@ -1,7 +1,8 @@
 import React from "react";
+import { Container } from "./style";
 
 const Header = () => {
-  return <div>Algorithm Helper</div>;
+  return <Container>Algorithm Helper</Container>;
 };
 
 export default Header;
