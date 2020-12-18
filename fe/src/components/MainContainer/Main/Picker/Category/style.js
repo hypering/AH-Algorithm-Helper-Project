@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 export const Container = styled.div`
   margin-top: 15px;
-
   max-width: 50%;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  height: calc(100% - 350px);
 `;
 export const CategoriesScroll = styled.div`
   overflow-y: auto;
