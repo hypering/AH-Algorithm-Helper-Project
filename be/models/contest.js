@@ -5,7 +5,9 @@ const { Schema } = mongoose;
 const contestSchema = new Schema(
   {
     name: String,
-    createAt: { type: Date, default: Date.now },
+    title: String,
+    startDate: Date,
+    url: String,
   },
   { versionKey: false },
 );
