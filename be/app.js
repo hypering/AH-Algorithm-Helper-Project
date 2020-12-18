@@ -7,7 +7,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use(express.static(path.join(__dirname, "public")));S
+// app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/getProlems/:id", (req, res) => {
   // DB에 접근해서 문제들을 가져오고,
