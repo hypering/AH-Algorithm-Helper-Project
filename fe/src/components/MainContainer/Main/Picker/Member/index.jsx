@@ -1,7 +1,6 @@
 import React from "react";
 import {
   AddRemove,
-  InputContainer,
   InputContainers,
   InputID,
   Container,
@@ -9,21 +8,20 @@ import {
   AddUser,
   RemoveUser,
 } from "./style";
+
 const Member = () => {
   return (
     <Container>
-      <Subtitle>구성원</Subtitle>
-      <InputContainers>
-        <InputContainer>
-          <InputID placeholder="ID 입력"></InputID>
-        </InputContainer>
-        <InputContainer>
-          <InputID placeholder="ID 입력"></InputID>
-        </InputContainer>
+      <Subtitle>
+        <div>구성원</div>
         <AddRemove>
           <AddUser>+</AddUser>
           <RemoveUser>-</RemoveUser>
         </AddRemove>
+      </Subtitle>
+      <InputContainers>
+        <InputID placeholder="ID 입력"></InputID>
+        <InputID placeholder="ID 입력"></InputID>
       </InputContainers>
     </Container>
   );

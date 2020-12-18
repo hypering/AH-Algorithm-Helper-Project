@@ -3,20 +3,23 @@ import CategoryContainer from "./Category/index";
 import Difficulty from "./Difficulty/index";
 import Member from "./Member/index";
 import ProblemCount from "./ProblemCount";
-import { Container, SubContainer2, Subcontainer3 } from "./style";
+import { MainContainer, Container, SubContainer } from "./style";
 
 const Picker = () => {
   return (
     <Container>
-      <Member />
-      <SubContainer2>
-        <Difficulty></Difficulty>
-        <ProblemCount></ProblemCount>
-      </SubContainer2>
-      <Subcontainer3>
+      <SubContainer>
+        <Member />
+      </SubContainer>
+      <SubContainer>
+        <Difficulty />
+        <ProblemCount />
+      </SubContainer>
+      <MainContainer>
         <CategoryContainer />
-        <div className="Result">결과창</div>
-      </Subcontainer3>
+        <div>결과창</div>
+      </MainContainer>
+      <div>적용</div>
     </Container>
   );
 };

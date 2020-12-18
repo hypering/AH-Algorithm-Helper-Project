@@ -12,3 +12,10 @@ export const Subcontainer = styled.div`
 export const Subtitle = styled.span`
   font-weight: 600;
 `;
+export const TextInput = styled.input`
+  padding: 3px 10px 3px 26px;
+  border-radius: 12px;
+  &:focus {
+    outline: none;
+  }
+`;

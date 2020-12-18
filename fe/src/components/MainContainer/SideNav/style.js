@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 export const SideContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 10%;
   border-right: 1px solid #efefef;
-  margin-right: 20px;
 `;
 
 export const Menus = styled.div`
@@ -17,9 +17,8 @@ export const Menu = styled.span`
     background-color: #efefef;
   }
   cursor: pointer;
-  padding: 10px 20px 10px 20px;
-  font-weight: 600;
+  padding: 10px 20px;
   border-bottom: 1px solid #efefef;
+  font-weight: 600;
+  text-align: center;
 `;
-
-//NameContainer ->
