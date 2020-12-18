@@ -1,30 +1,41 @@
 import styled from "@emotion/styled";
 
+export const ItemContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  &:hover {
+    background-color: #efefef;
+  }
+`;
+
 export const Title = styled.div`
-    font-size: 14px;
-    width: 150px;
-    margin: auto;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: start;
 `;
-export const WhatDay = styled.div`
-    // font-size: 10px;
-`;
-export const WhatContest = styled.div`
-    // font-size: 10px;
-`;
-export const ContestWrap = styled.div`
-    &:hover {
-        border: 1px groove;
-        margin: -1px 5px;
-        cursor: pointer;
-    }
-    margin: 0 5px;
-    padding: 5px;
-    font-size: 10px;
-    width: 200px;
-`;
+
 export const Container = styled.div`
-    &:hover {
-        background-color: #efefef;
-    }
-    display: flex;
+  display: flex;
+  height: 80%;
+  width: 100%;
+  border-radius: 5px;
+  &:hover {
+    background-color: #efefef;
+  }
+`;
+
+export const ContestWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 15px;
+  font-size: 17px;
+  border-radius: 15px;
+  &:hover {
+    cursor: pointer;
+    background-color: yellowgreen;
+    transition: 1.5s;
+  }
 `;

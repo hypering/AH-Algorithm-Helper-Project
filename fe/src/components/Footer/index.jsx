@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, TextLabel } from "./style.js";
+import { Container } from "./style.js";
 
 const Footer = () => {
   return (
