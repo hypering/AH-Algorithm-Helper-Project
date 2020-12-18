@@ -6,12 +6,12 @@ export const Container = styled.div`
   max-width: 50%;
   margin-top: 15px;
   flex-grow: 1;
-  overflow-y: scroll;
 `;
 
 export const Categories = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 `;
 
 export const Category = styled.span`
