@@ -9,16 +9,14 @@ export const Container = styled.div`
 
 export const SubContainer = styled.div`
   display: flex;
-  height: 10%;
+  height: 13%;
   flex-direction: row;
   border-top: 1px solid #efefef;
-  margin-top: 15px;
 `;
 
 export const MainContainer = styled.div`
   display: flex;
-  height: 70%;
+  height: 74%;
   flex-direction: row;
   border-top: 1px solid #efefef;
-  margin-top: 15px;
 `;

@@ -1,13 +1,17 @@
 import styled from "@emotion/styled";
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const Subtitle = styled.span`
+  margin-bottom: 5px;
+  font-weight: 600;
+`;
+
 export const DropBoxContainer = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-export const Subtitle = styled.span`
-  font-weight: 600;
+  margin: 0px 5px;
 `;

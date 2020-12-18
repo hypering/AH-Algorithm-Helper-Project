@@ -20,6 +20,10 @@ export const Category = styled.span`
   border: 1px solid #efefef;
   border-radius: 12px;
   cursor: pointer;
+  &:hover {
+    background-color: yellowgreen;
+    transition: 1s;
+  }
 `;
 
 export const Subtitle = styled.span`
