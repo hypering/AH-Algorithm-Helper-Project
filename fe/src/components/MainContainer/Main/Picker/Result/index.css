@@ -1,0 +1,10 @@
+.resultHeader {
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  text-align: center;
+}
+.resultHeader span {
+  margin-left: 15px;
+  margin-right: 110px;
+  text-align: center;
+}
