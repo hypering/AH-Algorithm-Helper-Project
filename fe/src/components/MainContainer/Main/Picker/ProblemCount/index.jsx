@@ -5,7 +5,11 @@ import { Subtitle, Container, Subcontainer, TextInput } from "./style";
 const ProblemCount = ({ problemCnt, setProblemCnt }) => {
   const onChange = (e) => {
     const { value } = e.target;
-    setProblemCnt(value);
+    const regex = /^[0-9]{1,2}$/;
+
+    if (regex.test(value) || value == "") {
+      setProblemCnt(value);
+    }
   };
   return (
     <Container>
