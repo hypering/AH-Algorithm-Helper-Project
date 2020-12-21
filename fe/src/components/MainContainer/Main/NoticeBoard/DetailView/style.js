@@ -60,6 +60,7 @@ export const CommentWrap = styled.div`
 export const EmptyText = styled.div`
   display: flex;
   flex-direction: column;
+  width: 80%;
   height: 100%;
   padding: 1rem;
   text-align: start;
