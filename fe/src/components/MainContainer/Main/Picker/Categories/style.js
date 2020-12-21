@@ -14,18 +14,6 @@ export const Categories = styled.div`
   overflow-y: scroll;
 `;
 
-export const Category = styled.span`
-  margin-bottom: 5px;
-  padding: 10px;
-  border: 1px solid #efefef;
-  border-radius: 12px;
-  cursor: pointer;
-  &:hover {
-    background-color: yellowgreen;
-    transition: 1s;
-  }
-`;
-
 export const Subtitle = styled.span`
   font-weight: 600;
 `;

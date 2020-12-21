@@ -31,13 +31,7 @@ export const RemoveUser = styled.div`
 export const InputContainers = styled.div`
   display: flex;
   flex-direction: row;
-`;
+  width: 100%;
 
-export const InputID = styled.input`
-  padding: 3px 10px 3px 26px;
-  margin: 0px 5px;
-  border-radius: 12px;
-  &:focus {
-    outline: none;
-  }
+  overflow-y: scroll;
 `;
