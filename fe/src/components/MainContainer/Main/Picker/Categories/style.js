@@ -6,6 +6,7 @@ export const Container = styled.div`
   max-width: 50%;
   margin-top: 15px;
   flex-grow: 1;
+  margin-left: 15px;
 `;
 
 export const Categories = styled.div`

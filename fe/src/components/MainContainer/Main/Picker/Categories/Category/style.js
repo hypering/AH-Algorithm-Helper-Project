@@ -6,8 +6,10 @@ export const Container = styled.span`
   border-radius: 12px;
   cursor: pointer;
   &:hover {
-    background-color: yellowgreen;
+    background-color: #707070;
+    color: white;
     transition: 1s;
   }
-  background-color: ${(props) => (props.selected ? "yellowgreen" : "white")};
+  background-color: ${(props) => (props.selected ? "#707070" : "white")};
+  color: ${(props) => (props.selected ? "white" : "black")};
 `;
