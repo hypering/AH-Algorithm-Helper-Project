@@ -6,12 +6,19 @@ const dbStarter = require('./providers/dbProvider');
 const { contestModel, problemModel, boardModel } = require('./models');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 dotenv.config();
 
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    credentials: true,
+  }),
+);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
