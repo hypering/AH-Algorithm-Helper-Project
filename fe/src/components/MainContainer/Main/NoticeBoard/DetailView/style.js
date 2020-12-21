@@ -6,8 +6,3 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 1rem;
 `;
-
-export const SubContainer = styled.div`
-  display: flex;
-  height: 85%;
-`;
