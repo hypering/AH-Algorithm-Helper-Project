@@ -55,3 +55,11 @@ export const CommentWrap = styled.div`
   justify-content: flex-end;
   padding: 15px;
 `;
+
+export const EmptyText = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  text-align: start;
+`;

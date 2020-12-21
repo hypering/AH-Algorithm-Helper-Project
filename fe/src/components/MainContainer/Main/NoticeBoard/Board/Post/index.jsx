@@ -2,18 +2,12 @@ import React from "react";
 import SvgIcon from "./SvgIcon";
 import { Container, SvgWrap, ImgIcon } from "./style";
 
-const post = {
-  author: "shmallow",
-  img_url: "https://pbs.twimg.com/media/EpgvS9jVoAAz1cG?format=jpg&name=small",
-  tags: ["아이유", "산타"],
-  heart: 5,
-  comment: ["예쁘다!", "굿"],
-  clicked: 10,
-};
-
-const Post = ({ post }) => {
+const Post = ({ post, setSelectedBoard }) => {
+  const onClick = () => {
+    setSelectedBoard(post);
+  };
   return (
-    <Container>
+    <Container onClick={onClick}>
       <h6>{post.author}</h6>
       <div>
         <ImgIcon src={post.img_url} />
