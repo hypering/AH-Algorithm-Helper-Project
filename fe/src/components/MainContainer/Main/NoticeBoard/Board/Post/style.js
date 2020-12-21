@@ -22,5 +22,5 @@ export const SvgWrap = styled.ul`
 export const ImgIcon = styled.img`
   padding-top: 5px;
   border-radius: 15px;
-  width: 100%;
+  width: 95%;
 `;

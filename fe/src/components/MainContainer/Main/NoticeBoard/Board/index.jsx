@@ -8,6 +8,7 @@ const post = [
     img_url:
       "https://pbs.twimg.com/media/EpgvS9jVoAAz1cG?format=jpg&name=small",
     tags: ["안녕", "하세"],
+    content: "안녕하세요 아이유입니다.",
     heart: 5,
     comment: ["안녕", "하세"],
     clicked: 10,
@@ -17,6 +18,7 @@ const post = [
     img_url:
       "https://pbs.twimg.com/media/EpgvS9jVoAAz1cG?format=jpg&name=small",
     tags: ["안녕", "하세"],
+    content: "안녕하세요 아이유입니다.",
     heart: 5,
     comment: ["안녕", "하세"],
     clicked: 10,
@@ -26,6 +28,7 @@ const post = [
     img_url:
       "https://pbs.twimg.com/media/EpgvS9jVoAAz1cG?format=jpg&name=small",
     tags: ["안녕", "하세"],
+    content: "안녕하세요 아이유입니다.",
     heart: 5,
     comment: ["안녕", "하세"],
     clicked: 10,
