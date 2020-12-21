@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Container, DropBoxContainer, Subtitle } from "./style";
 
-const Difficulty = () => {
+const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
   const minRef1 = useRef();
   const minRef2 = useRef();
   const maxRef1 = useRef();
   const maxRef2 = useRef();
-  const [selected, setSelected] = useState([0, 0, 0, 0]);
+
   const onChange = (e) => {
     if (
       minRef1.current.options.selectedIndex >
@@ -16,13 +16,13 @@ const Difficulty = () => {
         minRef2.current.options.selectedIndex >
           maxRef2.current.options.selectedIndex)
     ) {
-      alert("error");
-      minRef1.current.options.selectedIndex = selected[0];
-      minRef2.current.options.selectedIndex = selected[1];
-      maxRef1.current.options.selectedIndex = selected[2];
-      maxRef2.current.options.selectedIndex = selected[3];
+      alert("최소 난이도가 최대 난이도 보다 높을 수 없습니다.");
+      minRef1.current.options.selectedIndex = selectedDifficulty[0];
+      minRef2.current.options.selectedIndex = selectedDifficulty[1];
+      maxRef1.current.options.selectedIndex = selectedDifficulty[2];
+      maxRef2.current.options.selectedIndex = selectedDifficulty[3];
     } else {
-      setSelected([
+      setSelectedDifficulty([
         minRef1.current.options.selectedIndex,
         minRef2.current.options.selectedIndex,
         maxRef1.current.options.selectedIndex,
