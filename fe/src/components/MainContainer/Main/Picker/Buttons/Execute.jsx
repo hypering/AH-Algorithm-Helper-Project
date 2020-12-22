@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { faSquare, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import { Execute } from "./style";
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import { Execute } from './style';
 
 const BtnExecute = ({ onClick }) => {
   return (

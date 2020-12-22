@@ -1,7 +1,7 @@
-import React from "react";
-import ResEntity from "./ResEntity/index.jsx";
-import { ResContainer, Results, Subtitle } from "./style.js";
-import "./index.css";
+import React from 'react';
+import ResEntity from './ResEntity/index.jsx';
+import { ResContainer, Results, Subtitle } from './style.js';
+import './index.css';
 const Result = () => {
   return (
     <ResContainer>

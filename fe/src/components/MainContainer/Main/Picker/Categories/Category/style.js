@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 export const Container = styled.span`
   margin-bottom: 5px;
   padding: 10px;
@@ -10,6 +10,6 @@ export const Container = styled.span`
     color: white;
     transition: 1s;
   }
-  background-color: ${(props) => (props.selected ? "#707070" : "white")};
-  color: ${(props) => (props.selected ? "white" : "black")};
+  background-color: ${(props) => (props.selected ? '#707070' : 'white')};
+  color: ${(props) => (props.selected ? 'white' : 'black')};
 `;

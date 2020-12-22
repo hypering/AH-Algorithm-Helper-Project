@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
   ImgIcon,
@@ -7,7 +7,7 @@ import {
   Comment,
   CommentWrap,
   EmptyText,
-} from "./style";
+} from './style';
 
 const DetailView = ({ post }) => {
   if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;

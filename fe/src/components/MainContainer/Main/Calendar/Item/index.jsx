@@ -1,8 +1,8 @@
-import React from "react";
-import { Title, Container, ContestWrap, ItemContainer } from "./style";
+import React from 'react';
+import { Title, Container, ContestWrap, ItemContainer } from './style';
 
 // 여기서 대회정보들을 가져와서, Container 안에 넣는다.
-const Item = ({ id }) => {
+const Item = ({ id = false }) => {
   return (
     <ItemContainer>
       <Title>{id}</Title>

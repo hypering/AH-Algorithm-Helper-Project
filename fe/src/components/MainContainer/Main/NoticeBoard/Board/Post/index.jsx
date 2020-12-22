@@ -1,6 +1,6 @@
-import React from "react";
-import SvgIcon from "./SvgIcon";
-import { Container, SvgWrap, ImgIcon } from "./style";
+import React from 'react';
+import SvgIcon from './SvgIcon';
+import { Container, SvgWrap, ImgIcon } from './style';
 
 const Post = ({ post, setSelectedBoard }) => {
   const onClick = () => {

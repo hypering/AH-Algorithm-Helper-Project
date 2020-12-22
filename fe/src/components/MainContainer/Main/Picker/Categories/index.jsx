@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Container, Categories, Subtitle } from "./style";
-import Category from "./Category/index";
+import React from 'react';
+import { Container, Categories, Subtitle } from './style';
+import Category from './Category/index';
 const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
   return (
     <Container>

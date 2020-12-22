@@ -1,8 +1,8 @@
-import React from "react";
-import Picker from "./Picker";
-import Calendar from "./Calendar";
-import NoticeBoard from "./NoticeBoard";
-import { Container } from "./style";
+import React from 'react';
+import Picker from './Picker';
+import Calendar from './Calendar';
+import NoticeBoard from './NoticeBoard';
+import { Container } from './style';
 
 const CALENDAR_NUMBER = 1;
 const NOTICEBOARD_NUMBER = 2;

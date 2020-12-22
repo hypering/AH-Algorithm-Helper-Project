@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Icon } from "./style";
+import React from 'react';
+import { Container, Icon } from './style';
 
 const SvgIcon = ({ path, text, color }) => {
   return (

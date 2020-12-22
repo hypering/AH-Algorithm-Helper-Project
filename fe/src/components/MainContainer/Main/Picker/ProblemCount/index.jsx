@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { Subtitle, Container, Subcontainer, TextInput } from "./style";
+import { Subtitle, Container, Subcontainer, TextInput } from './style';
 
 const ProblemCount = ({ problemCnt, setProblemCnt }) => {
   const onChange = (e) => {
     const { value } = e.target;
     const regex = /^[0-9]{1,2}$/;
 
-    if (regex.test(value) || value == "") {
+    if (regex.test(value) || value == '') {
       setProblemCnt(value);
     }
   };

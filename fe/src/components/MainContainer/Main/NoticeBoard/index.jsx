@@ -1,15 +1,15 @@
-import { React, useEffect, useState } from "react";
-import Header from "./Header";
-import Board from "./Board";
-import DetailView from "./DetailView";
-import { Container, SubContainer } from "./style";
+import { React, useEffect, useState } from 'react';
+import Header from './Header';
+import Board from './Board';
+import DetailView from './DetailView';
+import { Container, SubContainer } from './style';
 
 const NoticeBoard = () => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
   useEffect(() => {
-    fetch("http://localhost:4000/board", {
-      method: "get",
+    fetch('http://localhost:4000/board', {
+      method: 'get',
     })
       .then((response) => response.json())
       .then((board) => {

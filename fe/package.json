@@ -9,7 +9,10 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.2",
@@ -31,6 +34,9 @@
   },
   "devDependencies": {
     "eslint": "^7.16.0",
-    "eslint-plugin-react": "^7.21.5"
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "prettier": "^2.2.1"
   }
 }

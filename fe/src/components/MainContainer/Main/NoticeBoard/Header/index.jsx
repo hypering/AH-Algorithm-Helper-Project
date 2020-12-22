@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
   HeaderWrap,
@@ -6,7 +6,7 @@ import {
   InputBox,
   ButtonBox,
   SearchBox,
-} from "./style";
+} from './style';
 
 const Header = () => {
   return (
@@ -19,7 +19,8 @@ const Header = () => {
           <img
             src="https://talk.op.gg/images/icon-write@2x.png"
             alt="글쓰기"
-            width="24"></img>
+            width="24"
+          ></img>
         </a>
       </HeaderWrap>
       <HeaderWrap>

@@ -1,10 +1,10 @@
-import React from "react";
-import { Container } from "./style.js";
+import React from 'react';
+import { Container } from './style.js';
 
 const Footer = () => {
   return (
     <Container>
-      &copy; Copyright {new Date().getFullYear()} Algorithm Helper{" "}
+      &copy; Copyright {new Date().getFullYear()} Algorithm Helper{' '}
     </Container>
   );
 };

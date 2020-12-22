@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Container = styled.div`
   display: flex;
@@ -7,10 +7,10 @@ export const Container = styled.div`
   cursor: pointer;
   &:hover {
     background-color: #ebeef1;
-    color: ${(props) => props.color || "black"};
+    color: ${(props) => props.color || 'black'};
     transition: 1s;
     & > svg {
-      fill: ${(props) => props.color || "black"};
+      fill: ${(props) => props.color || 'black'};
       transition: 1s;
     }
   }

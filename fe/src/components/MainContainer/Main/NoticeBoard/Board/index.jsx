@@ -1,6 +1,6 @@
-import React from "react";
-import Post from "./Post";
-import { Container } from "./style";
+import React from 'react';
+import Post from './Post';
+import { Container } from './style';
 
 const Board = ({ posts, setSelectedBoard }) => {
   return (
