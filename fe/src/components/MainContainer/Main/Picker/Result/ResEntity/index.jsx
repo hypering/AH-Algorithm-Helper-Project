@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.css';
 import { EntityContainer } from './style';
 const ResEntity = ({ num, tier, cate }) => {
   const Tiers = [
@@ -114,12 +113,8 @@ const ResEntity = ({ num, tier, cate }) => {
     <EntityContainer>
       <a href={'https://www.acmicpc.net/problem/' + num}>
         <span>
-          <img
-            src={
-              '/Images/Tiers/' + Tiers.find((o) => o.name == tier).id + '.svg'
-            }
-          />
-          {tier}
+          <img src={'/Images/Tiers/' + tier + '.svg'} />
+          {Tiers.find((o) => o.id == tier).name}
         </span>
         <span> {num}</span>
         <span>{cate}</span>
