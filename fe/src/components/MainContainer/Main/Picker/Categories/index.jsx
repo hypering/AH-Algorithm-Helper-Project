@@ -12,6 +12,11 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
           setSelctedCate={setSelectedCate}
         ></Category>
         <Category
+          name="다이나믹 프로그래밍"
+          selectedCate={selectedCate}
+          setSelctedCate={setSelectedCate}
+        ></Category>
+        <Category
           name="브루트포스"
           selectedCate={selectedCate}
           setSelctedCate={setSelectedCate}
@@ -58,6 +63,11 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
         ></Category>
         <Category
           name="세그멘테이션"
+          selectedCate={selectedCate}
+          setSelctedCate={setSelectedCate}
+        ></Category>
+        <Category
+          name="수학"
           selectedCate={selectedCate}
           setSelctedCate={setSelectedCate}
         ></Category>
