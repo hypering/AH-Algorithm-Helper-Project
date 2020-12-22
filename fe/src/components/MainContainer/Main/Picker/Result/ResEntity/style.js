@@ -10,6 +10,7 @@ export const EntityContainer = styled.div`
   & > a > span {
     margin-right: 90px;
   }
+
   &:hover {
     background-color: #707070;
     color: white;
@@ -18,6 +19,13 @@ export const EntityContainer = styled.div`
       color: white;
     }
   }
+  & > a > span > img {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+  }
+
   & > a,
   a:visited {
     text-decoration: none;
