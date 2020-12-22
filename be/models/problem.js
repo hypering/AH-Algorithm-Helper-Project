@@ -4,9 +4,10 @@ const { Schema } = mongoose;
 
 const problemSchema = new Schema(
   {
-    num: { type: String, unique: true },
+    num: { type: Number, unique: true },
+    name: String,
     category: [String],
-    level: String,
+    level: Number,
   },
   { versionKey: false },
 );
