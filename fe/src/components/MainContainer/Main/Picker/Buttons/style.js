@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Container = styled.div`
   display: flex;
@@ -6,7 +7,6 @@ export const Container = styled.div`
   max-width: 50%;
   margin-top: 15px;
   flex-grow: 1;
-  margin-left: 15px;
 `;
 
 export const Categories = styled.div`
@@ -17,4 +17,12 @@ export const Categories = styled.div`
 
 export const Subtitle = styled.span`
   font-weight: 600;
+`;
+
+export const Execute = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  &:hover {
+    color: #385185;
+    transition: 1s;
+  }
 `;
