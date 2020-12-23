@@ -9,6 +9,8 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const ContestRouter = require('./routes/contest');
+
 dotenv.config();
 
 app.use(
@@ -17,10 +19,13 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/contest', ContestRouter);
 
 app.get('/board', async (req, res) => {
   const boardDates = await boardModel.find();
