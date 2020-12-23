@@ -107,17 +107,37 @@ const ResEntity = ({ num, tier, cate }) => {
       id: 25,
       name: 'Diamond 1',
     },
+    {
+      id: 26,
+      name: 'Ruby 1',
+    },
+    {
+      id: 27,
+      name: 'Ruby 1',
+    },
+    {
+      id: 28,
+      name: 'Ruby 1',
+    },
+    {
+      id: 29,
+      name: 'Ruby 1',
+    },
+    {
+      id: 30,
+      name: 'Ruby 1',
+    },
   ];
 
   return (
     <EntityContainer>
       <a href={'https://www.acmicpc.net/problem/' + num}>
-        <span>
+        <span className="tier">
           <img src={'/Images/Tiers/' + tier + '.svg'} />
           {Tiers.find((o) => o.id == tier).name}
         </span>
-        <span> {num}</span>
-        <span>{cate}</span>
+        <span className="number"> {num}</span>
+        <span className="cate">{cate}</span>
       </a>
     </EntityContainer>
   );
