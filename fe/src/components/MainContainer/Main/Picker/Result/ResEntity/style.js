@@ -7,16 +7,11 @@ export const EntityContainer = styled.div`
   border-radius: 12px;
   display: flex;
   align-items: center;
-  & > a > span {
-  }
 
   &:hover {
     background-color: #707070;
     color: white;
     transition: 1s;
-    & > span {
-      color: white;
-    }
   }
   & > a {
     display: flex;
@@ -45,6 +40,10 @@ export const EntityContainer = styled.div`
   a:visited {
     text-decoration: none;
     color: black;
+  }
+  & > a > span:hover {
+    color: white;
+    transition: 1s;
   }
   & > a:hover {
     color: white;
