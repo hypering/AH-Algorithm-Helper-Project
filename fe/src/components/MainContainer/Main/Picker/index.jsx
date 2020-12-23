@@ -6,12 +6,14 @@ import ProblemCount from './ProblemCount';
 import Result from './Result';
 import { MainContainer, Container, SubContainer } from './style';
 import BtnExecute from './Buttons/Execute.jsx';
+
 const Picker = () => {
   const inputBoxCnt = useRef(1);
   const [problemCnt, setProblemCnt] = useState(0);
   const [inputValue, setInputValue] = useState([{ id: 1, value: '' }]);
   const [selectedCate, setSelectedCate] = useState([]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState([0, 0, 0, 0]);
+  const [selectedDifficulty, setSelectedDifficulty] = useState([0, 1, 0, 1]);
+  const [queryResults, setQueryResults] = useState([]);
   const checkMemInput = () => {
     let valid = true;
     inputValue.forEach((input) => {
@@ -23,7 +25,42 @@ const Picker = () => {
     if (!valid) return false;
     else return true;
   };
-  const onSubmit = () => {
+
+  const getProblems = async (
+    url,
+    problemCnt,
+    inputValue,
+    selectedCate,
+    selectedDifficulty
+  ) => {
+    const low = 5 * selectedDifficulty[0] + selectedDifficulty[1];
+    const high = 5 * selectedDifficulty[2] + selectedDifficulty[3];
+    console.log(problemCnt, inputValue, selectedCate, selectedDifficulty);
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        problemCnt: problemCnt,
+        inputValue: inputValue,
+        selectedCate: selectedCate,
+        selectedDifficulty: [low, high],
+      }),
+    });
+
+    const response_Data = await response.json();
+
+    if (response.ok) {
+      const res = response_Data.res;
+      console.log('res =========================');
+      console.log(res);
+      return await res;
+    } else {
+      return await [];
+    }
+  };
+  const onSubmit = async () => {
     //모든 항목이 입력됐는지 확인해야함
     if (problemCnt < 1 || problemCnt > 10) {
       alert('1~10 숫자를 입력해주세요.');
@@ -36,20 +73,14 @@ const Picker = () => {
       alert('입력을 확인하세요.');
     } else {
       //요청
-      console.log('Query gogo');
-
-      // API 연결시 작성
-      // let response;
-      // if (response.ok) {
-      //   const res = response.json.res;
-      //   let html = res.map((problem) => (
-      //     <ResEntity
-      //       num={problem.num}
-      //       tier={problem.tier}
-      //       cate={problem.categories.toString()}
-      //     />
-      //   ));
-      // }
+      const res = await getProblems(
+        'http://127.0.0.1:4000/problem',
+        problemCnt,
+        inputValue,
+        selectedCate,
+        selectedDifficulty
+      );
+      await setQueryResults(res);
     }
   };
   return (
@@ -64,7 +95,7 @@ const Picker = () => {
       <SubContainer>
         <Difficulty
           selected={selectedDifficulty}
-          setSelected={setSelectedDifficulty}
+          setSelectedDifficulty={setSelectedDifficulty}
         />
         <ProblemCount problemCnt={problemCnt} setProblemCnt={setProblemCnt} />
       </SubContainer>
@@ -73,7 +104,7 @@ const Picker = () => {
           selectedCate={selectedCate}
           setSelectedCate={setSelectedCate}
         />
-        <Result></Result>
+        <Result queryResults={queryResults}></Result>
       </MainContainer>
       <span>
         <BtnExecute onClick={onSubmit}></BtnExecute>

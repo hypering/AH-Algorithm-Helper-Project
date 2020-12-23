@@ -30,9 +30,20 @@ app.get('/board', async (req, res) => {
 // 유저들의 정보 및 요구사항을 받는다.
 // DB에 있는 문제들이랑 해당 유저들이 푼 문제를 비교
 // 요구 사항에 맞는 문제들을 보내준다.
-app.get('/problem', async (req, res) => {
-  const problemDate = await problemModel.find();
-  res.json(problemDate);
+app.post('/problem', async (req, res) => {
+  const problemCnt = req.body.problemCnt;
+  const inputValue = req.body.inputValue;
+  const low_level = req.body.selectedDifficulty[0];
+  const high_level = req.body.selectedDifficulty[1];
+  const selectedCate = req.body.selectedCate;
+  console.log(low_level, high_level);
+  console.log(selectedCate);
+  const problemData = await problemModel.find({
+    level: { $gte: low_level, $lte: high_level },
+    category: { $in: selectedCate },
+  });
+  console.log(problemData);
+  res.json({ res: problemData });
 });
 
 const booting = async () => {

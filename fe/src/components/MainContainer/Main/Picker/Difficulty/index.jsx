@@ -24,9 +24,9 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
     } else {
       setSelectedDifficulty([
         minRef1.current.options.selectedIndex,
-        minRef2.current.options.selectedIndex,
+        minRef2.current.options.selectedIndex + 1,
         maxRef1.current.options.selectedIndex,
-        maxRef2.current.options.selectedIndex,
+        maxRef2.current.options.selectedIndex + 1,
       ]);
     }
   };
@@ -40,13 +40,14 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
           <option value="2">Gold</option>
           <option value="3">Platinum</option>
           <option value="4">Diamond</option>
+          <option value="5">Ruby</option>
         </select>
         <select onChange={onChange} name="minTier2" ref={minRef2}>
-          <option value="0">5</option>
-          <option value="1">4</option>
-          <option value="2">3</option>
-          <option value="3">2</option>
-          <option value="4">1</option>
+          <option value="1">5</option>
+          <option value="2">4</option>
+          <option value="3">3</option>
+          <option value="4">2</option>
+          <option value="5">1</option>
         </select>
         ~
         <select onChange={onChange} name="maxTier1" ref={maxRef1}>
@@ -55,13 +56,14 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
           <option value="2">Gold</option>
           <option value="3">Platinum</option>
           <option value="4">Diamond</option>
+          <option value="5">Ruby</option>
         </select>
         <select onChange={onChange} name="maxTier2" ref={maxRef2}>
-          <option value="0">5</option>
-          <option value="1">4</option>
-          <option value="2">3</option>
-          <option value="3">2</option>
-          <option value="4">1</option>
+          <option value="1">5</option>
+          <option value="2">4</option>
+          <option value="3">3</option>
+          <option value="4">2</option>
+          <option value="5">1</option>
         </select>
       </DropBoxContainer>
     </Container>
