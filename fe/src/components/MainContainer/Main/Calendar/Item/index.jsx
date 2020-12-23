@@ -1,5 +1,11 @@
 import React from 'react';
-import { Title, Container, ContestWrap, ItemContainer } from './style';
+import {
+  Title,
+  Container,
+  ContestWrap,
+  ItemContainer,
+  UndeLine,
+} from './style';
 
 const Item = ({ id, value }) => {
   return (
@@ -12,6 +18,7 @@ const Item = ({ id, value }) => {
               return (
                 <ContestWrap>
                   <div>{ele.title}</div>
+                  <UndeLine />
                   <div>{ele.startDate}</div>
                 </ContestWrap>
               );
