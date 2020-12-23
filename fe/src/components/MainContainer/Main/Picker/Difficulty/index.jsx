@@ -6,7 +6,6 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
   const minRef2 = useRef();
   const maxRef1 = useRef();
   const maxRef2 = useRef();
-
   const onChange = () => {
     if (
       minRef1.current.options.selectedIndex >
@@ -18,9 +17,9 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
     ) {
       alert('최소 난이도가 최대 난이도 보다 높을 수 없습니다.');
       minRef1.current.options.selectedIndex = selectedDifficulty[0];
-      minRef2.current.options.selectedIndex = selectedDifficulty[1];
+      minRef2.current.options.selectedIndex = selectedDifficulty[1] - 1;
       maxRef1.current.options.selectedIndex = selectedDifficulty[2];
-      maxRef2.current.options.selectedIndex = selectedDifficulty[3];
+      maxRef2.current.options.selectedIndex = selectedDifficulty[3] - 1;
     } else {
       setSelectedDifficulty([
         minRef1.current.options.selectedIndex,

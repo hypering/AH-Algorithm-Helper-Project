@@ -67,7 +67,7 @@ const Picker = () => {
     <Container>
       <SubContainer>
         <Difficulty
-          selected={selectedDifficulty}
+          selectedDifficulty={selectedDifficulty}
           setSelectedDifficulty={setSelectedDifficulty}
         />
         <ProblemCount problemCnt={problemCnt} setProblemCnt={setProblemCnt} />
