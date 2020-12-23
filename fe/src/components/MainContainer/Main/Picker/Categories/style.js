@@ -13,6 +13,11 @@ export const Categories = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
 
 export const Subtitle = styled.span`

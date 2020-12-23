@@ -3,7 +3,9 @@ const logger = require('morgan');
 const path = require('path');
 const dotenv = require('dotenv');
 const dbStarter = require('./providers/dbProvider');
-const { problemModel, boardModel } = require('./models');
+const { contestModel, problemModel, boardModel } = require('./models');
+const axios = require('axios');
+const cheerio = require('cheerio');
 const cors = require('cors');
 
 const app = express();
@@ -36,19 +38,30 @@ app.get('/board', async (req, res) => {
 // DB에 있는 문제들이랑 해당 유저들이 푼 문제를 비교
 // 요구 사항에 맞는 문제들을 보내준다.
 app.post('/problem', async (req, res) => {
-  const problemCnt = req.body.problemCnt;
-  const inputValue = req.body.inputValue;
-  const low_level = req.body.selectedDifficulty[0];
-  const high_level = req.body.selectedDifficulty[1];
-  const selectedCate = req.body.selectedCate;
-  console.log(low_level, high_level);
-  console.log(selectedCate);
+  const { selectedDifficulty, selectedCate } = req.body;
+  let problemCnt = req.body.problemCnt;
   const problemData = await problemModel.find({
-    level: { $gte: low_level, $lte: high_level },
-    category: { $in: selectedCate },
+    $and: [
+      {
+        level: { $gte: selectedDifficulty[0], $lte: selectedDifficulty[1] },
+        category: { $in: selectedCate },
+      },
+    ],
   });
-  console.log(problemData);
-  res.json({ res: problemData });
+  let pickedProblemsNum = [];
+  let pickedProblems = [];
+  let pickedCnt = 0;
+  if (problemData.length < problemCnt) problemCnt = problemData.length;
+  //랜덤 뽑기
+  while (pickedCnt != problemCnt) {
+    let token = Math.floor(Math.random() * problemData.length);
+    if (pickedProblemsNum.findIndex((e) => e == token) === -1) {
+      pickedProblemsNum.push(token);
+      pickedProblems.push(problemData[token]);
+      pickedCnt++;
+    }
+  }
+  res.json({ res: pickedProblems });
 });
 
 const booting = async () => {

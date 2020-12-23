@@ -13,6 +13,11 @@ export const Results = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
 export const Subtitle = styled.span`
   font-weight: 600;

@@ -11,26 +11,38 @@ const SideNav = ({ setValue }) => {
   const noticeBtn = useRef();
   const pickerOnclick = () => {
     setValue(PICKER_NUMBER);
-    pickerBtn.current.style.color = 'red';
-    calendarBtn.current.style.color = 'black';
-    noticeBtn.current.style.color = 'black';
+    pickerBtn.current.style.color = 'white';
+    pickerBtn.current.style.backgroundColor = '#707070';
+    calendarBtn.current.style.color = '#707070';
+    calendarBtn.current.style.backgroundColor = 'white';
+    noticeBtn.current.style.color = '#707070';
+    noticeBtn.current.style.backgroundColor = 'white';
   };
   const calendarOnclick = () => {
     setValue(CALENDAR_NUMBER);
-    calendarBtn.current.style.color = 'red';
-    pickerBtn.current.style.color = 'black';
-    noticeBtn.current.style.color = 'black';
+    pickerBtn.current.style.color = '#707070';
+    pickerBtn.current.style.backgroundColor = 'white';
+    calendarBtn.current.style.color = 'white';
+    calendarBtn.current.style.backgroundColor = '#707070';
+    noticeBtn.current.style.color = '#707070';
+    noticeBtn.current.style.backgroundColor = 'white';
   };
   const noticeBoardOnclick = () => {
     setValue(NOTICE_NUMBER);
-    calendarBtn.current.style.color = 'black';
-    pickerBtn.current.style.color = 'black';
-    noticeBtn.current.style.color = 'red';
+    pickerBtn.current.style.backgroundColor = 'white';
+    pickerBtn.current.style.color = '#707070';
+    calendarBtn.current.style.backgroundColor = 'white';
+    calendarBtn.current.style.color = '#707070';
+    noticeBtn.current.style.color = 'white';
+    noticeBtn.current.style.backgroundColor = '#707070';
   };
   useEffect(() => {
-    pickerBtn.current.style.color = 'red';
-    calendarBtn.current.style.color = 'black';
-    noticeBtn.current.style.color = 'black';
+    pickerBtn.current.style.color = 'white';
+    pickerBtn.current.style.backgroundColor = '#707070';
+    calendarBtn.current.style.color = '#707070';
+    calendarBtn.current.style.backgroundColor = 'white';
+    noticeBtn.current.style.color = '#707070';
+    noticeBtn.current.style.backgroundColor = 'white';
   }, []);
 
   return (

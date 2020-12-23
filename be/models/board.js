@@ -17,4 +17,9 @@ const boardSchema = new Schema(
 
 const boardModel = mongoose.model('board', boardSchema);
 
+boardSchema.statics.create = function (body) {
+  const newArticle = new this(body);
+  return newArticle.save();
+};
+
 module.exports = boardModel;
