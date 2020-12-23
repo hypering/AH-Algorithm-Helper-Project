@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const problemSchema = new Schema(
   {
     num: { type: Number, unique: true },
+    name: String,
     category: [String],
     level: Number,
   },
