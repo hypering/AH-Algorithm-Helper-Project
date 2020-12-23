@@ -29,6 +29,7 @@ export const ContestWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 20%;
   align-content: center;
   padding: 15px;
   font-size: 17px;
@@ -38,4 +39,9 @@ export const ContestWrap = styled.div`
     background-color: yellowgreen;
     transition: 1.5s;
   }
+`;
+
+export const UndeLine = styled.div`
+  border-bottom: 1px solid black;
+  margin: 5px 0px;
 `;

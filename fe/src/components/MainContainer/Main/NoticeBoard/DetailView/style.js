@@ -28,8 +28,7 @@ export const Comment = styled.li`
   font-size: 15px;
   &:hover {
     cursor: pointer;
-    background-color: #ebeef1;
-    opacity: 0.9;
+    color: #385185;
     transition: 0.5s;
   }
 `;
@@ -37,9 +36,9 @@ export const Comment = styled.li`
 export const CommentBtn = styled.button`
   width: 15%;
   padding: 10px;
-  border: 1px solid rgb(29, 161, 242);
+  border: 2px solid #707070;
   border-radius: 20px;
-  background-color: rgb(29, 161, 242);
+  background-color: #707070;
   color: white;
   &:focus {
     outline: none;
