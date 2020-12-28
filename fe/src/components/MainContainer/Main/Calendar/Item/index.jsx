@@ -4,7 +4,9 @@ import {
   Container,
   ContestWrap,
   ItemContainer,
-  UndeLine,
+  ContestTitle,
+  ContestDate,
+  ContestTimer,
 } from './style';
 
 const pad = (number, length) => {
@@ -19,9 +21,9 @@ const getDate = (date) => {
   const currentDate = new Date(date);
   const rst =
     pad(currentDate.getFullYear(), 2) +
-    '-' +
+    '/' +
     pad(currentDate.getMonth() + 1, 2) +
-    '-' +
+    '/' +
     pad(currentDate.getDate(), 2) +
     ' ' +
     pad(currentDate.getHours(), 2) +
@@ -38,11 +40,14 @@ const Item = ({ id, value }) => {
         {value &&
           value.map((ele) => {
             if (ele.name == id) {
+              const onClick = () => {
+                window.open(ele.url);
+              };
               return (
-                <ContestWrap>
-                  <div>{ele.title}</div>
-                  <UndeLine />
-                  <div>{getDate(ele.startDate)}</div>
+                <ContestWrap onClick={onClick}>
+                  <ContestTitle>{ele.title}</ContestTitle>
+                  <ContestDate>{getDate(ele.startDate)}</ContestDate>
+                  <ContestTimer>{getDate(ele.startDate)}</ContestTimer>
                 </ContestWrap>
               );
             }
