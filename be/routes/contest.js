@@ -5,13 +5,15 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const now = new Date();
   now.setHours(now.getHours() + 9);
-  const contestDates = await contestModel.find({
-    $and: [
-      {
-        startDate: { $gte: now },
-      },
-    ],
-  });
+  const contestDates = await contestModel
+    .find({
+      $and: [
+        {
+          startDate: { $gte: now },
+        },
+      ],
+    })
+    .sort({ startDate: 0 });
   res.json(contestDates);
 });
 
