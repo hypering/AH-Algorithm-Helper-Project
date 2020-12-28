@@ -1,22 +1,19 @@
 import React from 'react';
 import Picker from './Picker';
 import Calendar from './Calendar';
-import NoticeBoard from './NoticeBoard';
+import FreeBoard from './Board';
 import { Container } from './style';
+import { Route } from 'react-router-dom';
+// const CALENDAR_NUMBER = 1;
+// const NOTICEBOARD_NUMBER = 2;
 
-const CALENDAR_NUMBER = 1;
-const NOTICEBOARD_NUMBER = 2;
-
-const Main = ({ value = 0 }) => {
+const Main = () => {
   return (
     <Container>
-      {value === CALENDAR_NUMBER ? (
-        <Calendar />
-      ) : value === NOTICEBOARD_NUMBER ? (
-        <NoticeBoard />
-      ) : (
-        <Picker />
-      )}
+      <Route path="/calendar" component={Calendar} />
+      <Route path="/board" component={FreeBoard} />
+      <Route path="/picker" component={Picker} />
+      <Route path="/write">write</Route>
     </Container>
   );
 };
