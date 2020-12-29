@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   HeaderWrap,
@@ -8,7 +8,30 @@ import {
   SearchBox,
 } from './style';
 import { Link } from 'react-router-dom';
-const Header = () => {
+
+const Header = ({ setSearchResults }) => {
+  const [value, setValue] = useState('');
+
+  const searchOnClick = () => {
+    console.log(value);
+    fetch(`http://localhost:4000/search?type=author&value=${value}`, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((results) => {
+        console.log(results);
+        setSearchResults(results);
+        // history.push('http://127.0.0.1:3000/search');
+      });
+  };
+
+  const onChange = (e) => {
+    const { value } = e.target;
+    setValue(value);
+  };
   return (
     <Container>
       <HeaderWrap>
@@ -30,13 +53,20 @@ const Header = () => {
             <option value="title">제목</option>
             <option value="author">작성자</option>
           </SelectBox>
-          <InputBox type="text" placeholder="검색" />
-          <ButtonBox>
-            <img
-              src="https://talk.op.gg/images/icon-search@2x.png"
-              width="24"
-            />
-          </ButtonBox>
+          <InputBox
+            type="text"
+            placeholder="검색"
+            value={value}
+            onChange={onChange}
+          />
+          <Link to="/search">
+            <ButtonBox onClick={searchOnClick}>
+              <img
+                src="https://talk.op.gg/images/icon-search@2x.png"
+                width="24"
+              />
+            </ButtonBox>
+          </Link>
         </SearchBox>
       </HeaderWrap>
     </Container>

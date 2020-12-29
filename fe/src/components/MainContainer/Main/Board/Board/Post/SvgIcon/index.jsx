@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Icon } from './style';
 
-const SvgIcon = ({ path, text, color }) => {
+const SvgIcon = ({ path, text, color, className }) => {
   return (
     <Container color={color}>
       <Icon color={color}>
@@ -9,7 +9,7 @@ const SvgIcon = ({ path, text, color }) => {
           <path d={path} />
         </g>
       </Icon>
-      <h6>{text}</h6>
+      <h6 className={className}>{text}</h6>
     </Container>
   );
 };

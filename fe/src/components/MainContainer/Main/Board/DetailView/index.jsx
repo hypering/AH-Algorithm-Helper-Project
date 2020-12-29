@@ -18,8 +18,8 @@ const DetailView = ({ post }) => {
       <ContentWrap>{post.content}</ContentWrap>
       <div>
         <ul>
-          {post.comment.map((ele) => (
-            <Comment>
+          {post.comment.map((ele, index) => (
+            <Comment key={index}>
               <div>{ele.createAt}</div>
               <div>{ele.context}</div>
             </Comment>
