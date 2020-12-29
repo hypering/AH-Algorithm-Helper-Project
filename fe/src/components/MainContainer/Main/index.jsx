@@ -4,8 +4,6 @@ import Calendar from './Calendar';
 import FreeBoard from './Board';
 import { Container } from './style';
 import { Route } from 'react-router-dom';
-// const CALENDAR_NUMBER = 1;
-// const NOTICEBOARD_NUMBER = 2;
 
 const Main = () => {
   return (
@@ -13,7 +11,6 @@ const Main = () => {
       <Route path="/calendar" component={Calendar} />
       <Route path="/board" component={FreeBoard} />
       <Route path="/picker" component={Picker} />
-      <Route path="/write">write</Route>
     </Container>
   );
 };
