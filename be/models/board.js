@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const boardSchema = new Schema(
   {
     author: String,
+    pwd: String,
     img_url: String,
     tags: [String],
     content: String,
