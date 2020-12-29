@@ -5,14 +5,14 @@ import Main from './Main';
 import { Container } from './style';
 
 const MainContainer = () => {
-  const location = useLocation();
+  const location = useLocation().pathname.substr(1);
+  const [value, setValue] = useState(0);
   useEffect(() => {
-    const currentPath = location.pathname;
-    // const searchParams = new URLSearchParams(location.search);
-    console.log(currentPath);
+    if (location.includes('picker')) setValue(0);
+    if (location.includes('calendar')) setValue(1);
+    if (location.includes('board')) setValue(2);
   }, [location]);
 
-  const [value, setValue] = useState(0);
   return (
     <Container>
       <SideNav value={value} setValue={setValue} />
