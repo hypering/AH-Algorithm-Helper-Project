@@ -4,7 +4,7 @@ import Difficulty from './Difficulty/index';
 import ProblemCount from './ProblemCount';
 import Result from './Result';
 import { MainContainer, Container, SubContainer } from './style';
-import BtnExecute from './Buttons/Execute.jsx';
+import BtnExecute from '../Buttons/Execute.jsx';
 
 const Picker = () => {
   const [problemCnt, setProblemCnt] = useState(0);

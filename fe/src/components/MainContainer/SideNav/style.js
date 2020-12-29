@@ -10,12 +10,16 @@ export const SideContainer = styled.div`
 export const Menus = styled.div`
   display: flex;
   flex-direction: column;
+  & > a {
+    display: flex;
+  }
 `;
 
 export const Menu = styled.span`
   &:hover {
     background-color: #efefef;
   }
+  width: 100%;
   cursor: pointer;
   padding: 10px 20px;
   border-bottom: 1px solid #efefef;
