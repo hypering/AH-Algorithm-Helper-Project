@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const ContestButton = styled.div`
   width: 10%;
   padding: 5px;
+  margin-top: 7px;
   border-radius: 15px;
   background-color: #707070;
   color: white;

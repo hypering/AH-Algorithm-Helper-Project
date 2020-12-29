@@ -47,6 +47,12 @@ export const ContestWrap = styled.div`
   }
 `;
 
+export const ContestAlram = styled.div`
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+`;
+
 export const ContestTitle = styled.div`
   font-weight: 800;
 `;
