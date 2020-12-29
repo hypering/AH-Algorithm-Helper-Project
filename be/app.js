@@ -3,9 +3,7 @@ const logger = require('morgan');
 const path = require('path');
 const dotenv = require('dotenv');
 const dbStarter = require('./providers/dbProvider');
-const { contestModel, problemModel, boardModel } = require('./models');
-const axios = require('axios');
-const cheerio = require('cheerio');
+const { problemModel, boardModel } = require('./models');
 const cors = require('cors');
 
 const app = express();
