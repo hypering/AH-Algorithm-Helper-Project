@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import onChangeHook from '../../../../../hooks/onChangeHook';
 import {
   ModalOverlay,
   ModalWrapper,
@@ -9,16 +10,6 @@ import {
   Name,
   InputContainer,
 } from './style';
-
-const onChangeHook = () => {
-  const [value, setValue] = useState('');
-
-  const handler = (e) => {
-    setValue(e.target.value);
-  };
-
-  return [value, handler, setValue];
-};
 
 const ContestModal = ({ visible, setvisible }) => {
   const [organizer, changeOrganizer, setOrganizer] = onChangeHook();
