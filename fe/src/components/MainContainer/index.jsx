@@ -10,7 +10,7 @@ const MainContainer = () => {
   return (
     <BrowserRouter>
       <Container>
-        <SideNav setValue={setValue} />
+        <SideNav value={value} setValue={setValue} />
         <Main value={value} />
       </Container>
     </BrowserRouter>

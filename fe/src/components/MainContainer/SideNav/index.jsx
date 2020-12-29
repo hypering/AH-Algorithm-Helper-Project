@@ -1,49 +1,42 @@
 import React, { useRef, useEffect } from 'react';
-import { SideContainer, Menus, Menu } from './style';
 import { Link } from 'react-router-dom';
+import { SideContainer, Menus, Menu } from './style';
+
 const PICKER_NUMBER = 0;
 const CALENDAR_NUMBER = 1;
 const BOARD_NUMBER = 2;
 
-const SideNav = ({ setValue }) => {
+const ChangeColor = (selected, ...notSelected) => {
+  selected.current.style.color = 'white';
+  selected.current.style.backgroundColor = '#707070';
+  notSelected[0].current.style.color = '#707070';
+  notSelected[0].current.style.backgroundColor = 'white';
+  notSelected[1].current.style.color = '#707070';
+  notSelected[1].current.style.backgroundColor = 'white';
+};
+
+const setSelector = (number, pickerBtn, calendarBtn, boardBtn) => {
+  if (number == PICKER_NUMBER) {
+    ChangeColor(pickerBtn, calendarBtn, boardBtn);
+  } else if (number == CALENDAR_NUMBER) {
+    ChangeColor(calendarBtn, pickerBtn, boardBtn);
+  } else if (number == BOARD_NUMBER) {
+    ChangeColor(boardBtn, pickerBtn, calendarBtn);
+  }
+};
+
+const SideNav = ({ value, setValue }) => {
   const pickerBtn = useRef();
   const calendarBtn = useRef();
   const boardBtn = useRef();
-  const pickerOnclick = () => {
-    setValue(PICKER_NUMBER);
-    pickerBtn.current.style.color = 'white';
-    pickerBtn.current.style.backgroundColor = '#707070';
-    calendarBtn.current.style.color = '#707070';
-    calendarBtn.current.style.backgroundColor = 'white';
-    boardBtn.current.style.color = '#707070';
-    boardBtn.current.style.backgroundColor = 'white';
-  };
-  const calendarOnclick = () => {
-    setValue(CALENDAR_NUMBER);
-    pickerBtn.current.style.color = '#707070';
-    pickerBtn.current.style.backgroundColor = 'white';
-    calendarBtn.current.style.color = 'white';
-    calendarBtn.current.style.backgroundColor = '#707070';
-    boardBtn.current.style.color = '#707070';
-    boardBtn.current.style.backgroundColor = 'white';
-  };
-  const BoardOnclick = () => {
-    setValue(BOARD_NUMBER);
-    pickerBtn.current.style.backgroundColor = 'white';
-    pickerBtn.current.style.color = '#707070';
-    calendarBtn.current.style.backgroundColor = 'white';
-    calendarBtn.current.style.color = '#707070';
-    boardBtn.current.style.color = 'white';
-    boardBtn.current.style.backgroundColor = '#707070';
-  };
+
+  const pickerOnclick = () => setValue(PICKER_NUMBER);
+  const calendarOnclick = () => setValue(CALENDAR_NUMBER);
+  const BoardOnclick = () => setValue(BOARD_NUMBER);
+
   useEffect(() => {
-    pickerBtn.current.style.color = 'white';
-    pickerBtn.current.style.backgroundColor = '#707070';
-    calendarBtn.current.style.color = '#707070';
-    calendarBtn.current.style.backgroundColor = 'white';
-    boardBtn.current.style.color = '#707070';
-    boardBtn.current.style.backgroundColor = 'white';
-  }, []);
+    setSelector(value, pickerBtn, calendarBtn, boardBtn);
+  }, [value]);
 
   return (
     <SideContainer>

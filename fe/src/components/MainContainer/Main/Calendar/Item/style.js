@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const ItemContainer = styled.div`
   height: 100%;
-  width: 70%;
+  width: 100%;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   &:hover {
     background-color: #efefef;
@@ -34,7 +34,6 @@ export const ContestWrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 20%;
   padding: 10px;
   justify-content: space-around;
   align-content: center;
