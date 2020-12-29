@@ -28,20 +28,25 @@ export const Container = styled.div`
 export const ContestWrap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%;
   width: 20%;
+  padding: 10px;
+  justify-content: space-around;
   align-content: center;
-  padding: 15px;
-  font-size: 17px;
+  font-size: 15px;
   border-radius: 15px;
   &:hover {
     cursor: pointer;
-    background-color: yellowgreen;
-    transition: 1.5s;
+    background-color: #707070;
   }
 `;
 
-export const UndeLine = styled.div`
-  border-bottom: 1px solid black;
-  margin: 5px 0px;
+export const ContestTitle = styled.div`
+  font-weight: 800;
 `;
+
+export const ContestDate = styled.div`
+  color: blue;
+`;
+
+export const ContestTimer = styled.div``;
