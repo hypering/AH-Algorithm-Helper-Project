@@ -13,7 +13,6 @@ const Main = () => {
       <Route path="/calendar" component={Calendar} />
       <Route path="/board" component={FreeBoard} />
       <Route path="/picker" component={Picker} />
-      <Route path="/write">write</Route>
     </Container>
   );
 };
