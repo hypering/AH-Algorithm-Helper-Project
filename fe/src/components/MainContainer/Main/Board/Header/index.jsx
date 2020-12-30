@@ -24,7 +24,7 @@ const Header = ({ setSearchResults }) => {
       .then((results) => {
         console.log(results);
         setSearchResults(results);
-        // history.push('http://127.0.0.1:3000/search');
+        // history.push('http://127.0.0.1:3000/board/search');
       });
   };
 

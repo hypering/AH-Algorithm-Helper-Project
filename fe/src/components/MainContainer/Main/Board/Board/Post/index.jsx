@@ -7,7 +7,7 @@ const Post = ({ post, setSelectedBoard, id }) => {
     setSelectedBoard(post);
 
     //조회수 증가
-    const response = fetch('http://localhost:4000/viewup', {
+    const response = fetch('http://localhost:4000/board/viewup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

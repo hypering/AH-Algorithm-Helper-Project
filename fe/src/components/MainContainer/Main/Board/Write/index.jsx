@@ -8,7 +8,7 @@ const Write = () => {
   const [content, setContent] = useState('');
   const form = useRef();
   const writeOnClick = () => {
-    // fetch('http://localhost:4000/write', {
+    // fetch('http://localhost:4000/board/write', {
     //   method: 'post',
     //   headers: {
     //     'Content-Type': 'application/json;charset=utf-8',
@@ -37,7 +37,11 @@ const Write = () => {
   return (
     <>
       <Container>
-        <form method="POST" action="http://localhost:4000/write" ref={form}>
+        <form
+          method="POST"
+          action="http://localhost:4000/board/write"
+          ref={form}
+        >
           <span>글쓰기</span>
 
           <div className="container_Head">
