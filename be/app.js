@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const dbStarter = require('./providers/dbProvider');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
