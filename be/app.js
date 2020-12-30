@@ -32,9 +32,12 @@ app.get('/board', async (req, res) => {
   res.json(boardDates);
 });
 app.post('/viewup', async (req, res) => {
+  console.log(req.body.contentId);
   const contentId = req.body.contentId;
   const queryContent = await boardModel.findOne({ _id: contentId });
   console.log(queryContent);
+
+
   queryContent.clicked += 1;
   queryContent.save();
   res.json({ status: 200, clicked: queryContent.clicked });
@@ -48,6 +51,15 @@ app.post('/viewup', async (req, res) => {
 
   // res.cookie((contentId, { count: count }));
   // res.send(`Cookie : ${count}`);
+});
+
+app.post('/heartup', async (req, res) => {
+  const contentId = req.body.contentId;
+  const queryContent = await boardModel.findOne({ _id: contentId });
+  console.log(queryContent);
+  queryContent.heart += 1;
+  queryContent.save();
+  res.json({ status: 200, heart: queryContent.heart });
 });
 
 app.post('/write', async (req, res) => {
