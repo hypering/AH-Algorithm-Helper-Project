@@ -4,12 +4,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1rem;
+  padding: 15px;
 `;
 
 export const ContestButton = styled.div`
   width: 10%;
   padding: 5px;
+  margin-top: 7px;
   border-radius: 15px;
   background-color: #707070;
   color: white;

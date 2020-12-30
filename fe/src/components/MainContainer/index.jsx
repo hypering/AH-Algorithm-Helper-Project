@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import SideNav from './SideNav';
 import Main from './Main';
 import { Container } from './style';
-import { BrowserRouter } from 'react-router-dom';
-// 여기서 변수를 한개 설정해서 SideNav로 넘겨준다
-// 넘겨받은 siveNav에서 onClick 이벤트 적용
+
 const MainContainer = () => {
+  const location = useLocation().pathname.substr(1);
   const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (location.includes('picker')) setValue(0);
+    if (location.includes('calendar')) setValue(1);
+    if (location.includes('board')) setValue(2);
+  }, [location]);
+
   return (
-    <BrowserRouter>
-      <Container>
-        <SideNav setValue={setValue} />
-        <Main value={value} />
-      </Container>
-    </BrowserRouter>
+    <Container>
+      <SideNav value={value} setValue={setValue} />
+      <Main />
+    </Container>
   );
 };
 
