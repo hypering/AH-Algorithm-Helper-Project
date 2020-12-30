@@ -2,20 +2,36 @@ import React from 'react';
 import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon } from './style';
 
-const Post = ({ post, setSelectedBoard }) => {
+const Post = ({ post, setSelectedBoard, id }) => {
   const onClick = () => {
     setSelectedBoard(post);
+
+    //조회수 증가
+    const response = fetch('http://localhost:4000/viewup', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ contentId: post._id }),
+    });
+    console.log(response);
+    const content = document
+      .querySelector(`[id ='${id}']`)
+      .querySelector('.views');
+    const views = +content.innerText;
+    content.innerText = views + 1;
   };
+
   return (
-    <Container onClick={onClick}>
+    <Container onClick={onClick} key={id} id={id}>
       <h6>{post.author}</h6>
       <div>
         <ImgIcon src={post.img_url} />
       </div>
       <div>
         <SvgWrap>
-          {post.tags.map((ele) => (
-            <li>
+          {post.tags.map((ele, index) => (
+            <li key={index}>
               <SvgIcon
                 path="M21 7.337h-3.93l.372-4.272c.036-.412-.27-.775-.682-.812-.417-.03-.776.27-.812.683l-.383 4.4h-6.32l.37-4.27c.037-.413-.27-.776-.68-.813-.42-.03-.777.27-.813.683l-.382 4.4H3.782c-.414 0-.75.337-.75.75s.336.75.75.75H7.61l-.55 6.327H3c-.414 0-.75.336-.75.75s.336.75.75.75h3.93l-.372 4.272c-.036.412.27.775.682.812l.066.003c.385 0 .712-.295.746-.686l.383-4.4h6.32l-.37 4.27c-.036.413.27.776.682.813l.066.003c.385 0 .712-.295.746-.686l.382-4.4h3.957c.413 0 .75-.337.75-.75s-.337-.75-.75-.75H16.39l.55-6.327H21c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zm-6.115 7.826h-6.32l.55-6.326h6.32l-.55 6.326z"
                 text={ele}
@@ -45,6 +61,7 @@ const Post = ({ post, setSelectedBoard }) => {
             <SvgIcon
               path="M19.9 23.5c-.157 0-.312-.05-.442-.144L12 17.928l-7.458 5.43c-.228.164-.53.19-.782.06-.25-.127-.41-.385-.41-.667V5.6c0-1.24 1.01-2.25 2.25-2.25h12.798c1.24 0 2.25 1.01 2.25 2.25v17.15c0 .282-.158.54-.41.668-.106.055-.223.082-.34.082zM12 16.25c.155 0 .31.048.44.144l6.71 4.883V5.6c0-.412-.337-.75-.75-.75H5.6c-.413 0-.75.338-.75.75v15.677l6.71-4.883c.13-.096.285-.144.44-.144z"
               text={post.clicked}
+              className="views"
               color="green"
             />
           </li>

@@ -7,7 +7,12 @@ const Board = ({ posts, setSelectedBoard }) => {
     <Container>
       {posts &&
         posts.map((element) => (
-          <Post post={element} setSelectedBoard={setSelectedBoard} />
+          <Post
+            post={element}
+            id={element._id}
+            key={element._id}
+            setSelectedBoard={setSelectedBoard}
+          />
         ))}
     </Container>
   );
