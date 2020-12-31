@@ -9,7 +9,7 @@ const Calendar = () => {
   const [value, setValue] = useState(null);
   const onClick = useCallback(() => {
     setvisible(true);
-  }, [visible]);
+  }, [value]);
 
   useGetContestDate(setValue);
 
