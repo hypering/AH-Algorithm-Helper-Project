@@ -5,13 +5,14 @@ const dotenv = require('dotenv');
 const dbStarter = require('./providers/dbProvider');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const { boardModel } = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 const ContestRouter = require('./routes/contest');
 const ProblemRouter = require('./routes/problem');
-const BoardRouter = require('./routes/');
+const BoardRouter = require('./routes/board');
 
 dotenv.config();
 
@@ -40,7 +41,6 @@ app.post('/heartup', async (req, res) => {
   queryContent.save();
   res.json({ status: 200, heart: queryContent.heart });
 });
-
 
 const booting = async () => {
   await dbStarter();
