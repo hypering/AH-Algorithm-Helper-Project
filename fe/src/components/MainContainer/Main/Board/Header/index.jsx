@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
   HeaderWrap,
@@ -8,29 +8,40 @@ import {
   SearchBox,
 } from './style';
 import { Link } from 'react-router-dom';
-
-const Header = ({ setSearchResults }) => {
-  const [value, setValue] = useState('');
-
-  const searchOnClick = () => {
-    console.log(value);
-    fetch(`http://localhost:4000/search?type=author&value=${value}`, {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((results) => {
-        console.log(results);
-        setSearchResults(results);
-        // history.push('http://127.0.0.1:3000/board/search');
-      });
-  };
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenSquare, faSearch } from '@fortawesome/free-solid-svg-icons';
+const Header = ({
+  url,
+  setUrl,
+  value,
+  setValue,
+  searchType,
+  setSearchType,
+}) => {
+  // const searchOnClick = () => {
+  //   console.log(value);
+  //   fetch(`http://localhost:4000/search?type=author&value=${value}`, {
+  //     method: 'get',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((results) => {
+  //       console.log(results);
+  //       setSearchResults(results);
+  //       // history.push('http://127.0.0.1:3000/board/search');
+  //     });
+  // };
 
   const onChange = (e) => {
     const { value } = e.target;
     setValue(value);
+    setUrl(`/board/search?type=${searchType}&value=${value}`);
+  };
+
+  const onTypeChange = (e) => {
+    setSearchType(e.target.value);
   };
   return (
     <Container>
@@ -39,18 +50,14 @@ const Header = ({ setSearchResults }) => {
           <a href="/">자유</a>
         </h5>
         <Link to="/board/write">
-          <img
-            src="https://talk.op.gg/images/icon-write@2x.png"
-            alt="글쓰기"
-            width="24"
-          ></img>
+          <FontAwesomeIcon icon={faPenSquare} color="#707070" />
         </Link>
       </HeaderWrap>
       <HeaderWrap>
         <div>자유게시판에 오신 것을 환영합니다!</div>
         <SearchBox>
-          <SelectBox name="target">
-            <option value="title">제목</option>
+          <SelectBox value={searchType} name="target" onChange={onTypeChange}>
+            <option value="tag">해쉬태그</option>
             <option value="author">작성자</option>
           </SelectBox>
           <InputBox
@@ -59,12 +66,9 @@ const Header = ({ setSearchResults }) => {
             value={value}
             onChange={onChange}
           />
-          <Link to="/search">
-            <ButtonBox onClick={searchOnClick}>
-              <img
-                src="https://talk.op.gg/images/icon-search@2x.png"
-                width="24"
-              />
+          <Link to={url}>
+            <ButtonBox>
+              <FontAwesomeIcon icon={faSearch} color="#707070" />
             </ButtonBox>
           </Link>
         </SearchBox>
