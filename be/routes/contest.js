@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const now = new Date();
+  // const ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   now.setHours(now.getHours() + 9);
   const contestDates = await contestModel
     .find({
