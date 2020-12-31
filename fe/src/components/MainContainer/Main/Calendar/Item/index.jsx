@@ -37,7 +37,7 @@ const Item = ({ id, value }) => {
                 window.open(ele.url);
               };
               return (
-                <ContestWrap onClick={onClick}>
+                <ContestWrap onClick={onClick} key={ele.title}>
                   <ContestTitle>{ele.title}</ContestTitle>
                   <ContestDate>{getDate(ele.startDate)}</ContestDate>
                   <ContestTimer>{diffTime(value)}</ContestTimer>
