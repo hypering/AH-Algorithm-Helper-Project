@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Board from './Board';
 import DetailView from './DetailView';
@@ -7,6 +7,7 @@ import Search from './Search';
 import { Route, Switch } from 'react-router-dom';
 import Write from './Write/index.jsx';
 // import Write from './Write';
+
 const FreeBoard = () => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
