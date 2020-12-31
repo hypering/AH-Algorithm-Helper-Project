@@ -37,7 +37,6 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
     '최대 유량',
     '우선순위 큐',
     '최소 스패닝 트리',
-    '위상 정렬',
     '최소 공통 조상',
     '에라토스테네스의 체',
     '플로이드-와샬',
@@ -53,6 +52,7 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
       <Categories>
         {categories.map((element) => (
           <Category
+            key={element}
             name={element}
             selectedCate={selectedCate}
             setSelctedCate={setSelectedCate}
