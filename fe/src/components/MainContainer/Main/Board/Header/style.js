@@ -18,6 +18,14 @@ export const SearchBox = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
+  & > a {
+    display: flex;
+    & > button > svg {
+      color: #707070;
+      width: 18px !important;
+      height: 18px;
+    }
+  }
 `;
 
 export const SelectBox = styled.select`
