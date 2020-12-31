@@ -6,6 +6,9 @@ export const ItemContainer = styled.div`
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   &:hover {
     background-color: #efefef;
+    & > div:nth-child(1) {
+      color: #66cc33;
+    }
   }
 `;
 

@@ -2,7 +2,7 @@ const express = require('express');
 const { boardModel } = require('../models');
 const router = express.Router();
 
-router.get('/board', async (req, res) => {
+router.get('/', async (req, res) => {
   const boardDates = await boardModel.find();
   res.json(boardDates);
 });
