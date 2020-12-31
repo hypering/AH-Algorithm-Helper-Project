@@ -27,8 +27,7 @@ const Post = ({ post, setSelectedBoard, id }) => {
     e.stopPropagation();
     setSelectedBoard(post);
 
-    //하ㅣ트 증가
-    const response = fetch('http://localhost:4000/heartup', {
+    const response = fetch('http://localhost:4000/board/heartup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
