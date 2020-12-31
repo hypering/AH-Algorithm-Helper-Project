@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 4000;
 
 const ContestRouter = require('./routes/contest');
 const ProblemRouter = require('./routes/problem');
-const BoardRouter = require('./routes/');
+const BoardRouter = require('./routes/board');
+const { boardModel } = require('./models');
 
 dotenv.config();
 
@@ -40,7 +41,6 @@ app.post('/heartup', async (req, res) => {
   queryContent.save();
   res.json({ status: 200, heart: queryContent.heart });
 });
-
 
 const booting = async () => {
   await dbStarter();
