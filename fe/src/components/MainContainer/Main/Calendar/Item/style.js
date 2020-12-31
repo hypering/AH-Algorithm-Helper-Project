@@ -64,3 +64,13 @@ export const ContestDate = styled.div`
 `;
 
 export const ContestTimer = styled.div``;
+
+export const SvgIcon = styled.svg`
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  &:hover {
+    fill: #e0245e;
+    transition: 0.5s;
+  }
+`;

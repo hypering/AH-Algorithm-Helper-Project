@@ -34,11 +34,15 @@ router.post('/add', async (req, res) => {
 
 router.post('/delete', async (req, res) => {
   const { contest_id } = req.body;
+  const ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  if (ip_addr !== '::1') {
+    return res.status(201).json(false);
+  }
   const response = await contestModel.deleteOne({
     _id: contest_id,
   });
   if (response.deletedCount) res.status(200).json(true);
-  else res.status(200).json(false);
+  else res.status(201).json(false);
 });
 
 module.exports = router;
