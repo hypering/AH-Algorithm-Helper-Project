@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Icon } from './style';
 
-const SvgIcon = ({ path, text, color, className }) => {
+const SvgIcon = ({ path, text, color, className, onClick }) => {
   return (
-    <Container color={color}>
+    <Container color={color} onClick={onClick}>
       <Icon color={color}>
         <g>
           <path d={path} />
