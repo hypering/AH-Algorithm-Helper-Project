@@ -13,6 +13,7 @@ export const Container = styled.div`
     opacity: 0.9;
     transition: 0.5s;
   }
+  margin-bottom: 10px;
 `;
 
 export const SvgWrap = styled.ul`

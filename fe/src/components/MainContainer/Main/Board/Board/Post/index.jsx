@@ -2,10 +2,10 @@ import React from 'react';
 import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon } from './style';
 
-const Post = ({ post, setSelectedBoard, id }) => {
+const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
   const onClick = () => {
     setSelectedBoard(post);
-
+    console.log(post);
     //조회수 증가
     const response = fetch('http://localhost:4000/board/viewup', {
       method: 'post',
@@ -15,12 +15,14 @@ const Post = ({ post, setSelectedBoard, id }) => {
       body: JSON.stringify({ contentId: post._id }),
     });
     console.log(response);
-    const content = document
-      .querySelector(`[id ='${id}']`)
-      .querySelector('.views');
-    const views = +content.innerText;
-    content.innerText = views + 1;
-    console.log(content);
+    // const content = document
+    //   .querySelector(`[id ='${id}']`)
+    //   .querySelector('.views');
+    post.clicked++;
+    const updatedPosts = [...posts];
+    setBoards(updatedPosts);
+    //const views = +content.innerText;
+    //content.innerText = views + 1;
   };
 
   const heartClick = (e) => {
