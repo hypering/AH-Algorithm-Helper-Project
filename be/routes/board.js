@@ -56,10 +56,24 @@ router.post('/heartup', async (req, res) => {
 });
 
 router.post('/comment/write', async (req, res) => {
-  const { context } = req.body;
-  await boardModel.create({
-    context,
-  });
+  const { boardId, context } = req.body;
+  const createAt = '2020/01/04 15:03';
+
+  const x = await boardModel.findOneAndUpdate(
+    {
+      _id: boardId,
+    },
+    {
+      $addToSet: {
+        comment: {
+          createAt,
+          context,
+        },
+      },
+    },
+    { new: true },
+  );
+  console.log(x);
   res.status(200).json(true);
 });
 
