@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post';
 import { Container } from './style';
 
-const Board = ({ setBoards, posts, setSelectedBoard }) => {
+const Board = ({ setBoards, posts, setSelectedBoard, curIp }) => {
   return (
     <Container>
       {posts &&
@@ -14,6 +14,7 @@ const Board = ({ setBoards, posts, setSelectedBoard }) => {
             key={element._id}
             setSelectedBoard={setSelectedBoard}
             setBoards={setBoards}
+            curIp={curIp}
           />
         ))}
     </Container>
