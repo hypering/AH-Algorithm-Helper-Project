@@ -15,12 +15,14 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
 export const CommentDispatchContext = createContext(null);
 export const CommentStateContext = createContext(null);
 
 const FreeBoard = () => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
+  const [updateBoard, setUpdateBoard] = useState({});
   const [value, setValue] = useState('');
   const [url, setUrl] = useState('');
   const [searchType, setSearchType] = useState('author');
@@ -34,7 +36,7 @@ const FreeBoard = () => {
       .then((board) => {
         setBoards(board);
       });
-  }, []);
+  }, [updateBoard]);
 
   return (
     <CommentDispatchContext.Provider value={dispatch}>
@@ -56,7 +58,10 @@ const FreeBoard = () => {
                   setBoards={setBoards}
                   setSelectedBoard={setSelectedBoard}
                 />
-                <DetailView post={selectedBoard} />
+                <DetailView
+                  post={selectedBoard}
+                  setUpdateBoard={setUpdateBoard}
+                />
               </SubContainer>
             </Route>
             <Route path="/board/write" component={Write} />

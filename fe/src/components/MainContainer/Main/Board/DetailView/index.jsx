@@ -13,9 +13,8 @@ import {
   CommentText,
 } from './style';
 
-const DetailView = ({ post }) => {
+const DetailView = ({ post, setUpdateBoard }) => {
   if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
-  console.log(post.comment);
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
 
@@ -50,6 +49,7 @@ const DetailView = ({ post }) => {
       alert('댓글 등록에 실패하였습니다.');
       return;
     }
+    setUpdateBoard({});
   };
 
   return (
