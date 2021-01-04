@@ -57,7 +57,7 @@ export const CommentBtn = styled.button`
 
 export const CommentWrap = styled.div`
   display: flex;
-  padding-top: 5px;
+  padding-top: 10px;
   justify-content: space-between;
 `;
 

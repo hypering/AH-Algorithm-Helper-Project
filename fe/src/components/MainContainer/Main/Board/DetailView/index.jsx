@@ -15,6 +15,7 @@ import {
 
 const DetailView = ({ post }) => {
   if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
+  console.log(post.comment);
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
 
@@ -35,8 +36,14 @@ const DetailView = ({ post }) => {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        boardId: post._id,
         context: value,
       }),
+    });
+
+    dispatch({
+      type: 'CHANGE_VALUE',
+      payload: '',
     });
 
     if (response.status !== 200) {
@@ -51,7 +58,7 @@ const DetailView = ({ post }) => {
       <ImgIcon src={post.img_url}></ImgIcon>
       <ContentWrap>{post.content}</ContentWrap>
       <PostWrap>
-        {post.commnet ? (
+        {post.comment.length > 0 ? (
           <ul>
             {post.comment.map((ele, index) => (
               <Comment key={index}>
