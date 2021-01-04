@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon } from './style';
+import { CommentDispatchContext } from '../../../Board';
 
 const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
+  const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
+    dispatch({
+      type: 'CHANGE_VALUE',
+      payload: '',
+    });
     setSelectedBoard(post);
-    console.log(post);
-    //조회수 증가
     const response = fetch('http://localhost:4000/board/viewup', {
       method: 'post',
       headers: {
