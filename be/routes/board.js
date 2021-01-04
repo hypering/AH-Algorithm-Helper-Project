@@ -9,10 +9,24 @@ router.get('/', async (req, res) => {
 
 router.post('/viewup', async (req, res) => {
   const contentId = req.body.contentId;
+  const curIp = req.body.curIp;
+  console.log(req.body);
   const queryContent = await boardModel.findOne({ _id: contentId });
-  queryContent.clicked += 1;
-  queryContent.save();
-  res.json({ status: 200, clicked: queryContent.clicked });
+  console.log(queryContent.clicked);
+  const isExist = queryContent.clicked.filter((element) => {
+    return element === curIp;
+  });
+  if (isExist.length == 0) {
+    queryContent.clicked.push(curIp);
+    queryContent.save();
+    res.json({ status: 200, clicked: queryContent.clicked.length });
+    console.log('새로운 ip');
+  } else {
+    console.log('이미존재하는  ip');
+    res.json({ status: 404 });
+  }
+  //queryContent.clicked += 1;
+
   // let count;
 
   // if (req.cookies.contentId) {
@@ -48,11 +62,21 @@ router.get('/search', async (req, res) => {
 
 router.post('/heartup', async (req, res) => {
   const contentId = req.body.contentId;
+  const curIp = req.body.curIp;
+
   const queryContent = await boardModel.findOne({ _id: contentId });
-  console.log(queryContent);
-  queryContent.heart += 1;
-  queryContent.save();
-  res.json({ status: 200, heart: queryContent.heart });
+  const isExist = queryContent.heart.filter((element) => {
+    return element === curIp;
+  });
+  if (isExist.length == 0) {
+    queryContent.heart.push(curIp);
+    queryContent.save();
+    res.json({ status: 200, clicked: queryContent.heart.length });
+    console.log('새로운 ip');
+  } else {
+    console.log('이미존재하는  ip');
+    res.json({ status: 404 });
+  }
 });
 
 module.exports = router;

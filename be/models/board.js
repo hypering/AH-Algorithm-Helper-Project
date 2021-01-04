@@ -9,9 +9,9 @@ const boardSchema = new Schema(
     img_url: String,
     tags: [String],
     content: String,
-    heart: { default: 0, type: Number },
+    heart: [String],
     comment: [Object],
-    clicked: { default: 0, type: Number },
+    clicked: [String],
   },
   { versionKey: false },
 );
