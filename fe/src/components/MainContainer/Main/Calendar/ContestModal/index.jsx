@@ -20,6 +20,7 @@ const ContestModal = ({ visible, setvisible }) => {
   const cancelonClick = () => {
     setvisible(false);
   };
+
   const getonClick = async () => {
     if (
       organizer.length === 0 ||
@@ -30,7 +31,7 @@ const ContestModal = ({ visible, setvisible }) => {
       alert('선택되지 않은 항목이 있습니다.');
       return;
     }
-    await fetch('http://localhost:4000/contest/add', {
+    const response = await fetch('http://localhost:4000/contest/add', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -40,12 +41,17 @@ const ContestModal = ({ visible, setvisible }) => {
         url: link,
       }),
     });
+
+    if (response.status !== 200) {
+      alert('사용 권한이 없습니다.');
+    } else {
+      alert('대회가 등록되었습니다!');
+    }
     setOrganizer('');
     setName('');
     setDate('');
     setLink('');
     setvisible(false);
-    alert('대회가 등록되었습니다!');
   };
 
   return (

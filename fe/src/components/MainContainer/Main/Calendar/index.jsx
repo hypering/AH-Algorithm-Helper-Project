@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import Item from './Item';
 import ContestModal from './ContestModal';
 import { Container, ContestButton } from './style';
+import useGetContestDate from '../../../../hooks/useGetContestData';
 
 const Calendar = () => {
   const [visible, setvisible] = useState(false);
   const [value, setValue] = useState(null);
-  const onClick = () => {
+  const onClick = useCallback(() => {
     setvisible(true);
-  };
-  useEffect(() => {
-    fetch('http://localhost:4000/contest', {
-      method: 'get',
-    })
-      .then((response) => response.json())
-      .then((contest) => {
-        setValue(contest);
-      });
-  }, []);
+  }, [value]);
+
+  useGetContestDate(setValue);
+
   return (
     <Container>
       <ContestModal visible={visible} setvisible={setvisible} />

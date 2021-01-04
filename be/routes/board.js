@@ -46,4 +46,13 @@ router.get('/search', async (req, res) => {
   res.json({ results: searchResults });
 });
 
+router.post('/heartup', async (req, res) => {
+  const contentId = req.body.contentId;
+  const queryContent = await boardModel.findOne({ _id: contentId });
+  console.log(queryContent);
+  queryContent.heart += 1;
+  queryContent.save();
+  res.json({ status: 200, heart: queryContent.heart });
+});
+
 module.exports = router;

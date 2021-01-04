@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 4000;
 const ContestRouter = require('./routes/contest');
 const ProblemRouter = require('./routes/problem');
 const BoardRouter = require('./routes/board');
-const { boardModel } = require('./models');
 
 dotenv.config();
 
@@ -32,15 +31,6 @@ app.use(cookieParser());
 app.use('/contest', ContestRouter);
 app.use('/problem', ProblemRouter);
 app.use('/board', BoardRouter);
-
-app.post('/heartup', async (req, res) => {
-  const contentId = req.body.contentId;
-  const queryContent = await boardModel.findOne({ _id: contentId });
-  console.log(queryContent);
-  queryContent.heart += 1;
-  queryContent.save();
-  res.json({ status: 200, heart: queryContent.heart });
-});
 
 const booting = async () => {
   await dbStarter();

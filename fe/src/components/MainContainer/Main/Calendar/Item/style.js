@@ -6,6 +6,9 @@ export const ItemContainer = styled.div`
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   &:hover {
     background-color: #efefef;
+    & > div:nth-of-type(1) {
+      color: #66cc33;
+    }
   }
 `;
 
@@ -61,3 +64,13 @@ export const ContestDate = styled.div`
 `;
 
 export const ContestTimer = styled.div``;
+
+export const SvgIcon = styled.svg`
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  &:hover {
+    fill: #e0245e;
+    transition: 0.5s;
+  }
+`;
