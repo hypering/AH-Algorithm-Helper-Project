@@ -4,9 +4,10 @@ import SideNav from './SideNav';
 import Main from './Main';
 import { Container } from './style';
 
-const MainContainer = () => {
+const MainContainer = ({ curIp }) => {
   const location = useLocation().pathname.substr(1);
   const [value, setValue] = useState(0);
+
   useEffect(() => {
     if (location.includes('picker')) setValue(0);
     if (location.includes('calendar')) setValue(1);
@@ -16,7 +17,7 @@ const MainContainer = () => {
   return (
     <Container>
       <SideNav value={value} setValue={setValue} />
-      <Main />
+      <Main curIp={curIp} />
     </Container>
   );
 };

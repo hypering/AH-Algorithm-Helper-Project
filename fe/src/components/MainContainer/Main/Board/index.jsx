@@ -7,7 +7,7 @@ import Search from './Search';
 import { Route, Switch } from 'react-router-dom';
 import Write from './Write/index.jsx';
 
-const FreeBoard = () => {
+const FreeBoard = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [value, setValue] = useState('');
@@ -40,6 +40,7 @@ const FreeBoard = () => {
               posts={boards}
               setBoards={setBoards}
               setSelectedBoard={setSelectedBoard}
+              curIp={curIp}
             />
             <DetailView post={selectedBoard} />
           </SubContainer>
