@@ -55,4 +55,16 @@ router.post('/heartup', async (req, res) => {
   res.json({ status: 200, heart: queryContent.heart });
 });
 
+router.post('/comment/write', async (req, res) => {
+  const { context } = req.body;
+  await boardModel.create({
+    context,
+  });
+  res.status(200).json(true);
+});
+
+// router.delete('/comment/delete', async (req, res) => {});
+
+// router.patch('/comment/update', async (req, res) => {});
+
 module.exports = router;
