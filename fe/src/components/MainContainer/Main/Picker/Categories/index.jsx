@@ -15,7 +15,6 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
     '브루트포스 알고리즘',
     '트리',
     '이분 탐색',
-    '위상 정렬',
     '정렬',
     '기하학',
     '정수론',
@@ -53,6 +52,7 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
       <Categories>
         {categories.map((element) => (
           <Category
+            key={element}
             name={element}
             selectedCate={selectedCate}
             setSelctedCate={setSelectedCate}

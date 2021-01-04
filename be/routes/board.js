@@ -2,7 +2,7 @@ const express = require('express');
 const { boardModel } = require('../models');
 const router = express.Router();
 
-router.get('/board', async (req, res) => {
+router.get('/', async (req, res) => {
   const boardDates = await boardModel.find();
   res.json(boardDates);
 });
@@ -45,6 +45,15 @@ router.get('/search', async (req, res) => {
   const searchResults = await boardModel.find({ author: value });
   console.log(searchResults);
   res.json({ results: searchResults });
+});
+
+router.post('/heartup', async (req, res) => {
+  const contentId = req.body.contentId;
+  const queryContent = await boardModel.findOne({ _id: contentId });
+  console.log(queryContent);
+  queryContent.heart += 1;
+  queryContent.save();
+  res.json({ status: 200, heart: queryContent.heart });
 });
 
 module.exports = router;
