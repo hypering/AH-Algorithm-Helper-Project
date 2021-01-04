@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
 router.post('/viewup', async (req, res) => {
   const contentId = req.body.contentId;
   const queryContent = await boardModel.findOne({ _id: contentId });
-  console.log(queryContent);
   queryContent.clicked += 1;
   queryContent.save();
   res.json({ status: 200, clicked: queryContent.clicked });
