@@ -80,8 +80,7 @@ router.post('/heartup', async (req, res) => {
 });
 
 router.post('/comment/write', async (req, res) => {
-  const { boardId, context } = req.body;
-  const createAt = '2020/01/04 15:03';
+  const { boardId, createAt, context } = req.body;
 
   const x = await boardModel.findOneAndUpdate(
     {
