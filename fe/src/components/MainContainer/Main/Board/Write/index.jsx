@@ -6,21 +6,21 @@ const Write = () => {
   const [pwd, setPwd] = useState('');
   const [tags, setTags] = useState('');
   const [content, setContent] = useState('');
+  const [img, setImg] = useState();
+  const [imgName, setImgName] = useState('');
   const form = useRef();
-  const writeOnClick = () => {
-    // fetch('http://localhost:4000/board/write', {
-    //   method: 'post',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //   },
-    //   body: JSON.stringify({
-    //     name: name,
-    //     pwd: pwd,
-    //     title: title,
-    //     content: content,
-    //   }),
-    // });
-    form.current.submit();
+  const writeOnClick = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const fileField = document.querySelector('input[type="file"]');
+    formData.append('nickname', imgName);
+    formData.append('img', fileField.files[0]);
+
+    await fetch('http://localhost:4000/board/imageupload', {
+      method: 'post',
+      body: formData,
+    });
+    await form.current.submit();
   };
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +32,14 @@ const Write = () => {
       setContent(value);
     } else if (name === 'tags') {
       setTags(value);
+    } else if (name === 'img') {
+      const file = document
+        .querySelector('.container_InputImage')
+        .querySelector('input').files[0];
+      const fileName = file.name;
+      console.log(fileName);
+      setImg(value);
+      setImgName(Date.now() + '_' + fileName);
     }
   };
   return (
@@ -43,7 +51,13 @@ const Write = () => {
           ref={form}
         >
           <span>글쓰기</span>
-
+          <input
+            type="text"
+            hidden
+            value={imgName}
+            name="imgName"
+            onChange={onChange}
+          />
           <div className="container_Head">
             <div className="container_Writer">
               <input
@@ -67,7 +81,14 @@ const Write = () => {
             </div>
           </div>
           <div className="container_InputImage">
-            <input type="file" className="input_Image" accept="image/*"></input>
+            <input
+              type="file"
+              name="img"
+              className="input_Image"
+              accept="image/*"
+              value={img}
+              onChange={onChange}
+            ></input>
           </div>
           <div className="container_Content">
             <textarea
