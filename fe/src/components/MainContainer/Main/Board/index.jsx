@@ -7,9 +7,6 @@ import Search from './Search';
 import { Route, Switch } from 'react-router-dom';
 import Write from './Write/index.jsx';
 
-
-const FreeBoard = ({ curIp }) => {
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_VALUE':
@@ -19,11 +16,10 @@ const reducer = (state, action) => {
   }
 };
 
-export const CommentDispatchContext = createContext(null);
-export const CommentStateContext = createContext(null);
+const CommentDispatchContext = createContext(null);
+const CommentStateContext = createContext(null);
 
-const FreeBoard = () => {
-
+const FreeBoard = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [updateBoard, setUpdateBoard] = useState({});
@@ -88,4 +84,5 @@ const FreeBoard = () => {
   );
 };
 
+export { CommentDispatchContext, CommentStateContext };
 export default FreeBoard;
