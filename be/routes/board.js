@@ -80,28 +80,48 @@ router.post('/heartup', async (req, res) => {
 });
 
 router.post('/comment/write', async (req, res) => {
-  const { boardId, createAt, context } = req.body;
+  const { boardId, key, createAt, context, password } = req.body;
 
-  const x = await boardModel.findOneAndUpdate(
+  await boardModel.findOneAndUpdate(
     {
       _id: boardId,
     },
     {
       $addToSet: {
         comment: {
+          key,
           createAt,
           context,
+          password,
         },
       },
     },
     { new: true },
   );
-  console.log(x);
   res.status(200).json(true);
 });
 
-// router.delete('/comment/delete', async (req, res) => {});
+router.post('/comment/delete', async (req, res) => {
+  const { boardId, key } = req.body;
+  const queryContent = await boardModel.findOne({ _id: boardId });
+  const removedComment = queryContent.comment.find((element) => {
+    return element.key === key;
+  });
 
-// router.patch('/comment/update', async (req, res) => {});
+  if (removedComment !== undefined) {
+    await boardModel.findOneAndUpdate(
+      {
+        _id: boardId,
+      },
+      {
+        $pull: { comment: removedComment },
+      },
+      { new: true },
+    );
+    res.status(200).json(true);
+    return;
+  }
+  res.status(201).json(true);
+});
 
 module.exports = router;
