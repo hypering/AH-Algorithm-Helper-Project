@@ -7,6 +7,9 @@ import Search from './Search';
 import { Route, Switch } from 'react-router-dom';
 import Write from './Write/index.jsx';
 
+
+const FreeBoard = ({ curIp }) => {
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_VALUE':
@@ -20,6 +23,7 @@ export const CommentDispatchContext = createContext(null);
 export const CommentStateContext = createContext(null);
 
 const FreeBoard = () => {
+
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [updateBoard, setUpdateBoard] = useState({});
@@ -57,6 +61,7 @@ const FreeBoard = () => {
                   posts={boards}
                   setBoards={setBoards}
                   setSelectedBoard={setSelectedBoard}
+                  curIp={curIp}
                 />
                 <DetailView
                   post={selectedBoard}

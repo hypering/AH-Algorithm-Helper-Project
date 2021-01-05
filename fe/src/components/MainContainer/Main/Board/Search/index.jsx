@@ -18,9 +18,12 @@ const Search = ({
   const [searchResult, setSearchResult] = useState(null);
   const location = useLocation();
   const queryObj = queryString.parse(location.search);
-
+  useEffect(() => {
+    setSelectedBoard(null);
+  }, []);
   useEffect(() => {
     setValue(queryObj.value);
+
     if (posts) {
       if (searchType === 'author')
         setSearchResult(posts.filter((post) => post.author === value));

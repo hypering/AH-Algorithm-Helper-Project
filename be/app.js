@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 4000;
 const ContestRouter = require('./routes/contest');
 const ProblemRouter = require('./routes/problem');
 const BoardRouter = require('./routes/board');
+const GetIpRouter = require('./routes/getip');
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(cookieParser());
 app.use('/contest', ContestRouter);
 app.use('/problem', ProblemRouter);
 app.use('/board', BoardRouter);
+app.use('/getip', GetIpRouter);
 
 const booting = async () => {
   await dbStarter();

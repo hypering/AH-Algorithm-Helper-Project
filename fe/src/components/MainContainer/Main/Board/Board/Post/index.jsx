@@ -3,7 +3,8 @@ import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon } from './style';
 import { CommentDispatchContext } from '../../../Board';
 
-const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
+
+const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
     dispatch({
@@ -16,17 +17,16 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({ contentId: post._id }),
-    });
-    console.log(response);
-    // const content = document
-    //   .querySelector(`[id ='${id}']`)
-    //   .querySelector('.views');
-    post.clicked++;
-    const updatedPosts = [...posts];
-    setBoards(updatedPosts);
-    //const views = +content.innerText;
-    //content.innerText = views + 1;
+      body: JSON.stringify({ curIp: curIp, contentId: post._id }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status === 200) {
+          post.clicked.push(curIp);
+          const updatedPosts = [...posts];
+          setBoards(updatedPosts);
+        }
+      });
   };
 
   const heartClick = (e) => {
@@ -38,15 +38,19 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({ contentId: post._id }),
-    });
-    console.log(response);
-    const content = document
-      .querySelector(`[id ='${id}']`)
-      .querySelector('.hearts');
-    const hearts = +content.innerText;
-    content.innerText = hearts + 1;
-    console.log(content);
+      body: JSON.stringify({ curIp, contentId: post._id }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status === 200) {
+          post.heart.push(curIp);
+          const updatedPosts = [...posts];
+          setBoards(updatedPosts);
+          alert('좋아요!');
+        } else {
+          alert('이미 좋아요를 눌렀습니다.');
+        }
+      });
   };
 
   return (
@@ -83,7 +87,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
               key={id}
               id={id}
               path="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"
-              text={post.heart}
+              text={post.heart.length}
               className="hearts"
               color="red"
             />
@@ -91,7 +95,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id }) => {
           <li>
             <SvgIcon
               path="M19.9 23.5c-.157 0-.312-.05-.442-.144L12 17.928l-7.458 5.43c-.228.164-.53.19-.782.06-.25-.127-.41-.385-.41-.667V5.6c0-1.24 1.01-2.25 2.25-2.25h12.798c1.24 0 2.25 1.01 2.25 2.25v17.15c0 .282-.158.54-.41.668-.106.055-.223.082-.34.082zM12 16.25c.155 0 .31.048.44.144l6.71 4.883V5.6c0-.412-.337-.75-.75-.75H5.6c-.413 0-.75.338-.75.75v15.677l6.71-4.883c.13-.096.285-.144.44-.144z"
-              text={post.clicked}
+              text={post.clicked.length}
               className="views"
               color="green"
             />

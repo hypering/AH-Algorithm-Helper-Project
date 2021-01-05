@@ -5,11 +5,13 @@ import FreeBoard from './Board';
 import { Container } from './style';
 import { Route } from 'react-router-dom';
 
-const Main = () => {
+const Main = ({ curIp }) => {
   return (
     <Container>
       <Route path="/calendar" component={Calendar} />
-      <Route path="/board" component={FreeBoard} />
+      <Route path="/board">
+        <FreeBoard curIp={curIp}></FreeBoard>
+      </Route>
       <Route path="/picker" component={Picker} />
     </Container>
   );
