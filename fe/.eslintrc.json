@@ -18,7 +18,7 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "indent": ["error", 2], // 들여쓰기 1칸
+    "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 1칸
     "semi": 2, // 세미클론 사용
     "prettier/prettier": [
       "error",

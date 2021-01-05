@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer, createContext } from 'react';
 import Header from './Header';
 import Board from './Board';
 import DetailView from './DetailView';
@@ -7,12 +7,27 @@ import Search from './Search';
 import { Route, Switch } from 'react-router-dom';
 import Write from './Write/index.jsx';
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'CHANGE_VALUE':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const CommentDispatchContext = createContext(null);
+export const CommentStateContext = createContext(null);
+
 const FreeBoard = () => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
+  const [updateBoard, setUpdateBoard] = useState({});
   const [value, setValue] = useState('');
   const [url, setUrl] = useState('');
   const [searchType, setSearchType] = useState('author');
+  const [state, dispatch] = useReducer(reducer, '');
+
   useEffect(() => {
     fetch('http://localhost:4000/board', {
       method: 'get',
@@ -21,43 +36,50 @@ const FreeBoard = () => {
       .then((board) => {
         setBoards(board);
       });
-  }, []);
+  }, [updateBoard]);
 
   return (
-    <Container>
-      <Switch>
-        <Route exact path="/board">
-          <Header
-            value={value}
-            setValue={setValue}
-            url={url}
-            setUrl={setUrl}
-            searchType={searchType}
-            setSearchType={setSearchType}
-          />
-          <SubContainer>
-            <Board
-              posts={boards}
-              setBoards={setBoards}
-              setSelectedBoard={setSelectedBoard}
-            />
-            <DetailView post={selectedBoard} />
-          </SubContainer>
-        </Route>
-        <Route path="/board/write" component={Write} />
-        <Route path="/board/search">
-          <Search
-            value={value}
-            posts={boards}
-            setValue={setValue}
-            setBoards={setBoards}
-            selectedBoard={selectedBoard}
-            setSelectedBoard={setSelectedBoard}
-            searchType={searchType}
-          ></Search>
-        </Route>
-      </Switch>
-    </Container>
+    <CommentDispatchContext.Provider value={dispatch}>
+      <CommentStateContext.Provider value={state}>
+        <Container>
+          <Switch>
+            <Route exact path="/board">
+              <Header
+                value={value}
+                setValue={setValue}
+                url={url}
+                setUrl={setUrl}
+                searchType={searchType}
+                setSearchType={setSearchType}
+              />
+              <SubContainer>
+                <Board
+                  posts={boards}
+                  setBoards={setBoards}
+                  setSelectedBoard={setSelectedBoard}
+                />
+                <DetailView
+                  post={selectedBoard}
+                  setUpdateBoard={setUpdateBoard}
+                />
+              </SubContainer>
+            </Route>
+            <Route path="/board/write" component={Write} />
+            <Route path="/board/search">
+              <Search
+                value={value}
+                posts={boards}
+                setValue={setValue}
+                setBoards={setBoards}
+                selectedBoard={selectedBoard}
+                setSelectedBoard={setSelectedBoard}
+                searchType={searchType}
+              ></Search>
+            </Route>
+          </Switch>
+        </Container>
+      </CommentStateContext.Provider>
+    </CommentDispatchContext.Provider>
   );
 };
 
