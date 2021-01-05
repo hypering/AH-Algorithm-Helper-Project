@@ -28,7 +28,7 @@ router.post('/add', async (req, res) => {
     startDate,
     url,
   });
-  console.log(startDate);
+
   res.status(200).json(true);
 });
 

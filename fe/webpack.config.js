@@ -5,14 +5,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: path.join(__dirname, './src/index.js'),
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname + '/build'),
+    filename: 'bundle.js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  devtool: 'eval-cheap-source-map',
   devServer: {
     port: 3000,
     overlay: true,
@@ -46,7 +47,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: path.join(__dirname, './public/index.html'),
     }),
     new MiniCssExtractPlugin({ filename: 'app.css' }),
   ],
