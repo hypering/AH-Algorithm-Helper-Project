@@ -62,6 +62,7 @@ const FreeBoard = ({ curIp }) => {
                   posts={boards}
                   post={selectedBoard}
                   setBoards={setBoards}
+                  setSelectedBoard={setSelectedBoard}
                 />
               </SubContainer>
             </Route>
