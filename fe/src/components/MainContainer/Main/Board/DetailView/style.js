@@ -72,4 +72,8 @@ export const EmptyText = styled.div`
 
 export const CommentText = styled.textarea`
   padding: 5px;
+  resize: none;
+  outline: 0;
+  margin-right: 5px;
+  border-radius: 12px;
 `;

@@ -12,6 +12,9 @@ export const HeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 15px;
+  overflow: hidden;
+
+  white-space: nowrap;
 `;
 
 export const SearchBox = styled.div`
@@ -30,12 +33,13 @@ export const SearchBox = styled.div`
 
 export const SelectBox = styled.select`
   height: 100%;
-  padding: 10px 32px 9px 16px;
+  padding: 0 8px 0 8px;
   border: 1px solid #ebeef1;
   border-radius: 5px;
   &:focus {
     outline: none;
   }
+  margin-right: 3px;
 `;
 
 export const InputBox = styled.input`
