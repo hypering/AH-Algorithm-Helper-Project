@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 const kf = keyframes`
-  from {
+  from, to {
     color: red;
   }
   15% {
@@ -20,7 +20,7 @@ const kf = keyframes`
   75%{
     color: indigo;
   }
-  to {
+  90% {
     color: purple;
   }
 `;
