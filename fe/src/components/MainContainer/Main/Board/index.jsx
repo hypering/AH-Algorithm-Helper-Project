@@ -22,7 +22,6 @@ const CommentStateContext = createContext(null);
 const FreeBoard = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
-  const [updateBoard, setUpdateBoard] = useState({});
   const [value, setValue] = useState('');
   const [url, setUrl] = useState('');
   const [searchType, setSearchType] = useState('author');
@@ -36,7 +35,7 @@ const FreeBoard = ({ curIp }) => {
       .then((board) => {
         setBoards(board);
       });
-  }, [updateBoard]);
+  }, []);
 
   return (
     <CommentDispatchContext.Provider value={dispatch}>
@@ -60,8 +59,10 @@ const FreeBoard = ({ curIp }) => {
                   curIp={curIp}
                 />
                 <DetailView
+                  posts={boards}
                   post={selectedBoard}
-                  setUpdateBoard={setUpdateBoard}
+                  setBoards={setBoards}
+                  setSelectedBoard={setSelectedBoard}
                 />
               </SubContainer>
             </Route>
