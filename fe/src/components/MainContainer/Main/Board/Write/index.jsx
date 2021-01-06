@@ -2,26 +2,40 @@ import React, { useRef, useState } from 'react';
 import BtnExecute from '../../Buttons/Execute';
 import { Container } from './style';
 const Write = () => {
-  const [name, setName] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [tags, setTags] = useState('');
-  const [content, setContent] = useState('');
+  const [name, setName] = useState();
+  const [pwd, setPwd] = useState();
+  const [tags, setTags] = useState();
+  const [content, setContent] = useState();
   const [img, setImg] = useState();
-  const [imgName, setImgName] = useState('');
+  const [imgName, setImgName] = useState();
   const form = useRef();
   const writeOnClick = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    const fileField = document.querySelector('input[type="file"]');
-    formData.append('nickname', imgName);
-    formData.append('img', fileField.files[0]);
+    if (!name) {
+      alert('이름을 입력하세요.');
+      return;
+    } else if (!pwd || pwd.length < 4) {
+      alert('패스워드는 4자리 이상 입력하세요.');
+      return;
+    } else if (!content) {
+      alert('글 내용을 입력하세요.');
+      return;
+    }
 
-    await fetch('http://localhost:4000/board/imageupload', {
-      method: 'post',
-      body: formData,
-    });
+    if (img) {
+      const formData = new FormData();
+      const fileField = document.querySelector('input[type="file"]');
+      formData.append('nickname', imgName);
+      formData.append('img', fileField.files[0]);
+
+      await fetch('http://localhost:4000/board/imageupload', {
+        method: 'post',
+        body: formData,
+      });
+    }
     await form.current.submit();
   };
+
   const onChange = (e) => {
     const { name, value } = e.target;
     if (name === 'author') {
