@@ -9,6 +9,8 @@ export const Container = styled.div`
   font-size: 25px;
   font-weight: 600;
   color: #707070;
+  overflow: hidden;
 
+  white-space: nowrap;
   background-color: #efefef;
 `;
