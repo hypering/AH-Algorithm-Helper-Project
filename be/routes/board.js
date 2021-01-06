@@ -1,4 +1,5 @@
 const express = require('express');
+const { upload } = require('../lib/imageUpload');
 const { boardModel } = require('../models');
 const router = express.Router();
 
@@ -38,12 +39,23 @@ router.post('/viewup', async (req, res) => {
   // res.cookie((contentId, { count: count }));
   // res.send(`Cookie : ${count}`);
 });
-
+router.post('/imageupload', upload.single('img'), function (req, res, next) {
+  res.writeHead(302, { Location: `/board` });
+  res.end();
+});
 router.post('/write', async (req, res) => {
   //글쓰기 처리
-  const { author, pwd, content, tags, img_url } = req.body;
+  const { author, pwd, content, tags, img, imgName } = req.body;
   const hash = tags.split(',');
-  await boardModel.create({ author: author, pwd, img_url: img_url, content: content, tags: hash });
+  const newPost = await boardModel.create({
+    author: author,
+    pwd,
+    img_url: imgName,
+    content: content,
+    tags: hash,
+  });
+
+  //res.json({ _id: newPost._id });
   res.statusCode = 302;
   res.setHeader('Location', 'http://127.0.0.1:3000/board');
   res.end();
