@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import LoginButton from './LoginButton';
@@ -62,16 +63,21 @@ const LoginHeader = styled.div`
   color: #707070;
 `;
 
-const Login = ({ history, setIsLogined }) => {
+const Login = ({ setIsLogined }) => {
+  const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
   const onClick = () => {
-    fetch('//127.0.0.1:4000/user/login', {
+    fetch('http://127.0.0.1:4000/user/login', {
       method: 'post',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
       },
+      mode: 'cors',
+      credentials: 'include',
       body: JSON.stringify({
         userId: input.userId,
         userPw: input.userPwd,
