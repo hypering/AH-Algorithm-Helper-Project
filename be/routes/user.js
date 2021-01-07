@@ -7,7 +7,7 @@ const router = express.Router();
 
 // 로그인 유무 확인
 // 403 : 인증정보 실패시 에러코드
-router.app('/', async (req, res) => {
+router.get('/', async (req, res) => {
   if (req.session.user) res.status(200).json(true);
   else res.status(403).json(false);
 });

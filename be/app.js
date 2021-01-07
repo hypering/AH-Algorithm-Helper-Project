@@ -40,7 +40,7 @@ app.use('/contest', ContestRouter);
 app.use('/problem', ProblemRouter);
 app.use('/board', BoardRouter);
 app.use('/getip', GetIpRouter);
-app.user('/user', UserRouter);
+app.use('/user', UserRouter);
 
 const booting = async () => {
   await dbStarter();
