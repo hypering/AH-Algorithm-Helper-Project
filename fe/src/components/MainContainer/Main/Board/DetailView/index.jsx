@@ -74,9 +74,11 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
     <Container>
       <h6>{post.author}</h6>
       {post.img_url != '' ? (
-        <ImgIcon
-          src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
-        ></ImgIcon>
+        <div>
+          <ImgIcon
+            src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
+          ></ImgIcon>
+        </div>
       ) : (
         ''
       )}
