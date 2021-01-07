@@ -7,6 +7,8 @@ export const Container = styled.div`
   margin-top: 15px;
   flex-grow: 1;
   margin-left: 15px;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const Categories = styled.div`

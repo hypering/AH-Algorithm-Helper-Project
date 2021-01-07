@@ -34,5 +34,7 @@ export const Container = styled.div`
   text-align: center;
   font-size: 25px;
   font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
   animation: ${kf} 5s linear infinite;
 `;

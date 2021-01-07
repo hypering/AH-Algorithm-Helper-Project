@@ -34,4 +34,7 @@ export const ResultHeader = styled.div`
     margin-right: 110px;
     text-align: center;
   }
+  overflow: hidden;
+
+  white-space: nowrap;
 `;

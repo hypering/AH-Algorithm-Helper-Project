@@ -73,9 +73,13 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
   return (
     <Container>
       <h6>{post.author}</h6>
-      <ImgIcon
-        src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
-      ></ImgIcon>
+      {post.img_url != '' ? (
+        <ImgIcon
+          src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
+        ></ImgIcon>
+      ) : (
+        ''
+      )}
       <ContentWrap>{post.content}</ContentWrap>
       <PostWrap>
         {post.comment.length > 0 ? (

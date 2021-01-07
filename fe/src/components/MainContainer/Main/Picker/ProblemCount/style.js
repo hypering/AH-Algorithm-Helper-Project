@@ -17,6 +17,8 @@ export const Subtitle = styled.span`
 `;
 
 export const TextInput = styled.input`
+  display: flex;
+
   padding: 3px 10px 3px 26px;
   border-radius: 12px;
   &:focus {

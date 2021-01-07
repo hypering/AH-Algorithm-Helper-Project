@@ -56,9 +56,13 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
     <Container onClick={onClick} key={id} id={id}>
       <h6>{post.author}</h6>
       <div>
-        <ImgIcon
-          src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
-        />
+        {post.img_url != '' ? (
+          <ImgIcon
+            src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
+          />
+        ) : (
+          ''
+        )}
       </div>
       <div>
         <SvgWrap>
