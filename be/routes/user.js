@@ -59,7 +59,7 @@ router.post('/login', Validation.isUser, async (req, res) => {
   res.status(200).json(true);
 });
 
-// 로컬 회원가입
+// 로컬 로그아웃
 router.post('/logout', Validation.isUser, async (req, res) => {
   req.session.destroy();
   res.status(200).json(true);
