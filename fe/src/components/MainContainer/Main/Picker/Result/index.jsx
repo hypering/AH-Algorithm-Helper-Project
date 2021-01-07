@@ -6,7 +6,7 @@ import { ResContainer, ResultHeader, Results, Subtitle } from './style.js';
 const Result = ({ queryResults }) => {
   return (
     <ResContainer>
-      <Subtitle>문제 뽑기 결과</Subtitle>
+      <Subtitle>결과</Subtitle>
       <ResultHeader>
         <span>난이도 </span>
         <span>번호 </span>

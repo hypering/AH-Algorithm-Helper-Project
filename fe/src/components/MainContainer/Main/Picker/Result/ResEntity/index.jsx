@@ -133,7 +133,7 @@ const ResEntity = ({ num, tier, cate }) => {
     <EntityContainer>
       <a href={'https://www.acmicpc.net/problem/' + num}>
         <span className="tier">
-          <img src={'/Images/Tiers/' + tier + '.svg'} />
+          <img src={'public/Images/Tiers/' + tier + '.svg'} />
           {Tiers.find((o) => o.id == tier).name}
         </span>
         <span className="number"> {num}</span>

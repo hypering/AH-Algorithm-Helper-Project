@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
       startDate: { $gte: now },
     })
     .sort({ startDate: 0 });
-  console.log(contestDates);
   res.json(contestDates);
 });
 
