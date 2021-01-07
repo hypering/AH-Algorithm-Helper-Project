@@ -4,7 +4,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const dbStarter = require('./providers/dbProvider');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -13,6 +13,7 @@ const ContestRouter = require('./routes/contest');
 const ProblemRouter = require('./routes/problem');
 const BoardRouter = require('./routes/board');
 const GetIpRouter = require('./routes/getip');
+const UserRouter = require('./routes/user');
 
 dotenv.config();
 
@@ -22,17 +23,24 @@ app.use(
     credentials: true,
   }),
 );
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
 
 app.use('/contest', ContestRouter);
 app.use('/problem', ProblemRouter);
 app.use('/board', BoardRouter);
 app.use('/getip', GetIpRouter);
+app.user('/user', UserRouter);
 
 const booting = async () => {
   await dbStarter();
