@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const ImgIcon = styled.img`
-  width: 60%;
+  max-width: 60%;
   padding-top: 5px;
   border-radius: 15px;
 `;
