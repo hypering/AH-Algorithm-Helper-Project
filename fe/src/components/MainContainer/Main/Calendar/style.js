@@ -5,6 +5,8 @@ export const Container = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 15px;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const ContestButton = styled.div`
