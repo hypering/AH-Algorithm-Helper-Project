@@ -48,7 +48,7 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
   return (
     <Container>
       <div>
-        <Subtitle>알고리즘 분류 선택</Subtitle>
+        <Subtitle>알고리즘 분류</Subtitle>
       </div>
       <Categories>
         {categories.map((element) => (

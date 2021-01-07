@@ -24,4 +24,5 @@ export const Categories = styled.div`
 
 export const Subtitle = styled.span`
   font-weight: 600;
+  padding-bottom: 10px;
 `;

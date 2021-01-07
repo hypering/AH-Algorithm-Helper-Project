@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 15px;
   & > span {
     text-align: right;
     margin-right: 120px;
@@ -17,12 +18,14 @@ export const SubContainer = styled.div`
   display: flex;
   height: 13%;
   flex-direction: row;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #efefef;
   padding-bottom: 5px;
 `;
 
 export const MainContainer = styled.div`
   display: flex;
-  height: 70%;
+  height: 80%;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   flex-direction: row;
 `;

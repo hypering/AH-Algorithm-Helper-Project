@@ -1,9 +1,5 @@
 # AH (Algorithm Helper)
 
-## 개발 시간 (매일)
-
-- ### 13 ~ 17시
-
 ## 그룹원
 
 - ### 김민창 
@@ -18,14 +14,20 @@
 
 - ### React
 
-- ### Redux
+- ### styled-component
+
+- ### webpack, babel
 
 ## Back-End
 
 - ### Javascript
 
-- ### Node Express
+- ### Express
 
 - ### Rest API
 
 - ### MongoDB
+
+## Common
+
+- ### Eslint, Prittier
