@@ -28,7 +28,7 @@ const Write = () => {
       formData.append('nickname', imgName);
       formData.append('img', fileField.files[0]);
 
-      await fetch('http://localhost:4000/board/imageupload', {
+      await fetch('http://127.0.0.1:4000/board/imageupload', {
         method: 'post',
         body: formData,
       });
@@ -61,7 +61,7 @@ const Write = () => {
       <Container>
         <form
           method="POST"
-          action="http://localhost:4000/board/write"
+          action="http://127.0.0.1:4000/board/write"
           ref={form}
         >
           <span>글쓰기</span>

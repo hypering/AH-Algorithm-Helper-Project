@@ -11,7 +11,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
       payload: '',
     });
     setSelectedBoard(post);
-    const response = fetch('http://localhost:4000/board/viewup', {
+    const response = fetch('http://127.0.0.1:4000/board/viewup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -32,7 +32,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
     e.stopPropagation();
     setSelectedBoard(post);
 
-    const response = fetch('http://localhost:4000/board/heartup', {
+    const response = fetch('http://127.0.0.1:4000/board/heartup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

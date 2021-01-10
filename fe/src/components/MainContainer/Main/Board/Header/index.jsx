@@ -20,7 +20,7 @@ const Header = ({
 }) => {
   // const searchOnClick = () => {
   //   console.log(value);
-  //   fetch(`http://localhost:4000/search?type=author&value=${value}`, {
+  //   fetch(`http://127.0.0.1:4000/search?type=author&value=${value}`, {
   //     method: 'get',
   //     headers: {
   //       'Content-Type': 'application/json',

@@ -44,7 +44,7 @@ const Item = ({ id, value }) => {
                 if (conFirm === false) return;
                 console.log(ele._id);
                 const resopnse = await fetch(
-                  `http://localhost:4000/contest/delete`,
+                  `http://127.0.0.1:4000/contest/delete`,
                   {
                     method: 'post',
                     headers: {

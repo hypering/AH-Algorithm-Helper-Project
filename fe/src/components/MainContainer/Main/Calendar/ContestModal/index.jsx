@@ -31,7 +31,7 @@ const ContestModal = ({ visible, setvisible }) => {
       alert('선택되지 않은 항목이 있습니다.');
       return;
     }
-    const response = await fetch('http://localhost:4000/contest/add', {
+    const response = await fetch('http://127.0.0.1:4000/contest/add', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

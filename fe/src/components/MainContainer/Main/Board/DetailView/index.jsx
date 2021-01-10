@@ -38,7 +38,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
 
     const nowDate = getDate(new Date());
     const key = post.comment.length + 1;
-    const response = await fetch('http://localhost:4000/board/comment/write', {
+    const response = await fetch('http://127.0.0.1:4000/board/comment/write', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -96,7 +96,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
                 const conFirm = confirm('정말 댓글을 삭제하시겠습니까?');
                 if (conFirm === false) return;
                 const response = await fetch(
-                  'http://localhost:4000/board/comment/delete',
+                  'http://127.0.0.1:4000/board/comment/delete',
                   {
                     method: 'post',
                     headers: { 'Content-Type': 'application/json' },
