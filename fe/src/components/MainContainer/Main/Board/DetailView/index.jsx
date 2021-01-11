@@ -13,8 +13,9 @@ import {
   PostWrap,
   CommentText,
 } from './style';
-
+import { IsLoginedState } from '../../../../../App';
 const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
+  const isLogined = useContext(IsLoginedState);
   if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
@@ -140,17 +141,19 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
           <h6>No Comment</h6>
         )}
       </PostWrap>
-      <CommentWrap>
-        <CommentText
-          name="content"
-          id="boardContent"
-          cols="120"
-          rows="5"
-          value={value}
-          onChange={onChange}
-        />
-        <CommentBtn onClick={onClick}>등록</CommentBtn>
-      </CommentWrap>
+      {isLogined.isLogined && (
+        <CommentWrap>
+          <CommentText
+            name="content"
+            id="boardContent"
+            cols="120"
+            rows="5"
+            value={value}
+            onChange={onChange}
+          />
+          <CommentBtn onClick={onClick}>등록</CommentBtn>
+        </CommentWrap>
+      )}
     </Container>
   );
 };
