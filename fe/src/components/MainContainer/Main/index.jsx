@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Picker from './Picker';
 import Calendar from './Calendar';
 import FreeBoard from './Board';
 import Login from './Login';
 import { Container } from './style';
 import { Redirect, Route } from 'react-router-dom';
-
+import { UserDispatch, IsLoginedState } from '../../../App.jsx';
 const Main = ({ curIp }) => {
-  const [isLogined, setIsLogined] = useState(false);
-
+  const dispatch = useContext(UserDispatch);
+  const isLogined = useContext(IsLoginedState);
   useEffect(() => {
     fetch('http://127.0.0.1:4000/user', {
       method: 'post',
@@ -21,9 +21,9 @@ const Main = ({ curIp }) => {
     })
       .then((response) => response.json())
       .then(({ isLogined }) => {
-        setIsLogined(isLogined);
+        dispatch({ type: 'SET_IS_LOGINED', payload: isLogined });
       });
-  }, []);
+  }, [isLogined]);
 
   return (
     <Container>
@@ -31,20 +31,20 @@ const Main = ({ curIp }) => {
         exact
         path="/"
         render={(props) =>
-          isLogined ? (
+          isLogined.isLogined ? (
             <Redirect
               to={{ pathname: '/picker', state: { from: props.location } }}
             />
           ) : (
-            <Login setIsLogined={setIsLogined}></Login>
+            <Login />
           )
         }
       />
-      <Route exact path="/calendar" component={Calendar} />
-      <Route exact path="/board">
+      <Route path="/calendar" component={Calendar} />
+      <Route path="/board">
         <FreeBoard curIp={curIp}></FreeBoard>
       </Route>
-      <Route exact path="/picker" component={Picker} />
+      <Route path="/picker" component={Picker} />
     </Container>
   );
 };
