@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import LoginButton from './LoginButton';
-
+import { UserDispatch } from '../../../../App';
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -63,11 +63,12 @@ const LoginHeader = styled.div`
   color: #707070;
 `;
 
-const Login = ({ setIsLogined }) => {
+const Login = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const dispatch = useContext(UserDispatch);
   const onClick = () => {
     fetch('http://127.0.0.1:4000/user/login', {
       method: 'post',
@@ -86,7 +87,7 @@ const Login = ({ setIsLogined }) => {
         setErrorMsg('계정 정보를 확인해주세요.');
       } else {
         history.push('/picker');
-        setIsLogined(true);
+        dispatch({ type: 'SET_IS_LOGINED', payload: true });
       }
     });
   };
