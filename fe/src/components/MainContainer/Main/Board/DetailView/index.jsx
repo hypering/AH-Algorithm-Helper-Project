@@ -40,7 +40,13 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
     const key = post.comment.length + 1;
     const response = await fetch('http://127.0.0.1:4000/board/comment/write', {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+      mode: 'cors',
+      credentials: 'include',
       body: JSON.stringify({
         boardId: post._id,
         createAt: nowDate,
@@ -99,7 +105,13 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
                   'http://127.0.0.1:4000/board/comment/delete',
                   {
                     method: 'post',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',
+                      'Access-Control-Allow-Credentials': true,
+                    },
+                    mode: 'cors',
+                    credentials: 'include',
                     body: JSON.stringify({
                       boardId: post._id,
                       key: ele.key,

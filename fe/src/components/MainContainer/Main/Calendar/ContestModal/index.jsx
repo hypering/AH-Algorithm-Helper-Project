@@ -33,7 +33,13 @@ const ContestModal = ({ visible, setvisible }) => {
     }
     const response = await fetch('http://127.0.0.1:4000/contest/add', {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+      mode: 'cors',
+      credentials: 'include',
       body: JSON.stringify({
         name: organizer,
         title: name,

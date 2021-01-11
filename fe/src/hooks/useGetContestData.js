@@ -3,6 +3,13 @@ import { useEffect } from 'react';
 const useGetContestAPI = (setValue) => {
   fetch('http://127.0.0.1:4000/contest', {
     method: 'get',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': true,
+    },
+    mode: 'cors',
+    credentials: 'include',
   })
     .then((response) => response.json())
     .then((contest) => {

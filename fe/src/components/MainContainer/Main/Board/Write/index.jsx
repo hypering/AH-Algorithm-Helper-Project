@@ -30,6 +30,13 @@ const Write = () => {
 
       await fetch('http://127.0.0.1:4000/board/imageupload', {
         method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+        mode: 'cors',
+        credentials: 'include',
         body: formData,
       });
     }

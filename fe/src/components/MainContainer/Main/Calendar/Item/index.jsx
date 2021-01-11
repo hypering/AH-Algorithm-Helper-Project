@@ -48,8 +48,12 @@ const Item = ({ id, value }) => {
                   {
                     method: 'post',
                     headers: {
+                      Accept: 'application/json',
                       'Content-Type': 'application/json',
+                      'Access-Control-Allow-Credentials': true,
                     },
+                    mode: 'cors',
+                    credentials: 'include',
                     body: JSON.stringify({
                       contest_id: ele._id,
                     }),

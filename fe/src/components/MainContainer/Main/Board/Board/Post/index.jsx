@@ -14,8 +14,12 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
     const response = fetch('http://127.0.0.1:4000/board/viewup', {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
       },
+      mode: 'cors',
+      credentials: 'include',
       body: JSON.stringify({ curIp: curIp, contentId: post._id }),
     })
       .then((res) => res.json())
@@ -35,8 +39,12 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
     const response = fetch('http://127.0.0.1:4000/board/heartup', {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
       },
+      mode: 'cors',
+      credentials: 'include',
       body: JSON.stringify({ curIp, contentId: post._id }),
     })
       .then((res) => res.json())
