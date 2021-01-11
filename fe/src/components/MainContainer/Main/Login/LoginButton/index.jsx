@@ -2,13 +2,16 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
-  margin-right: 170px;
+  flex-direction: column;
+  align-items: center;
   & > button {
+    min-width: 200px;
     background-color: #707070;
     color: white;
     font-size: 12px;
+    margin-top: 5px;
     padding: 10px 15px 10px 15px;
     border-radius: 10px;
     cursor: pointer;
@@ -21,6 +24,9 @@ const Container = styled.div`
 `;
 
 const LoginButton = ({ onClick, disable }) => {
+  const githubOnClick = () => {
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.DEV_CLIENT_ID}&redirect_uri=${process.env.CALLBACK_URL}`;
+  };
   return (
     <Container>
       {disable ? (
@@ -30,6 +36,7 @@ const LoginButton = ({ onClick, disable }) => {
       ) : (
         <button onClick={onClick}>Login</button>
       )}
+      <button onClick={githubOnClick}>GitHub Login</button>
     </Container>
   );
 };
