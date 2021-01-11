@@ -28,8 +28,10 @@ const FreeBoard = ({ curIp }) => {
   const [state, dispatch] = useReducer(reducer, '');
 
   useEffect(() => {
-    fetch('http://localhost:4000/board', {
+    fetch('http://127.0.0.1:4000/board', {
       method: 'get',
+      mode: 'cors',
+      credentials: 'include',
     })
       .then((response) => response.json())
       .then((board) => {

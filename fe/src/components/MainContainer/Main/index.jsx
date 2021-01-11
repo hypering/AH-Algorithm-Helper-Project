@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Picker from './Picker';
 import Calendar from './Calendar';
 import FreeBoard from './Board';
@@ -8,6 +8,23 @@ import { Redirect, Route } from 'react-router-dom';
 
 const Main = ({ curIp }) => {
   const [isLogined, setIsLogined] = useState(false);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:4000/user', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'include',
+    })
+      .then((response) => response.json())
+      .then(({ isLogined }) => {
+        setIsLogined(isLogined);
+      });
+  }, []);
+
   return (
     <Container>
       <Route

@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 const dbStarter = require('./providers/dbProvider');
 const cors = require('cors');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
-const PORT = process.env.PORT || 4000;
 
 const ContestRouter = require('./routes/contest');
 const ProblemRouter = require('./routes/problem');
@@ -17,12 +17,21 @@ const UserRouter = require('./routes/user');
 
 dotenv.config();
 
+const PORT = process.env.PORT || 4000;
+
 app.use(
   cors({
     origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
     credentials: true,
   }),
 );
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
   session({
     secret: process.env.SECRET_KEY,
@@ -30,11 +39,6 @@ app.use(
     saveUninitialized: true,
   }),
 );
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/contest', ContestRouter);
 app.use('/problem', ProblemRouter);
