@@ -18,22 +18,6 @@ const Header = ({
   searchType,
   setSearchType,
 }) => {
-  // const searchOnClick = () => {
-  //   console.log(value);
-  //   fetch(`http://127.0.0.1:4000/search?type=author&value=${value}`, {
-  //     method: 'get',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((results) => {
-  //       console.log(results);
-  //       setSearchResults(results);
-  //       // history.push('http://127.0.0.1:3000/board/search');
-  //     });
-  // };
-
   const onChange = (e) => {
     const { value } = e.target;
     setValue(value);
