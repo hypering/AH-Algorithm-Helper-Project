@@ -40,11 +40,11 @@ const Main = ({ curIp }) => {
           )
         }
       />
-      <Route exact path="/calendar" component={Calendar} />
-      <Route exact path="/board">
+      <Route path="/calendar" component={Calendar} />
+      <Route path="/board">
         <FreeBoard curIp={curIp}></FreeBoard>
       </Route>
-      <Route exact path="/picker" component={Picker} />
+      <Route path="/picker" component={Picker} />
     </Container>
   );
 };

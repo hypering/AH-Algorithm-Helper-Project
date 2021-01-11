@@ -5,7 +5,7 @@ import DetailView from './DetailView';
 import { Container, SubContainer } from './style';
 import Search from './Search';
 import { Route, Switch } from 'react-router-dom';
-import Write from './Write/index.jsx';
+import Write from './Write';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,8 +30,6 @@ const FreeBoard = ({ curIp }) => {
   useEffect(() => {
     fetch('http://127.0.0.1:4000/board', {
       method: 'get',
-      mode: 'cors',
-      credentials: 'include',
     })
       .then((response) => response.json())
       .then((board) => {
