@@ -16,10 +16,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
       },
-      mode: 'cors',
-      credentials: 'include',
       body: JSON.stringify({ curIp: curIp, contentId: post._id }),
     })
       .then((res) => res.json())
@@ -41,7 +38,6 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
       },
       mode: 'cors',
       credentials: 'include',

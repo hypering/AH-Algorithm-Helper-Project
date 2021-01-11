@@ -43,7 +43,6 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
       },
       mode: 'cors',
       credentials: 'include',
@@ -108,7 +107,6 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
                     headers: {
                       Accept: 'application/json',
                       'Content-Type': 'application/json',
-                      'Access-Control-Allow-Credentials': true,
                     },
                     mode: 'cors',
                     credentials: 'include',
