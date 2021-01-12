@@ -66,8 +66,7 @@ const LoginWrap = styled.div`
   width: 100%;
 `;
 
-const Login = ({ setIsLogined }) => {
-
+const Login = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);
@@ -90,8 +89,11 @@ const Login = ({ setIsLogined }) => {
       if (res.status === 401) {
         setErrorMsg('계정 정보를 확인해주세요.');
       } else {
-        history.push('/picker');
-        dispatch({ type: 'SET_IS_LOGINED', payload: true });
+        res.json().then((json) => {
+          console.log(json);
+          dispatch({ type: 'SET_IS_LOGINED', payload: json });
+          history.push('/picker');
+        });
       }
     });
   };

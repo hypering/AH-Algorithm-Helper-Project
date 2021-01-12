@@ -7,16 +7,18 @@ export const IsLoginedState = React.createContext(null);
 const loginReducer = (isLogined, { type, payload }) => {
   switch (type) {
     case 'SET_IS_LOGINED':
-      return { isLogined: payload };
-    default:
-      return isLogined;
+      return payload;
   }
 };
 function App() {
   const [curIp, setIp] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const [isLogined, dispatch] = useReducer(loginReducer, { isLogined: false });
+  const [isLogined, dispatch] = useReducer(loginReducer, {
+    isLogined: false,
+    userKey: '',
+    userId: '',
+  });
 
   if (!loading) {
     fetch('//127.0.0.1:4000/getip', {

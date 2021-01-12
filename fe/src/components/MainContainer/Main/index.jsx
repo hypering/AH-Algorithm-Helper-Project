@@ -20,10 +20,10 @@ const Main = ({ curIp }) => {
       credentials: 'include',
     })
       .then((response) => response.json())
-      .then(({ isLogined }) => {
-        dispatch({ type: 'SET_IS_LOGINED', payload: isLogined });
+      .then((json) => {
+        dispatch({ type: 'SET_IS_LOGINED', payload: json });
       });
-  }, [isLogined]);
+  }, []);
 
   return (
     <Container>
