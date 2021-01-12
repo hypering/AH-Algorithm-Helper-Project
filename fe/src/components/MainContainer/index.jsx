@@ -7,7 +7,6 @@ import { Container } from './style';
 const MainContainer = ({ curIp }) => {
   const location = useLocation().pathname.substr(1);
   const [value, setValue] = useState(0);
-
   useEffect(() => {
     if (location.includes('picker')) setValue(0);
     if (location.includes('calendar')) setValue(1);

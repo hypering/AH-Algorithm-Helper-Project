@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import BtnExecute from '../../Buttons/Execute';
 import { Container } from './style';
+
 const Write = () => {
   const [name, setName] = useState();
   const [pwd, setPwd] = useState();
@@ -30,10 +31,6 @@ const Write = () => {
 
       await fetch('http://127.0.0.1:4000/board/imageupload', {
         method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
         mode: 'cors',
         credentials: 'include',
         body: formData,
