@@ -6,14 +6,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv-webpack');
 
 const env = new dotenv({
-  path: path.resolve(__dirname, './.env.dev'),
+  path: path.join(__dirname, './.env.dev'),
 }).definitions;
 
 module.exports = {
   mode: 'development',
   entry: path.join(__dirname, './src/index.js'),
   output: {
-    path: path.resolve(__dirname + '/build'),
+    path: path.join(__dirname, '/build'),
     filename: 'bundle.js',
   },
   resolve: {
