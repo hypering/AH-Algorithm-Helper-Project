@@ -1,11 +1,35 @@
 const express = require('express');
 const { upload } = require('../lib/imageUpload');
 const { boardModel } = require('../models');
+const { userModel } = require('../models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   const boardDates = await boardModel.find();
-  res.json(boardDates);
+  const refinedDatas = await Promise.all(
+    boardDates.map(async (element) => {
+      const queryUser = await userModel.findOne({ _id: element.author });
+      const refinedComment = await Promise.all(
+        element.comment.map(async (e) => {
+          const queryCommentUser = await userModel.findOne({ _id: e.writerId });
+          return { ...e, writerKey: e.writerId, writerId: queryCommentUser.userId };
+        }),
+      );
+
+      return {
+        _id: element._id,
+        tags: element.tags,
+        heart: element.heart,
+        comment: refinedComment,
+        clicked: element.clicked,
+        author: queryUser.userId,
+        img_url: element.img_url,
+        content: element.content,
+      };
+    }),
+  );
+  console.log(refinedDatas);
+  res.json(refinedDatas);
 });
 
 router.post('/viewup', async (req, res) => {
@@ -34,11 +58,11 @@ router.post('/imageupload', upload.single('img'), function (req, res) {
 });
 
 router.post('/write', async (req, res) => {
-  const { author, pwd, content, tags, imgName } = req.body;
+  const { content, tags, imgName } = req.body;
   const hash = tags.split(',');
+  const author = req.session.user._id;
   await boardModel.create({
-    author: author,
-    pwd,
+    author,
     img_url: imgName,
     content: content,
     tags: hash,
@@ -58,14 +82,12 @@ router.get('/search', async (req, res) => {
 
 router.post('/heartup', async (req, res) => {
   const contentId = req.body.contentId;
-  const curIp = req.body.curIp;
-
   const queryContent = await boardModel.findOne({ _id: contentId });
   const isExist = queryContent.heart.filter((element) => {
-    return element === curIp;
+    return element === req.session.user._id;
   });
   if (isExist.length == 0) {
-    queryContent.heart.push(curIp);
+    queryContent.heart.push(req.session.user._id);
     queryContent.save();
     res.json({ status: 200, clicked: queryContent.heart.length });
     console.log('새로운 ip');
@@ -76,8 +98,8 @@ router.post('/heartup', async (req, res) => {
 });
 
 router.post('/comment/write', async (req, res) => {
-  const { boardId, key, createAt, context, password } = req.body;
-
+  const { boardId, key, createAt, context } = req.body;
+  const writer = req.session.user._id;
   await boardModel.findOneAndUpdate(
     {
       _id: boardId,
@@ -85,10 +107,10 @@ router.post('/comment/write', async (req, res) => {
     {
       $addToSet: {
         comment: {
+          writerId: writer,
           key,
           createAt,
           context,
-          password,
         },
       },
     },
