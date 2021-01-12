@@ -15,11 +15,6 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
   const { name, title, startDate, url } = req.body;
-  const ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-
-  if (ip_addr !== '::1') {
-    return res.status(201).json(false);
-  }
 
   await contestModel.create({
     name,
@@ -33,10 +28,7 @@ router.post('/add', async (req, res) => {
 
 router.post('/delete', async (req, res) => {
   const { contest_id } = req.body;
-  const ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  if (ip_addr !== '::1') {
-    return res.status(201).json(false);
-  }
+
   const response = await contestModel.deleteOne({
     _id: contest_id,
   });

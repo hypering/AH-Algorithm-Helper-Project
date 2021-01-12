@@ -1,7 +1,13 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const dotenv = require('dotenv-webpack');
+
+const env = new dotenv({
+  path: path.resolve(__dirname, './.env.dev'),
+}).definitions;
 
 module.exports = {
   mode: 'development',
@@ -50,5 +56,9 @@ module.exports = {
       template: path.join(__dirname, './public/index.html'),
     }),
     new MiniCssExtractPlugin({ filename: 'app.css' }),
+    new webpack.DefinePlugin({
+      'process.env.DEV_CLIENT_ID': env['process.env.DEV_CLIENT_ID'],
+      'process.env.CALLBACK_URL': env['process.env.CALLBACK_URL'],
+    }),
   ],
 };

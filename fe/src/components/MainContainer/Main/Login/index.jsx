@@ -63,6 +63,10 @@ const LoginHeader = styled.div`
   color: #707070;
 `;
 
+const LoginWrap = styled.div`
+  width: 100%;
+`;
+
 const Login = ({ setIsLogined }) => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
@@ -133,9 +137,9 @@ const Login = ({ setIsLogined }) => {
         <div className="errorMsgContainer">
           <span className="errorMsg">{errorMsg}</span>
         </div>
-        <div className="item">
+        <LoginWrap>
           <LoginButton disable={disable} onClick={onClick} />
-        </div>
+        </LoginWrap>
       </LoginContainer>
     </Container>
   );
