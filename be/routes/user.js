@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const { userModel } = require('../models');
 const Validation = require('../lib/validation');
+const axios = require('axios');
 
 const router = express.Router();
 
@@ -63,6 +64,58 @@ router.post('/login', Validation.isUser, async (req, res) => {
 router.post('/logout', Validation.isUser, async (req, res) => {
   req.session.destroy();
   res.status(200).json(true);
+});
+
+router.post('/github', async (req, res) => {
+  try {
+    const { code } = req.body;
+    const clientId = process.env.DEV_CLIENT_ID;
+    const secret = process.env.DEV_CLIENT_SECRET;
+    const { data } = await axios.post(
+      'https://github.com/login/oauth/access_token',
+      {
+        code,
+        client_id: clientId,
+        client_secret: secret,
+      },
+      {
+        headers: {
+          accept: 'application/json',
+        },
+      },
+    );
+    const searchParams = new URLSearchParams(data);
+    const accessToken = searchParams.get('access_token');
+
+    const USER_PROFILE_URL = 'https://api.github.com/user';
+    const { data: userInfomation } = await axios.get(USER_PROFILE_URL, {
+      headers: {
+        Authorization: `token ${accessToken}`,
+      },
+      withCredentials: true,
+    });
+
+    const existId = await userModel.findOne({
+      userId: userInfomation.login + userInfomation.id,
+    });
+
+    if (existId) {
+      req.session.user = existId;
+      res.status(200).json(true);
+      return;
+    }
+
+    const User = await userModel.create({
+      userId: userInfomation.login + userInfomation.id,
+      nickname: userInfomation.login,
+      email: userInfomation.email,
+    });
+
+    req.session.user = User;
+    res.status(200).json(true);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
