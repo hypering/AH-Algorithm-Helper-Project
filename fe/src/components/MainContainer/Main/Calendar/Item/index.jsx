@@ -14,8 +14,19 @@ import {
 
 const Item = ({ id, value }) => {
   let num = 0;
+
+  const onWheel = (e) => {
+    const container = document.getElementById(id);
+    const containerScrollPosition = document.getElementById(id).scrollLeft;
+    container.scrollTo({
+      top: 0,
+      left: containerScrollPosition + e.deltaY,
+      behaviour: 'smooth',
+    });
+  };
+
   return (
-    <ItemContainer>
+    <ItemContainer id={id} onWheel={onWheel}>
       <Title>{id}</Title>
       <Container>
         {value &&

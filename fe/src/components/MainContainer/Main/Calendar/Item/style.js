@@ -3,12 +3,28 @@ import styled from '@emotion/styled';
 export const ItemContainer = styled.div`
   height: 100%;
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   &:hover {
     background-color: #efefef;
     & > div:nth-of-type(1) {
       color: #66cc33;
     }
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: gray;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
   }
 `;
 
