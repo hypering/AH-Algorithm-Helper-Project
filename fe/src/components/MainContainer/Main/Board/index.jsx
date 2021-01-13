@@ -4,7 +4,7 @@ import Board from './Board';
 import DetailView from './DetailView';
 import { Container, SubContainer } from './style';
 import Search from './Search';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Write from './Write';
 
 const reducer = (state, action) => {
