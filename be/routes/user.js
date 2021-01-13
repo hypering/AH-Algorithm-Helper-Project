@@ -9,6 +9,7 @@ const router = express.Router();
 // 로그인 유무 확인
 // 403 : 인증정보 실패시 에러코드
 router.post('/', async (req, res) => {
+  console.log();
   if (req.session.user) {
     res
       .status(200)
@@ -16,10 +17,22 @@ router.post('/', async (req, res) => {
   } else res.status(403).json({ isLogined: false, userKey: '', userId: '' });
 });
 
+router.post('/idcheck', async (req, res) => {
+  const { inputId } = req.body;
+  const queryUser = await userModel.findOne({ userId: inputId });
+  if (queryUser) {
+    res.status(409);
+    res.json(false);
+  } else {
+    res.status(200);
+    res.json(true);
+  }
+});
+
 // 로컬 회원가입
 // 409 : 회원가입 실패시 에러코드
 router.post('/join', Validation.isUser, async (req, res) => {
-  const { userId, userPw, nickname, email } = req.body;
+  const { userId, userPw, nickname, userEmail } = req.body;
 
   const existId = await userModel.findOne({
     userId,
@@ -33,10 +46,11 @@ router.post('/join', Validation.isUser, async (req, res) => {
     userId,
     userPw: hashPw,
     nickname,
-    email,
+    email: userEmail,
   });
 
-  res.status(200).json(true);
+  res.writeHead(302, { Location: 'http://127.0.0.1:3000/' });
+  res.end();
 });
 
 // 로컬 로그인
@@ -66,6 +80,7 @@ router.post('/login', Validation.isUser, async (req, res) => {
 // 로컬 로그아웃
 router.post('/logout', Validation.isUser, async (req, res) => {
   req.session.destroy();
+
   res.status(200).json(true);
 });
 
