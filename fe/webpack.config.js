@@ -5,8 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv-webpack');
 
+const NODE_ENV = process.env.NODE_ENV;
+
 const env = new dotenv({
-  path: path.join(__dirname, './.env.dev'),
+  path:
+    NODE_ENV === 'dev'
+      ? path.join(__dirname, './.env.dev')
+      : path.join(__dirname, './.env.prod'),
 }).definitions;
 
 module.exports = {
@@ -58,7 +63,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({ filename: 'app.css' }),
     new webpack.DefinePlugin({
-      'process.env.DEV_CLIENT_ID': env['process.env.DEV_CLIENT_ID'],
+      'process.env.CLIENT_ID': env['process.env.CLIENT_ID'],
       'process.env.CALLBACK_URL': env['process.env.CALLBACK_URL'],
     }),
   ],
