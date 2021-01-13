@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Container,
   HeaderWrap,
@@ -7,9 +7,10 @@ import {
   ButtonBox,
   SearchBox,
 } from './style';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { IsLoginedState } from '../../../../../App';
 const Header = ({
   url,
   setUrl,
@@ -18,6 +19,8 @@ const Header = ({
   searchType,
   setSearchType,
 }) => {
+  const isLogined = useContext(IsLoginedState);
+  const history = useHistory();
   const onChange = (e) => {
     const { value } = e.target;
     setValue(value);
@@ -27,15 +30,20 @@ const Header = ({
   const onTypeChange = (e) => {
     setSearchType(e.target.value);
   };
+  const onWriteClick = (e) => {
+    if (isLogined && isLogined.isLogined) history.push('/board/write');
+    else alert('로그인을 후 글쓰기가 가능합니다.');
+  };
   return (
     <Container>
       <HeaderWrap>
-        <h5>
-          <a href="/">자유</a>
-        </h5>
-        <Link to="/board/write">
-          <FontAwesomeIcon icon={faPenSquare} color="#707070" />
-        </Link>
+        <h5>자유게시판</h5>
+
+        <FontAwesomeIcon
+          icon={faPenSquare}
+          color="#707070"
+          onClick={onWriteClick}
+        />
       </HeaderWrap>
       <HeaderWrap>
         <div>자유게시판에 오신 것을 환영합니다!</div>

@@ -31,12 +31,6 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
       alert('댓글을 입력하세요!');
       return;
     }
-    const pw = prompt('비밀번호를 입력하세요! (최소 4글자)');
-    if (pw.length < 4) {
-      alert('최소 4글자 이상입니다!');
-      return;
-    }
-
     const nowDate = getDate(new Date());
     const key = post.comment.length + 1;
     const response = await fetch('http://127.0.0.1:4000/board/comment/write', {
@@ -51,7 +45,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
         boardId: post._id,
         createAt: nowDate,
         context: value,
-        password: pw,
+        writerId: isLogined.userKey,
         key: key,
       }),
     });
@@ -68,7 +62,8 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
     post.comment.push({
       createAt: nowDate,
       context: value,
-      password: pw,
+      writerKey: isLogined.userKey,
+      writerId: isLogined.userId,
       key: key,
     });
 
@@ -94,11 +89,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
           <ul>
             {post.comment.map((ele, index) => {
               const deleteOnClick = async () => {
-                const pw = prompt('비밀번호를 입력하세요! (최소 4글자)');
-                if (pw !== ele.password) {
-                  alert('비밀번호가 일치하지 않습니다!');
-                  return;
-                }
+                if (ele.writerKey !== isLogined.userKey) return;
                 const conFirm = confirm('정말 댓글을 삭제하시겠습니까?');
                 if (conFirm === false) return;
                 const response = await fetch(
@@ -131,7 +122,11 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
 
               return (
                 <Comment key={ele} onClick={deleteOnClick}>
-                  <div>{ele.createAt}</div>
+                  <div>
+                    <span className="writer">{ele.writerId} </span>
+
+                    {ele.createAt}
+                  </div>
                   <div>{ele.context}</div>
                 </Comment>
               );

@@ -9,8 +9,11 @@ const router = express.Router();
 // 로그인 유무 확인
 // 403 : 인증정보 실패시 에러코드
 router.post('/', async (req, res) => {
-  if (req.session.user) res.status(200).json({ isLogined: true });
-  else res.status(200).json({ isLogined: false });
+  if (req.session.user) {
+    res
+      .status(200)
+      .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
+  } else res.status(403).json({ isLogined: false, userKey: '', userId: '' });
 });
 
 // 로컬 회원가입
@@ -57,7 +60,7 @@ router.post('/login', Validation.isUser, async (req, res) => {
   }
 
   req.session.user = existId;
-  res.status(200).json(true);
+  res.status(200).json({ isLogined: true, userKey: existId._id, userId: existId.userId });
 });
 
 // 로컬 로그아웃

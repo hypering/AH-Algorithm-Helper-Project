@@ -46,6 +46,9 @@ export const Comment = styled.li`
     color: #385185;
     transition: 0.5s;
   }
+  & > div > .writer {
+    font-weight: 600;
+  }
 `;
 export const PostWrap = styled.div`
   padding-top: 5px;

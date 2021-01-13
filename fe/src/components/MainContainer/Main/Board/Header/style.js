@@ -15,6 +15,9 @@ export const HeaderWrap = styled.div`
   overflow: hidden;
 
   white-space: nowrap;
+  & > .fa-w-14 {
+    cursor: pointer;
+  }
 `;
 
 export const SearchBox = styled.div`

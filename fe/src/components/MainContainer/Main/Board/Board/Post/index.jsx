@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon } from './style';
 import { CommentDispatchContext } from '../../../Board';
-
+import { IsLoginedState } from '../../../../../../App';
 const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
+  const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
     dispatch({
@@ -11,7 +12,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
       payload: '',
     });
     setSelectedBoard(post);
-    const response = fetch('http://127.0.0.1:4000/board/viewup', {
+    fetch('http://127.0.0.1:4000/board/viewup', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -32,28 +33,31 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
   const heartClick = (e) => {
     e.stopPropagation();
     setSelectedBoard(post);
-
-    const response = fetch('http://127.0.0.1:4000/board/heartup', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify({ curIp, contentId: post._id }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.status === 200) {
-          post.heart.push(curIp);
-          const updatedPosts = [...posts];
-          setBoards(updatedPosts);
-          alert('좋아요!');
-        } else {
-          alert('이미 좋아요를 눌렀습니다.');
-        }
-      });
+    if (isLogined && isLogined.isLogined === true) {
+      fetch('http://127.0.0.1:4000/board/heartup', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify({ curIp, contentId: post._id }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.status === 200) {
+            post.heart.push(isLogined.userKey);
+            const updatedPosts = [...posts];
+            setBoards(updatedPosts);
+            alert('좋아요!');
+          } else {
+            alert('이미 좋아요를 눌렀습니다.');
+          }
+        });
+    } else {
+      alert('로그인이 필요합니다.');
+    }
   };
 
   return (
