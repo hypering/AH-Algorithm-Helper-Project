@@ -42,7 +42,7 @@ const Item = ({ id, value }) => {
                 e.stopPropagation();
                 const conFirm = confirm('정말 대회를 삭제하시겠습니까?');
                 if (conFirm === false) return;
-                console.log(ele._id);
+
                 const resopnse = await fetch(
                   `http://127.0.0.1:4000/contest/delete`,
                   {

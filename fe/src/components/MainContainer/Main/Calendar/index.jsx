@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import Item from './Item';
 import ContestModal from './ContestModal';
 import { Container, ContestButton } from './style';
 import useGetContestDate from '../../../../hooks/useGetContestData';
+import { IsLoginedState } from '../../../../App';
 
 const Calendar = () => {
   const [visible, setvisible] = useState(false);
@@ -10,7 +11,7 @@ const Calendar = () => {
   const onClick = useCallback(() => {
     setvisible(true);
   }, [value]);
-
+  const state = useContext(IsLoginedState);
   useGetContestDate(setValue);
 
   return (
@@ -20,7 +21,9 @@ const Calendar = () => {
       <Item id="codeforces" value={value} />
       <Item id="atcoder" value={value} />
       <Item id="another" value={value} />
-      <ContestButton onClick={onClick}>대회 등록</ContestButton>
+      {state.isLogined === true && (
+        <ContestButton onClick={onClick}>대회 등록</ContestButton>
+      )}
     </Container>
   );
 };
