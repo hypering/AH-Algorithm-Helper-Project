@@ -80,7 +80,7 @@ export const getBaekJoonDate = async (i) => {
 
 // 문제 생성 API
 
-// app.get('/problem/add', async (req, res) => {
+// app.get('/add', async (req, res) => {
 //   for (let i = 1; i <= 1; i++) {
 //     const BaekJoondata = await getBaekJoonDate(i);
 //     BaekJoondata.forEach(async (ele) => {

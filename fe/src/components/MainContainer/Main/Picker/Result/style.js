@@ -12,16 +12,17 @@ export const ResContainer = styled.div`
 export const Results = styled.div`
   display: flex;
   flex-direction: column;
+  height: 80%;
   overflow-y: auto;
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
   }
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 export const Subtitle = styled.span`
   font-weight: 600;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   text-align: center;
 `;
 
