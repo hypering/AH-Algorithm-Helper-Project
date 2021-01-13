@@ -66,8 +66,7 @@ const LoginWrap = styled.div`
   width: 100%;
 `;
 
-const Login = ({ setIsLogined }) => {
-
+const Login = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);

@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "webpack serve",
+    "dev": "webpack serve",
+    "build": "webpack --config webpack.config.js",
     "start": "react-scripts start"
   },
   "dependencies": {

@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Picker from './Picker';
 import Calendar from './Calendar';
 import FreeBoard from './Board';
 import Login from './Login';
-import { Container } from './style';
-import { Redirect, Route } from 'react-router-dom';
+import Callback from './Callback';
 import { UserDispatch, IsLoginedState } from '../../../App.jsx';
+import { Container } from './style';
+
 const Main = ({ curIp }) => {
   const dispatch = useContext(UserDispatch);
   const isLogined = useContext(IsLoginedState);
@@ -23,28 +25,32 @@ const Main = ({ curIp }) => {
       .then(({ isLogined }) => {
         dispatch({ type: 'SET_IS_LOGINED', payload: isLogined });
       });
-  }, [isLogined]);
+  }, []);
 
   return (
     <Container>
-      <Route
-        exact
-        path="/"
-        render={(props) =>
-          isLogined.isLogined ? (
-            <Redirect
-              to={{ pathname: '/picker', state: { from: props.location } }}
-            />
-          ) : (
-            <Login />
-          )
-        }
-      />
-      <Route path="/calendar" component={Calendar} />
-      <Route path="/board">
-        <FreeBoard curIp={curIp}></FreeBoard>
-      </Route>
-      <Route path="/picker" component={Picker} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) =>
+            isLogined.isLogined ? (
+              <Redirect
+                to={{ pathname: '/picker', state: { from: props.location } }}
+              />
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route path="/calendar" component={Calendar} />
+        <Route path="/board">
+          <FreeBoard curIp={curIp}></FreeBoard>
+        </Route>
+        <Route path="/picker" component={Picker} />
+        <Route path="/callback" component={Callback} />
+        <Route render={() => <div>404 NOT FOUND</div>} />
+      </Switch>
     </Container>
   );
 };
