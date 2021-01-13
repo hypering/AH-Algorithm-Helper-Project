@@ -71,6 +71,7 @@ const Item = ({ id, value }) => {
                 );
                 if (resopnse.status === 200) {
                   alert('해당 대회가 삭제되었습니다.');
+                  window.location.href = '/calendar';
                 } else {
                   alert('해당 대회가 삭제되지 않았습니다.');
                 }
