@@ -14,25 +14,22 @@ import {
   CommentText,
 } from './style';
 import { IsLoginedState } from '../../../../../App';
-const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
+const DetailView = ({ posts, post, setBoards }) => {
   const isLogined = useContext(IsLoginedState);
-  if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
+  if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
   const onChange = (e) => {
     dispatch({
       type: 'CHANGE_VALUE',
       payload: e.target.value,
     });
   };
-
   const onClick = async () => {
     if (value.length === 0) {
       alert('댓글을 입력하세요!');
       return;
     }
-    const nowDate = getDate(new Date());
-    const key = post.comment.length + 1;
     const response = await fetch('http://127.0.0.1:4000/board/comment/write', {
       method: 'post',
       headers: {
@@ -43,10 +40,9 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
       credentials: 'include',
       body: JSON.stringify({
         boardId: post._id,
-        createAt: nowDate,
+        createAt: getDate(new Date()),
         context: value,
         writerId: isLogined.userKey,
-        key: key,
       }),
     });
 
@@ -59,12 +55,14 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
       alert('댓글 등록에 실패하였습니다.');
       return;
     }
+    const { newCommentId } = await response.json();
+
     post.comment.push({
+      _id: newCommentId,
       createAt: nowDate,
       context: value,
       writerKey: isLogined.userKey,
       writerId: isLogined.userId,
-      key: key,
     });
 
     const updatedPosts = [...posts];
@@ -87,7 +85,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
       <PostWrap>
         {post.comment.length > 0 ? (
           <ul>
-            {post.comment.map((ele, index) => {
+            {post.comment.map((ele) => {
               const deleteOnClick = async () => {
                 if (ele.writerKey !== isLogined.userKey) return;
                 const conFirm = confirm('정말 댓글을 삭제하시겠습니까?');
@@ -104,7 +102,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
                     credentials: 'include',
                     body: JSON.stringify({
                       boardId: post._id,
-                      key: ele.key,
+                      key: ele._id,
                     }),
                   }
                 );
@@ -113,7 +111,7 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
                   return;
                 }
                 for (let i = 0; i < post.comment.length; i++) {
-                  if (post.comment[i].key === ele.key) {
+                  if (post.comment[i]._id === ele._id) {
                     post.comment.splice(i, 1);
                   }
                 }
@@ -121,11 +119,11 @@ const DetailView = ({ posts, post, setBoards, setSelectedBoard }) => {
               };
 
               return (
-                <Comment key={ele} onClick={deleteOnClick}>
+                <Comment key={ele._id} onClick={deleteOnClick}>
                   <div>
                     <span className="writer">{ele.writerId} </span>
 
-                    {ele.createAt}
+                    {getDate(ele.createAt)}
                   </div>
                   <div>{ele.context}</div>
                 </Comment>
