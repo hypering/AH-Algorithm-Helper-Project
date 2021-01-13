@@ -9,7 +9,11 @@ const Header = () => {
   const dispatch = useContext(UserDispatch);
   const history = useHistory();
   const onLogOutClick = () => {
-    fetch('://127.0.0.1/user/logout', { method: 'post' }).then((res) => {
+    fetch('http://127.0.0.1:4000/user/logout', {
+      method: 'post',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((res) => {
       res.status === 200;
       dispatch({
         type: 'SET_IS_LOGINED',
