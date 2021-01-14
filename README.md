@@ -46,8 +46,6 @@
 </div>
 
 </div>
-<br>
-<br>
 
 ![](https://i.imgur.com/a5fdcEG.png)
 
