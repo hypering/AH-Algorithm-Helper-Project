@@ -5,6 +5,7 @@ import Calendar from './Calendar';
 import FreeBoard from './Board';
 import Login from './Login';
 import Callback from './Callback';
+import SignUp from './Account/SignUp';
 import { UserDispatch, IsLoginedState } from '../../../App.jsx';
 import { Container } from './style';
 
@@ -49,6 +50,7 @@ const Main = ({ curIp }) => {
         </Route>
         <Route path="/picker" component={Picker} />
         <Route path="/callback" component={Callback} />
+        <Route path="/account/signup" component={SignUp} />
         <Route render={() => <div>404 NOT FOUND</div>} />
       </Switch>
     </Container>

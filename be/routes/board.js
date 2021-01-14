@@ -1,7 +1,8 @@
 const express = require('express');
 const { upload } = require('../lib/imageUpload');
-const { boardModel } = require('../models');
+const { boardModel, addComment } = require('../models');
 const { userModel } = require('../models');
+
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -12,7 +13,13 @@ router.get('/', async (req, res) => {
       const refinedComment = await Promise.all(
         element.comment.map(async (e) => {
           const queryCommentUser = await userModel.findOne({ _id: e.writerId });
-          return { ...e, writerKey: e.writerId, writerId: queryCommentUser.userId };
+          return {
+            _id: e._id,
+            createAt: e.createAt,
+            context: e.context,
+            writerKey: e.writerId,
+            writerId: queryCommentUser.userId,
+          };
         }),
       );
 
@@ -28,7 +35,7 @@ router.get('/', async (req, res) => {
       };
     }),
   );
-  console.log(refinedDatas);
+
   res.json(refinedDatas);
 });
 
@@ -98,32 +105,24 @@ router.post('/heartup', async (req, res) => {
 });
 
 router.post('/comment/write', async (req, res) => {
-  const { boardId, key, createAt, context } = req.body;
+  const { boardId, createAt, context } = req.body;
   const writer = req.session.user._id;
-  await boardModel.findOneAndUpdate(
-    {
-      _id: boardId,
-    },
-    {
-      $addToSet: {
-        comment: {
-          writerId: writer,
-          key,
-          createAt,
-          context,
-        },
-      },
-    },
-    { new: true },
-  );
-  res.status(200).json(true);
+  const newCommentId = await addComment(boardId, {
+    writerId: writer,
+    createAt,
+    context,
+  });
+
+  res.status(200).json({ newCommentId });
 });
 
 router.post('/comment/delete', async (req, res) => {
   const { boardId, key } = req.body;
   const queryContent = await boardModel.findOne({ _id: boardId });
+  console.log(key);
   const removedComment = queryContent.comment.find((element) => {
-    return element.key === key;
+    console.log(typeof element._id, typeof key);
+    return String(element._id) === key;
   });
 
   if (removedComment !== undefined) {
