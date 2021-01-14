@@ -3,10 +3,14 @@ import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon } from './style';
 import { CommentDispatchContext } from '../../../Board';
 import { IsLoginedState } from '../../../../../../App';
-const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
+const Post = ({ posts, setBoards, setPosts,post, setSelectedBoard, id, curIp ,fromProfile}) => {
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
+    if(fromProfile){
+
+    }
+    else{
     dispatch({
       type: 'CHANGE_VALUE',
       payload: '',
@@ -28,10 +32,12 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
           setBoards(updatedPosts);
         }
       });
+    }
   };
 
   const heartClick = (e) => {
     e.stopPropagation();
+    if(!fromProfile)
     setSelectedBoard(post);
     if (isLogined && isLogined.isLogined === true) {
       fetch('http://127.0.0.1:4000/board/heartup', {
@@ -48,8 +54,13 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
         .then((json) => {
           if (json.status === 200) {
             post.heart.push(isLogined.userKey);
+            console.log(post.heart.length)
+         
             const updatedPosts = [...posts];
+            if(fromProfile)
+            setPosts(updatedPosts);
             setBoards(updatedPosts);
+            
             alert('좋아요!');
           } else {
             alert('이미 좋아요를 눌렀습니다.');
@@ -63,6 +74,9 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
   return (
     <Container onClick={onClick} key={id} id={id}>
       <h6>{post.author}</h6>
+      <div>
+        {post.content}
+      </div>
       <div>
         {post.img_url != '' ? (
           <ImgIcon
