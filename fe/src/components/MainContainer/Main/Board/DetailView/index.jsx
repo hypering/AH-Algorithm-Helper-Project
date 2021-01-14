@@ -12,8 +12,10 @@ import {
   EmptyText,
   PostWrap,
   CommentText,
+  ProfileImg
 } from './style';
 import { IsLoginedState } from '../../../../../App';
+import { Link } from 'react-router-dom';
 const DetailView = ({ posts, post, setBoards }) => {
   const isLogined = useContext(IsLoginedState);
   const value = useContext(CommentStateContext);
@@ -120,12 +122,20 @@ const DetailView = ({ posts, post, setBoards }) => {
 
               return (
                 <Comment key={ele._id} onClick={deleteOnClick}>
+               <Link to={`/account/`+ele.writerId}>
+               <ProfileImg>
+                
+                 {ele.profile&&<img src={`https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/`+ele.profile} alt="프로필 이미지"/>}
+                
+                    </ProfileImg>
+                    </Link>
+                    <div className="commentContent">
                   <div>
                     <span className="writer">{ele.writerId} </span>
-
                     {getDate(ele.createAt)}
                   </div>
                   <div>{ele.context}</div>
+                  </div>
                 </Comment>
               );
             })}

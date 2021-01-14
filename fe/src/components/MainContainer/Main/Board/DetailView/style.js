@@ -39,6 +39,8 @@ export const ContentWrap = styled.div`
 export const Comment = styled.li`
   padding: 15px;
   border-radius: 15px;
+  display:flex;
+  
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   font-size: 15px;
   &:hover {
@@ -94,3 +96,14 @@ export const CommentText = styled.textarea`
   margin-right: 5px;
   border-radius: 12px;
 `;
+export const ProfileImg = styled.div`
+width:50px;
+height:50px;
+border-radius:50%;
+margin-right:20px;
+overflow:hidden;
+&>img{
+    width:100%;
+    
+}
+`
