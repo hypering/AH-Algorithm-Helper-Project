@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "webpack serve",
-    "build": "webpack --config webpack.config.js",
+    "dev": "set NODE_ENV=dev&& webpack serve",
+    "build": "set NODE_ENV=prod&& webpack --mode production",
     "start": "react-scripts start"
   },
   "dependencies": {

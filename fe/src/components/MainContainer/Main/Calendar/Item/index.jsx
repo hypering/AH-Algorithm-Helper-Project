@@ -14,8 +14,19 @@ import {
 
 const Item = ({ id, value }) => {
   let num = 0;
+
+  const onWheel = (e) => {
+    const container = document.getElementById(id);
+    const containerScrollPosition = document.getElementById(id).scrollLeft;
+    container.scrollTo({
+      top: 0,
+      left: containerScrollPosition + e.deltaY,
+      behaviour: 'smooth',
+    });
+  };
+
   return (
-    <ItemContainer>
+    <ItemContainer id={id} onWheel={onWheel}>
       <Title>{id}</Title>
       <Container>
         {value &&
@@ -42,7 +53,7 @@ const Item = ({ id, value }) => {
                 e.stopPropagation();
                 const conFirm = confirm('정말 대회를 삭제하시겠습니까?');
                 if (conFirm === false) return;
-                console.log(ele._id);
+
                 const resopnse = await fetch(
                   `http://127.0.0.1:4000/contest/delete`,
                   {
@@ -60,6 +71,7 @@ const Item = ({ id, value }) => {
                 );
                 if (resopnse.status === 200) {
                   alert('해당 대회가 삭제되었습니다.');
+                  window.location.href = '/calendar';
                 } else {
                   alert('해당 대회가 삭제되지 않았습니다.');
                 }

@@ -119,7 +119,9 @@ router.post('/github', async (req, res) => {
 
     if (existId) {
       req.session.user = existId;
-      res.status(200).json(true);
+      res
+        .status(200)
+        .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
       return;
     }
 
@@ -130,7 +132,9 @@ router.post('/github', async (req, res) => {
     });
 
     req.session.user = User;
-    res.status(200).json(true);
+    res
+      .status(200)
+      .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
   } catch (error) {
     console.log(error);
   }

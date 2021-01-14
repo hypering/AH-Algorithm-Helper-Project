@@ -27,6 +27,10 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/delete', async (req, res) => {
+  if (!req.session.user) {
+    res.status(201).json(false);
+    return;
+  }
   const { contest_id } = req.body;
 
   const response = await contestModel.deleteOne({

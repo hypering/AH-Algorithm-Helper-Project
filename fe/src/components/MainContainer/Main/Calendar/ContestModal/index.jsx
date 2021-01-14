@@ -51,6 +51,7 @@ const ContestModal = ({ visible, setvisible }) => {
       alert('사용 권한이 없습니다.');
     } else {
       alert('대회가 등록되었습니다!');
+      window.location.href = '/calendar';
     }
     setOrganizer('');
     setName('');

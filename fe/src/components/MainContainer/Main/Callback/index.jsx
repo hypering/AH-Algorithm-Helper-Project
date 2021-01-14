@@ -20,10 +20,12 @@ const Callback = () => {
       body: JSON.stringify({
         code,
       }),
-    }).then((res) => {
-      history.push('/picker');
-      dispatch({ type: 'SET_IS_LOGINED', payload: true });
-    });
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        history.push('/picker');
+        dispatch({ type: 'SET_IS_LOGINED', payload: json });
+      });
   };
 
   useEffect(() => {
