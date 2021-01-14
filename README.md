@@ -49,4 +49,6 @@
 <br>
 <br>
 
+![](https://i.imgur.com/a5fdcEG.png)
+
 <h2>더 자세한 내용은</h2> <h2><a href = "https://github.com/hypering/AH-Algorithm-Helper-Project/wiki">Wiki</a></h2> <h2>를 확인하세요!</h2>
