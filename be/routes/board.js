@@ -1,4 +1,4 @@
-const { query } = require('express');
+
 const express = require('express');
 const { upload } = require('../lib/imageUpload');
 const { boardModel, addComment } = require('../models');
@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const boardDates = await boardModel.find();
+
   const refinedDatas = await Promise.all(
     boardDates.map(async (element) => {
       const queryUser = await userModel.findOne({ _id: element.author });
@@ -34,6 +35,7 @@ router.get('/', async (req, res) => {
         author: queryUser.userId,
         img_url: element.img_url,
         content: element.content,
+        profile:queryUser.profile
       };
     }),
   );

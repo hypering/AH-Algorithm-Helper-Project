@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { userModel,boardModel } = require('../models');
+const { userModel, boardModel } = require('../models');
 const Validation = require('../lib/validation');
 const axios = require('axios');
 
@@ -29,16 +29,18 @@ router.post('/idcheck', async (req, res) => {
   }
 });
 
-router.post('/getUser',async (req, res) => {
-  const {userId}=req.body;
-  const queryUser = await userModel.findOne({userId:userId},{userId:true,posts:true,email:true,introduction:true,profile:true});
-  let posts=[];
+router.post('/getUser', async (req, res) => {
+  const { userId } = req.body;
+  const queryUser = await userModel.findOne(
+    { userId: userId },
+    { userId: true, posts: true, email: true, introduction: true, profile: true },
+  );
+  let posts = [];
   console.log(queryUser);
-  
-  for(i=0;i<queryUser.posts.length;i++)
-  {
-    const queryPost = await boardModel.findOne({_id:queryUser.posts[i]});
-     posts.push(queryPost);
+
+  for (i = 0; i < queryUser.posts.length; i++) {
+    const queryPost = await boardModel.findOne({ _id: queryUser.posts[i] });
+    posts.push(queryPost);
   }
   const refinedDatas = await Promise.all(
     posts.map(async (element) => {
@@ -52,7 +54,7 @@ router.post('/getUser',async (req, res) => {
             context: e.context,
             writerKey: e.writerId,
             writerId: queryCommentUser.userId,
-            profile:queryUser.profile
+            profile: queryUser.profile,
           };
         }),
       );
@@ -66,21 +68,16 @@ router.post('/getUser',async (req, res) => {
         author: queryUser.userId,
         img_url: element.img_url,
         content: element.content,
+        profile: queryUser.profile,
       };
     }),
   );
 
-
-  if(queryUser)
-  res.status(200).json({posts:refinedDatas,queryUser})
-  else{
+  if (queryUser) res.status(200).json({ posts: refinedDatas, queryUser });
+  else {
     res.status(404).json(false);
   }
-  
-  })
-
-
-
+});
 
 // 로컬 회원가입
 // 409 : 회원가입 실패시 에러코드
