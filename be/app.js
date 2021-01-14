@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 const express = require('express');
 const logger = require('morgan');
 const path = require('path');
@@ -18,13 +19,19 @@ const UserRouter = require('./routes/user');
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-
-app.use(
-  cors({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://49.50.166.11:80'],
-    credentials: true,
-  }),
-);
+process.env.ENV === 'development'
+  ? app.use(
+      cors({
+        origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+        credentials: true,
+      }),
+    )
+  : app.use(
+      cors({
+        origin: ['http://49.50.166.11:80'],
+        credentials: true,
+      }),
+    );
 
 app.use(logger('dev'));
 app.use(express.json());

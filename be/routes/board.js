@@ -76,7 +76,11 @@ router.post('/write', async (req, res) => {
   });
 
   res.statusCode = 302;
-  res.setHeader('Location', 'http://127.0.0.1:3000/board');
+  if (process.env.ENV === 'development') {
+    res.setHeader('Location', 'http://127.0.0.1:3000/board');
+  } else {
+    res.setHeader('Location', 'http://49.50.166.11:80/board');
+  }
   res.end();
 });
 
