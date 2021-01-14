@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { userModel } = require('../models');
+const { userModel,boardModel } = require('../models');
 const Validation = require('../lib/validation');
 const axios = require('axios');
 
@@ -28,6 +28,59 @@ router.post('/idcheck', async (req, res) => {
     res.json(true);
   }
 });
+
+router.post('/getUser',async (req, res) => {
+  const {userId}=req.body;
+  const queryUser = await userModel.findOne({userId:userId},{userId:true,posts:true,email:true,introduction:true,profile:true});
+  let posts=[];
+  console.log(queryUser);
+  
+  for(i=0;i<queryUser.posts.length;i++)
+  {
+    const queryPost = await boardModel.findOne({_id:queryUser.posts[i]});
+     posts.push(queryPost);
+  }
+  const refinedDatas = await Promise.all(
+    posts.map(async (element) => {
+      const queryUser = await userModel.findOne({ _id: element.author });
+      const refinedComment = await Promise.all(
+        element.comment.map(async (e) => {
+          const queryCommentUser = await userModel.findOne({ _id: e.writerId });
+          return {
+            _id: e._id,
+            createAt: e.createAt,
+            context: e.context,
+            writerKey: e.writerId,
+            writerId: queryCommentUser.userId,
+            profile:queryUser.profile
+          };
+        }),
+      );
+
+      return {
+        _id: element._id,
+        tags: element.tags,
+        heart: element.heart,
+        comment: refinedComment,
+        clicked: element.clicked,
+        author: queryUser.userId,
+        img_url: element.img_url,
+        content: element.content,
+      };
+    }),
+  );
+
+
+  if(queryUser)
+  res.status(200).json({posts:refinedDatas,queryUser})
+  else{
+    res.status(404).json(false);
+  }
+  
+  })
+
+
+
 
 // 로컬 회원가입
 // 409 : 회원가입 실패시 에러코드
