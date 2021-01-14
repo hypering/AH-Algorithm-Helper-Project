@@ -65,6 +65,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.CLIENT_ID': env['process.env.CLIENT_ID'],
       'process.env.CALLBACK_URL': env['process.env.CALLBACK_URL'],
+      'process.env.BASE_URL': env['process.env.BASE_URL'],
     }),
   ],
 };
