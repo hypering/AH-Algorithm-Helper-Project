@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const useGetContestAPI = (setValue) => {
-  fetch('http://127.0.0.1:4000/contest', {
+  fetch(`${process.env.BASE_URL}/contest`, {
     method: 'get',
     headers: {
       Accept: 'application/json',

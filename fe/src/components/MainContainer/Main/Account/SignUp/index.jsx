@@ -78,7 +78,7 @@ const SignUp = () => {
   };
 
   useEffect(async () => {
-    await fetch('http://127.0.0.1:4000/user/idcheck', {
+    await fetch(`${process.env.BASE_URL}/user/idcheck`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -128,7 +128,7 @@ const SignUp = () => {
     <Container>
       <SignUpContainer>
         <SignupHeader>SignUp</SignupHeader>
-        <form method="Post" action="http://127.0.0.1:4000/user/join/">
+        <form method="Post" action={`${process.env.BASE_URL}/user/join/`}>
           <input
             type="text"
             name="userId"

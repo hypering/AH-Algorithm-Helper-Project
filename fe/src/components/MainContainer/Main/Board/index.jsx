@@ -28,7 +28,7 @@ const FreeBoard = ({ curIp }) => {
   const [state, dispatch] = useReducer(reducer, '');
 
   useEffect(() => {
-    fetch('http://127.0.0.1:4000/board', {
+    fetch(`${process.env.BASE_URL}/board`, {
       method: 'get',
     })
       .then((response) => response.json())

@@ -21,7 +21,7 @@ function App() {
   });
 
   if (!loading) {
-    fetch('//127.0.0.1:4000/getip', {
+    fetch(`${process.env.BASE_URL}/getip`, {
       method: 'post',
       headers: {
         Accept: 'application/json',

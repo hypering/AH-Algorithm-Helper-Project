@@ -9,7 +9,7 @@ const Header = () => {
   const dispatch = useContext(UserDispatch);
   const history = useHistory();
   const onLogOutClick = () => {
-    fetch('http://127.0.0.1:4000/user/logout', {
+    fetch(`${process.env.BASE_URL}/user/logout`, {
       method: 'post',
       mode: 'cors',
       credentials: 'include',

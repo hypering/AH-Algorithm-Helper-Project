@@ -55,7 +55,7 @@ const Picker = () => {
     } else {
       //요청
       const res = await getProblems(
-        'http://127.0.0.1:4000/problem',
+        `${process.env.BASE_URL}/problem`,
         problemCnt,
         selectedCate,
         selectedDifficulty

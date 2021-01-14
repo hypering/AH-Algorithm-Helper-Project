@@ -12,7 +12,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
       payload: '',
     });
     setSelectedBoard(post);
-    fetch('http://127.0.0.1:4000/board/viewup', {
+    fetch(`${process.env.BASE_URL}/board/viewup`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -34,7 +34,7 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
     e.stopPropagation();
     setSelectedBoard(post);
     if (isLogined && isLogined.isLogined === true) {
-      fetch('http://127.0.0.1:4000/board/heartup', {
+      fetch(`${process.env.BASE_URL}/board/heartup`, {
         method: 'post',
         headers: {
           Accept: 'application/json',
