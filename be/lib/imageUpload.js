@@ -26,7 +26,7 @@ const storage = multerS3({
   key: function (req, file, cb) {
     cb(null, `Boards/FreeBoard/${req.body.nickname}`);
   },
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 2 * 1024 * 1024 },
 });
 
 exports.upload = multer({ storage: storage });
