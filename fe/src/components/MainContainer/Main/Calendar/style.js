@@ -3,7 +3,10 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  width: 1720px;
+  min-width: 1720px;
+  height: 820px;
+  min-height: 820px;
   padding: 15px;
   overflow: hidden;
   white-space: nowrap;

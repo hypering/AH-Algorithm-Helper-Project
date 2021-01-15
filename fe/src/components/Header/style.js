@@ -29,13 +29,14 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   border-bottom: 2px solid #707070;
+  width: 1920px;
+  min-width: 1920px;
   height: 100px;
+  min-height: 100px;
   line-height: 100px;
   background-color: #efefef;
   color: black;
   text-align: center;
-  & > .logo {
-  }
   & > .logo > a {
     font-size: 25px;
     font-weight: 600;
@@ -45,9 +46,7 @@ export const Container = styled.div`
   }
   & > .buttons {
     position: absolute;
-    right: 30px;
-    top: 10px;
-
+    margin-left: 1800px;
     & > svg {
       cursor: pointer;
       border: 1px solid #707070;

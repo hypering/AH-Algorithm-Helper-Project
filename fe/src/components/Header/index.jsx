@@ -4,6 +4,7 @@ import { Container } from './style';
 import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IsLoginedState, UserDispatch } from '../../App';
+
 const Header = () => {
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(UserDispatch);
