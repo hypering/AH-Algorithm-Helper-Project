@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import LoginButton from './LoginButton';
@@ -13,7 +13,8 @@ const Container = styled.div`
 `;
 const LoginContainer = styled.div`
   width: 50%;
-  height: 50%;
+  min-width:220px;
+  padding-bottom:50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,14 +22,14 @@ const LoginContainer = styled.div`
   & > .errorMsgContainer {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
     margin: 10px 0 10px 0;
   }
   & > .errorMsgContainer > .errorMsg {
     color: red;
     font-size: 12px;
-    margin-right: 180px;
+ 
   }
   & > .item {
     width: 100%;
@@ -65,7 +66,29 @@ const LoginHeader = styled.div`
 const LoginWrap = styled.div`
   width: 100%;
 `;
+const Partition = styled.div`
 
+border:1px solid #efefef;
+margin-top:20px;
+margin-bottom:10px;
+width:210px;
+`
+const SignUpButton =styled.button`
+  min-width: 200px;
+    background-color: #707070;
+    color: white;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+    border:0;
+    outline:0;
+    cursor: pointer;
+    &>a{
+      text-decoration:none;
+      color:white;
+    }
+`
 const Login = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
@@ -143,6 +166,8 @@ const Login = () => {
         <LoginWrap>
           <LoginButton disable={disable} onClick={onClick} />
         </LoginWrap>
+        <Partition></Partition>
+        <SignUpButton><Link to="/account/signup">Sign Up</Link> </SignUpButton>
       </LoginContainer>
     </Container>
   );

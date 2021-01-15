@@ -33,8 +33,9 @@ const FreeBoard = ({ curIp }) => {
     })
       .then((response) => response.json())
       .then((board) => {
-        console.log(board);
+
         setBoards(board);
+
       });
   }, []);
 

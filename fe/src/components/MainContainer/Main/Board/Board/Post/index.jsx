@@ -1,38 +1,51 @@
 import React, { useContext } from 'react';
 import SvgIcon from './SvgIcon';
-import { Container, SvgWrap, ImgIcon } from './style';
+import { Container, SvgWrap, ImgIcon, ProfileImg } from './style';
 import { CommentDispatchContext } from '../../../Board';
 import { IsLoginedState } from '../../../../../../App';
-const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
+import { Link } from 'react-router-dom';
+const Post = ({
+  posts,
+  setBoards,
+  setPosts,
+  post,
+  setSelectedBoard,
+  id,
+  curIp,
+  fromProfile,
+}) => {
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
-    dispatch({
-      type: 'CHANGE_VALUE',
-      payload: '',
-    });
-    setSelectedBoard(post);
-    fetch(`${process.env.BASE_URL}/board/viewup`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ curIp: curIp, contentId: post._id }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.status === 200) {
-          post.clicked.push(curIp);
-          const updatedPosts = [...posts];
-          setBoards(updatedPosts);
-        }
+    if (fromProfile) {
+    } else {
+      dispatch({
+        type: 'CHANGE_VALUE',
+        payload: '',
       });
+      setSelectedBoard(post);
+      fetch(`${process.env.BASE_URL}/board/viewup`, {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ curIp: curIp, contentId: post._id }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.status === 200) {
+            post.clicked.push(curIp);
+            const updatedPosts = [...posts];
+            setBoards(updatedPosts);
+          }
+        });
+    }
   };
 
   const heartClick = (e) => {
     e.stopPropagation();
-    setSelectedBoard(post);
+    if (!fromProfile) setSelectedBoard(post);
     if (isLogined && isLogined.isLogined === true) {
       fetch(`${process.env.BASE_URL}/board/heartup`, {
         method: 'post',
@@ -48,8 +61,12 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
         .then((json) => {
           if (json.status === 200) {
             post.heart.push(isLogined.userKey);
+            console.log(post.heart.length);
+
             const updatedPosts = [...posts];
+            if (fromProfile) setPosts(updatedPosts);
             setBoards(updatedPosts);
+
             alert('좋아요!');
           } else {
             alert('이미 좋아요를 눌렀습니다.');
@@ -62,7 +79,23 @@ const Post = ({ posts, setBoards, post, setSelectedBoard, id, curIp }) => {
 
   return (
     <Container onClick={onClick} key={id} id={id}>
-      <h6>{post.author}</h6>
+      <div className="userInfo">
+        <Link to={`/account/${post.author}`}>
+          <ProfileImg>
+            {post.profile && (
+              <img
+                src={
+                  `https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/` +
+                  post.profile
+                }
+                alt="프로필 이미지"
+              />
+            )}
+          </ProfileImg>
+        </Link>
+        <span className="userId">{post.author}</span>
+      </div>
+      <div className="postContent">{post.content}</div>
       <div>
         {post.img_url != '' ? (
           <ImgIcon

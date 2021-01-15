@@ -24,6 +24,7 @@ const Container = styled.div`
 `;
 
 const LoginButton = ({ onClick, disable }) => {
+
   const githubOnClick = () => {
     window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.CALLBACK_URL}`;
   };
