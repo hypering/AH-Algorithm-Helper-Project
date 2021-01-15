@@ -3,20 +3,28 @@ const bcrypt = require('bcrypt');
 const { userModel, boardModel } = require('../models');
 const Validation = require('../lib/validation');
 const axios = require('axios');
-
+const { upload } = require('../lib/profileUpload');
 const router = express.Router();
 
 // 로그인 유무 확인
 // 403 : 인증정보 실패시 에러코드
 router.post('/', async (req, res) => {
-  console.log();
   if (req.session.user) {
     res
       .status(200)
       .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
   } else res.status(403).json({ isLogined: false, userKey: '', userId: '' });
 });
-
+router.post('/edit', upload.single('img'), async (req, res) => {
+  const { userIntrod, userEmail } = req.body;
+  const queryUser = await userModel.findOne({ _id: req.session.user._id });
+  queryUser.email = userEmail;
+  queryUser.introduction = String(userIntrod);
+  queryUser.profile = req.session.user._id;
+  await queryUser.save();
+  res.writeHead(302, { Location: `http://127.0.0.1:3000/account/${req.session.user.userId}` });
+  res.end();
+});
 router.post('/idcheck', async (req, res) => {
   const { inputId } = req.body;
   const queryUser = await userModel.findOne({ userId: inputId });
@@ -28,7 +36,15 @@ router.post('/idcheck', async (req, res) => {
     res.json(true);
   }
 });
+router.post('/getUserForEdit', async (req, res) => {
+  const userKey = req.session.user._id;
+  const queryUser = await userModel.findOne({ _id: userKey });
 
+  if (!req.session.user) return res.status(403).json(false);
+  if (!queryUser) return res.status(204).json(false);
+
+  return res.status(200).json(queryUser);
+});
 router.post('/getUser', async (req, res) => {
   const { userId } = req.body;
   const queryUser = await userModel.findOne(
@@ -36,7 +52,6 @@ router.post('/getUser', async (req, res) => {
     { userId: true, posts: true, email: true, introduction: true, profile: true },
   );
   let posts = [];
-  console.log(queryUser);
 
   for (i = 0; i < queryUser.posts.length; i++) {
     const queryPost = await boardModel.findOne({ _id: queryUser.posts[i] });
