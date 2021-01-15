@@ -53,7 +53,7 @@ const Profile = ({ match }) => {
   const { userId } = match.params;
 
   useEffect(() => {
-    fetch('http://127.0.0.1:4000/user/getUser', {
+    fetch(`${process.env.BASE_URL}/user/getUser`, {
       method: 'Post',
       headers: {
         Accept: 'application/json',
