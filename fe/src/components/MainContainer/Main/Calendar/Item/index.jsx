@@ -55,7 +55,7 @@ const Item = ({ id, value }) => {
                 if (conFirm === false) return;
 
                 const resopnse = await fetch(
-                  `http://127.0.0.1:4000/contest/delete`,
+                  `${process.env.BASE_URL}/contest/delete`,
                   {
                     method: 'post',
                     headers: {

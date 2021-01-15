@@ -98,8 +98,11 @@ router.post('/join', Validation.isUser, async (req, res) => {
     nickname,
     email: userEmail,
   });
-
-  res.writeHead(302, { Location: 'http://127.0.0.1:3000/' });
+  if (process.env.ENV === 'development') {
+    res.writeHead(302, { Location: 'http://127.0.0.1:3000/' });
+  } else {
+    res.writeHead(302, { Location: 'http://49.50.166.11:80/' });
+  }
   res.end();
 });
 

@@ -33,21 +33,24 @@ const DetailView = ({ posts, post, setBoards }) => {
       alert('댓글을 입력하세요!');
       return;
     }
-    const response = await fetch('http://127.0.0.1:4000/board/comment/write', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify({
-        boardId: post._id,
-        createAt: getDate(new Date()),
-        context: value,
-        writerId: isLogined.userKey,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.BASE_URL}/board/comment/write`,
+      {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify({
+          boardId: post._id,
+          createAt: getDate(new Date()),
+          context: value,
+          writerId: isLogined.userKey,
+        }),
+      }
+    );
 
     dispatch({
       type: 'CHANGE_VALUE',
@@ -109,7 +112,7 @@ const DetailView = ({ posts, post, setBoards }) => {
                 const conFirm = confirm('정말 댓글을 삭제하시겠습니까?');
                 if (conFirm === false) return;
                 const response = await fetch(
-                  'http://127.0.0.1:4000/board/comment/delete',
+                  `${process.env.BASE_URL}/board/comment/delete`,
                   {
                     method: 'post',
                     headers: {

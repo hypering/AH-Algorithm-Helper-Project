@@ -96,7 +96,7 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const dispatch = useContext(UserDispatch);
   const onClick = () => {
-    fetch('http://127.0.0.1:4000/user/login', {
+    fetch(`${process.env.BASE_URL}/user/login`, {
       method: 'post',
       headers: {
         Accept: 'application/json',

@@ -14,7 +14,7 @@ const Main = ({ curIp }) => {
   const dispatch = useContext(UserDispatch);
   const isLogined = useContext(IsLoginedState);
   useEffect(() => {
-    fetch('http://127.0.0.1:4000/user', {
+    fetch(`${process.env.BASE_URL}/user`, {
       method: 'post',
       headers: {
         Accept: 'application/json',

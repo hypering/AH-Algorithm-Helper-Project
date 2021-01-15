@@ -9,7 +9,7 @@ const Callback = () => {
   const history = useHistory();
 
   const getHitHubLogin = async (code) => {
-    fetch('http://127.0.0.1:4000/user/github', {
+    fetch(`${process.env.BASE_URL}/user/github`, {
       method: 'post',
       headers: {
         Accept: 'application/json',

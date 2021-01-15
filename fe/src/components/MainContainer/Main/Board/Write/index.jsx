@@ -22,7 +22,7 @@ const Write = () => {
       formData.append('nickname', imgName);
       formData.append('img', fileField.files[0]);
 
-      await fetch('http://127.0.0.1:4000/board/imageupload', {
+      await fetch(`${process.env.BASE_URL}/board/imageupload`, {
         method: 'post',
         mode: 'cors',
         credentials: 'include',
@@ -53,7 +53,7 @@ const Write = () => {
       <Container>
         <form
           method="POST"
-          action="http://127.0.0.1:4000/board/write"
+          action={`${process.env.BASE_URL}/board/write`}
           ref={form}
         >
           <span>글쓰기</span>
