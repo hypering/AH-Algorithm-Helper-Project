@@ -10,26 +10,32 @@ const Container = styled.div`
 `;
 const SignUpContainer = styled.div`
   border: 1px solid #efefef;
-
-  width: 50%;
+  flex-grow: 1;
   padding-bottom: 50px;
   display: flex;
   align-items: center;
-
   flex-direction: column;
-  & > input {
+max-width:550px;
+  &>form{
+    max-width:350px;
+    display:flex;
+    flex-grow: 1;
+    flex-direction:column;
+    min-width:285px;
+    & > input {
     margin-top: 10px;
     padding: 5px 10px 5px 10px;
-
     outline: 0;
   }
-  & > form > .errorMsg {
+  & > .errorMsg {
     display: flex;
     height: 16px;
     & > span {
       font-size: 12px;
       color: red;
     }
+  }
+ 
   }
 `;
 const SignupHeader = styled.div`
@@ -41,7 +47,7 @@ const SignupHeader = styled.div`
   color: #707070;
 `;
 const SignupButton = styled.button`
-  width: 200px;
+  width: 100%;
   background-color: #707070;
   color: white;
   font-size: 12px;
@@ -50,6 +56,7 @@ const SignupButton = styled.button`
   border-radius: 10px;
   border: 0;
   outline: 0;
+  
 
   &:disabled {
     opacity: 0.5;
@@ -66,6 +73,8 @@ const SignUp = () => {
     pwdError: '',
     emailError: '',
   });
+  const pwdRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
+  const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const onChange = (e) => {
     const { name, value } = e.target;
     if (name === 'userId') {
@@ -97,7 +106,7 @@ const SignUp = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (userPw.length >= 4 && userEmail.length >= 1 && idValid === true) {
+    if (userPw.match(pwdRegExp) && userEmail.match(emailRegExp) && idValid === true) {
       setDisable(false);
     } else setDisable(true);
   }, [userPw, userEmail, idValid]);
@@ -106,17 +115,18 @@ const SignUp = () => {
     let idError = '';
     let pwdError = '';
     let emailError = '';
+  
     if (idValid) {
       idError = '';
     } else {
       idError = '이미 존재하는 아이디 입니다.';
     }
-    if (userPw.length < 4) {
-      pwdError = '비밀번호는 4자리 이상이어야 합니다.';
+    if (userPw.length>=1 &&!userPw.match(pwdRegExp)) {
+      pwdError = '비밀번호는 8~10자리, 영문 숫자 조합이어야 합니다.';
     } else {
       pwdError = '';
     }
-    if (userEmail.length < 1) {
+    if (userEmail.length>=1 &&!userEmail.match(emailRegExp)) {
       emailError = '유효하지 않은 이메일 입니다.';
     } else {
       emailError = '';

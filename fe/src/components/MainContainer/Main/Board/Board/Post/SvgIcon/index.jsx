@@ -9,7 +9,7 @@ const SvgIcon = ({ path, text, color, className, onClick }) => {
           <path d={path} />
         </g>
       </Icon>
-      <h6 className={className}>{text}</h6>
+      <span className={className}>{text}</span>
     </Container>
   );
 };
