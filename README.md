@@ -1,7 +1,6 @@
 # 🌸 AH (Algorithm Helper) 🌸
 
-<img src = "https://i.imgur.com/DiQnXBg.png"/>
-
+![](https://i.imgur.com/cFK6CTI.png)
 
 ## 그룹원 🏵
 
