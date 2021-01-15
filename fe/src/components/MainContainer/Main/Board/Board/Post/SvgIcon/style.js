@@ -5,6 +5,7 @@ export const Container = styled.div`
   padding: 10px 10px 5px 0px;
   border-radius: 15px;
   cursor: pointer;
+
   &:hover {
     background-color: #ebeef1;
     color: ${(props) => props.color || 'black'};
@@ -20,4 +21,5 @@ export const Icon = styled.svg`
   width: 25px;
   height: 25px;
   border-radius: 15px;
+  fill: ${(props) => props.bgColor || 'black'};
 `;
