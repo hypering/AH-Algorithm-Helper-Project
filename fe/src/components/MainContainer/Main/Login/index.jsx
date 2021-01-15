@@ -167,9 +167,9 @@ const Login = () => {
           <LoginButton disable={disable} onClick={onClick} />
         </LoginWrap>
         <Partition></Partition>
-        <SignUpButton>
-          <Link to="/account/signup">Sign Up</Link>{' '}
-        </SignUpButton>
+        <Link to="/account/signup">
+          <SignUpButton>Sign Up</SignUpButton>
+        </Link>
       </LoginContainer>
     </Container>
   );
