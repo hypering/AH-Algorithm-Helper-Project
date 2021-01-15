@@ -24,8 +24,31 @@ const ProfileImgContainer = styled.div`
   width: 100px;
   height: 100px;
   overflow: hidden;
-
+  position: relative;
   border-radius: 50%;
+  & > .hover {
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    & > .hoverText {
+      font-size: 10px;
+      word-break: keep-all;
+    }
+  }
+
+  &:hover {
+    & > img {
+      opacity: 0.3;
+    }
+    & > .hover {
+      opacity: 1;
+    }
+  }
   & > img {
     width: 100%;
     height: 100%;
@@ -144,6 +167,9 @@ const Edit = () => {
                   src={`https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/${user.profile}`}
                 />
               )}
+              <div className="hover">
+                <div className="hoverText">프로필 사진 변경</div>
+              </div>
             </ProfileImgContainer>
 
             {user && <span className="userId">{user.userId}</span>}
