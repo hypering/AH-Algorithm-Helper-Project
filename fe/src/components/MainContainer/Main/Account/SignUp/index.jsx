@@ -4,10 +4,8 @@ import { IsLoginedState } from '../../../../../App';
 import { Redirect } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
-  width: 1720px;
-  min-width: 1720px;
-  height: 820px;
-  min-height: 820px;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
 `;

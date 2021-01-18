@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 export const SideContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 190px;
-  min-width: 190px;
+  width: 10%;
   border-right: 1px solid #efefef;
 `;
 

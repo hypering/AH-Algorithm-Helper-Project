@@ -6,10 +6,8 @@ import LoginButton from './LoginButton';
 import { UserDispatch } from '../../../../App';
 const Container = styled.div`
   display: flex;
-  width: 1720px;
-  min-width: 1720px;
-  height: 820px;
-  min-height: 820px;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
 `;

@@ -8,12 +8,10 @@ import { IsLoginedState } from '../../../../../App';
 
 const Container = styled.div`
   display: flex;
-  width: 1720px;
-  min-width: 1720px;
-  height: 820px;
-  min-height: 820px;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  height: 100%;
   align-items: center;
   font-size: 12px;
 `;
@@ -60,7 +58,6 @@ const Profile = ({ match }) => {
   const isLogined = useContext(IsLoginedState);
   useEffect(() => {
     fetch(`${process.env.BASE_URL}/user/getUser`, {
-
       method: 'Post',
       headers: {
         Accept: 'application/json',

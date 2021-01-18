@@ -29,8 +29,6 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   border-bottom: 2px solid #707070;
-  width: 1920px;
-  min-width: 1920px;
   height: 100px;
   min-height: 100px;
   line-height: 100px;
@@ -46,7 +44,8 @@ export const Container = styled.div`
   }
   & > .buttons {
     position: absolute;
-    margin-left: 1800px;
+    right: 30px;
+    top: 10px;
     & > svg {
       cursor: pointer;
       border: 1px solid #707070;

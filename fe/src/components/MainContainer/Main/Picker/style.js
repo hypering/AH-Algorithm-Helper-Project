@@ -3,10 +3,8 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1720px;
-  min-width: 1720px;
-  height: 820px;
-  min-height: 820px;
+  width: 100%;
+  height: 100%;
   padding: 15px;
   & > span {
     text-align: right;
