@@ -47,11 +47,11 @@ app.use(
   }),
 );
 
-app.use('/contest', ContestRouter);
-app.use('/problem', ProblemRouter);
-app.use('/board', BoardRouter);
-app.use('/getip', GetIpRouter);
-app.use('/user', UserRouter);
+app.use('/api/contest', ContestRouter);
+app.use('/api/problem', ProblemRouter);
+app.use('/api/board', BoardRouter);
+app.use('/api/getip', GetIpRouter);
+app.use('/api/user', UserRouter);
 
 const booting = async () => {
   await dbStarter();

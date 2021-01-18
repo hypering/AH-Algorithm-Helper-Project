@@ -5,15 +5,19 @@ import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { IsLoginedState } from '../../../../../App';
+
 const Container = styled.div`
   display: flex;
+  width: 1720px;
+  min-width: 1720px;
+  height: 820px;
+  min-height: 820px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
   font-size: 12px;
 `;
+
 const ProfileContainer = styled.div`
   display: flex;
   width: 600px;
@@ -55,7 +59,8 @@ const Profile = ({ match }) => {
   const { userId } = match.params;
   const isLogined = useContext(IsLoginedState);
   useEffect(() => {
-    fetch('http://127.0.0.1:4000/user/getUser', {
+    fetch(`${process.env.BASE_URL}/user/getUser`, {
+
       method: 'Post',
       headers: {
         Accept: 'application/json',
