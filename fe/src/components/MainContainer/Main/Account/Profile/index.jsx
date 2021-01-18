@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Post from '../../Board/Board/Post';
+import PostModal from '../../Board/PostModal';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -21,7 +22,7 @@ const ProfileContainer = styled.div`
   width: 600px;
   padding: 50px 20px 50px 20px;
   border: 1px solid #efefef;
-
+  margin-top: 50px;
   margin-bottom: 50px;
 `;
 const ProfileImg = styled.div`
@@ -46,14 +47,27 @@ const UserIntContainer = styled.div`
 `;
 const UserPosts = styled.div`
   display: flex;
+  overflow: scroll;
+  overflow-x: hidden;
   width: 600px;
-  flex-direction: column;
-`;
 
+  align-items: center;
+  flex-direction: column;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const UserId = styled.span`
+  font-weight: 600;
+  margin-right: 10px;
+`;
+const ProfileContent = styled.div``;
 const Profile = ({ match }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [posts, setPosts] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [modalPost, setModalPost] = useState(null);
   const { userId } = match.params;
   const isLogined = useContext(IsLoginedState);
   useEffect(() => {
@@ -78,6 +92,7 @@ const Profile = ({ match }) => {
       }
     });
   }, []);
+
   return loaded ? (
     <Container>
       <ProfileContainer>
@@ -92,9 +107,9 @@ const Profile = ({ match }) => {
             ></img>
           )}
         </ProfileImg>
-        <div className="ProfileContent">
+        <ProfileContent>
           <UserNameContainer>
-            {userInfo && userInfo.userId}
+            {userInfo && <UserId>{userInfo.userId}</UserId>}
             <Link to="/account/edit">
               {isLogined && isLogined.userId === userId && (
                 <FontAwesomeIcon icon={faUserEdit} color="#707070" />
@@ -110,7 +125,7 @@ const Profile = ({ match }) => {
               : '자기소개가 없습니다.'}
           </UserIntContainer>
           <div className="UserEmailContainer">{userInfo && userInfo.email}</div>
-        </div>
+        </ProfileContent>
       </ProfileContainer>
       <UserPosts>
         {posts && posts.length >= 1
@@ -123,11 +138,20 @@ const Profile = ({ match }) => {
                   key={post._id}
                   setPosts={setPosts}
                   fromProfile={true}
+                  setModalPost={setModalPost}
                 />
               );
             })
           : '작성한 글이 없습니다.'}
       </UserPosts>
+      {modalPost && posts && (
+        <PostModal
+          posts={posts}
+          setModalPost={setModalPost}
+          post={modalPost}
+          setPosts={setPosts}
+        />
+      )}
     </Container>
   ) : (
     '존재 하지 않는 유저 입니다.'
