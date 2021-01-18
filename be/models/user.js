@@ -7,7 +7,7 @@ const userSchema = new Schema(
     userId: String,
     userPw: String,
     nickName: String,
-    email: String,
+    email: { type: String, default: '' },
     createAt: { type: Date, default: Date.now },
     posts: [String],
     introduction: String,
