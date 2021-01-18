@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-
+import { IsLoginedState } from '../../../../../App';
+import { Redirect } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -15,27 +16,26 @@ const SignUpContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-max-width:550px;
-  &>form{
-    max-width:350px;
-    display:flex;
-    flex-grow: 1;
-    flex-direction:column;
-    min-width:285px;
-    & > input {
-    margin-top: 10px;
-    padding: 5px 10px 5px 10px;
-    outline: 0;
-  }
-  & > .errorMsg {
+  max-width: 550px;
+  & > form {
+    max-width: 350px;
     display: flex;
-    height: 16px;
-    & > span {
-      font-size: 12px;
-      color: red;
+    flex-grow: 1;
+    flex-direction: column;
+    min-width: 285px;
+    & > input {
+      margin-top: 10px;
+      padding: 5px 10px 5px 10px;
+      outline: 0;
     }
-  }
- 
+    & > .errorMsg {
+      display: flex;
+      height: 16px;
+      & > span {
+        font-size: 12px;
+        color: red;
+      }
+    }
   }
 `;
 const SignupHeader = styled.div`
@@ -56,13 +56,13 @@ const SignupButton = styled.button`
   border-radius: 10px;
   border: 0;
   outline: 0;
-  
 
   &:disabled {
     opacity: 0.5;
   }
 `;
 const SignUp = () => {
+  const isLogined = useContext(IsLoginedState);
   const [userId, setUserId] = useState('');
   const [idValid, setIdValid] = useState(false);
   const [userPw, setUserPw] = useState('');
@@ -106,7 +106,11 @@ const SignUp = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (userPw.match(pwdRegExp) && userEmail.match(emailRegExp) && idValid === true) {
+    if (
+      userPw.match(pwdRegExp) &&
+      userEmail.match(emailRegExp) &&
+      idValid === true
+    ) {
       setDisable(false);
     } else setDisable(true);
   }, [userPw, userEmail, idValid]);
@@ -115,26 +119,27 @@ const SignUp = () => {
     let idError = '';
     let pwdError = '';
     let emailError = '';
-  
+
     if (idValid) {
       idError = '';
     } else {
       idError = '이미 존재하는 아이디 입니다.';
     }
-    if (userPw.length>=1 &&!userPw.match(pwdRegExp)) {
+    if (userPw.length >= 1 && !userPw.match(pwdRegExp)) {
       pwdError = '비밀번호는 8~10자리, 영문 숫자 조합이어야 합니다.';
     } else {
       pwdError = '';
     }
-    if (userEmail.length>=1 &&!userEmail.match(emailRegExp)) {
+    if (userEmail.length >= 1 && !userEmail.match(emailRegExp)) {
       emailError = '유효하지 않은 이메일 입니다.';
     } else {
       emailError = '';
     }
     setErrorMsg({ idError, pwdError, emailError });
   }, [idValid, userPw, userEmail]);
-
-  return (
+  return isLogined && isLogined.isLogined ? (
+    <Redirect to="/"></Redirect>
+  ) : (
     <Container>
       <SignUpContainer>
         <SignupHeader>SignUp</SignupHeader>

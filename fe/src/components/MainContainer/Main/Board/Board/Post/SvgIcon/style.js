@@ -20,4 +20,5 @@ export const Icon = styled.svg`
   width: 25px;
   height: 25px;
   border-radius: 15px;
+  fill: ${(props) => props.bgColor || 'black'};
 `;

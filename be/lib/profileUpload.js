@@ -24,7 +24,9 @@ const storage = multerS3({
     cb(null, { fieldName: file.fieldname });
   },
   key: function (req, file, cb) {
-    cb(null, `Boards/FreeBoard/${req.body.nickname}`);
+    console.log('file', file);
+    console.log('세션', req.session.user._id);
+    cb(null, `users/profile/${req.session.user._id}`);
   },
   limits: { fileSize: 2 * 1024 * 1024 },
 });

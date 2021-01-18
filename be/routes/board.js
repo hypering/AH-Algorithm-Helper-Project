@@ -1,4 +1,3 @@
-
 const express = require('express');
 const { upload } = require('../lib/imageUpload');
 const { boardModel, addComment } = require('../models');
@@ -21,7 +20,7 @@ router.get('/', async (req, res) => {
             context: e.context,
             writerKey: e.writerId,
             writerId: queryCommentUser.userId,
-            profile:queryUser.profile
+            profile: queryUser.profile,
           };
         }),
       );
@@ -35,7 +34,7 @@ router.get('/', async (req, res) => {
         author: queryUser.userId,
         img_url: element.img_url,
         content: element.content,
-        profile:queryUser.profile
+        profile: queryUser.profile,
       };
     }),
   );
@@ -78,11 +77,11 @@ router.post('/write', async (req, res) => {
     content: content,
     tags: hash,
   });
-  console.log("newPost" ,newPost);
-const queryUser = await userModel.findOne({_id:author});
-console.log("queryUser",queryUser);
-await queryUser.posts.push(newPost._id);
-queryUser.save();
+  console.log('newPost', newPost);
+  const queryUser = await userModel.findOne({ _id: author });
+  console.log('queryUser', queryUser);
+  await queryUser.posts.push(newPost._id);
+  queryUser.save();
   res.statusCode = 302;
   if (process.env.ENV === 'development') {
     res.setHeader('Location', 'http://127.0.0.1:3000/board');
