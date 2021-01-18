@@ -3,29 +3,38 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 100%;
-  padding: 1rem;
+  ${(props) => (props.isModal ? 'width: 300px;' : 'width: calc(100% - 420px);')}
+
+  margin: 10px;
   text-align: start;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: gray;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
+
+  background-color: white;
+
+  & > .postContent {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar-track {
+      background-color: gray;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #2f3542;
+      border-radius: 10px;
+      background-clip: padding-box;
+      border: 2px solid transparent;
+    }
   }
 `;
 
 export const ImgIcon = styled.img`
-  max-width: 60%;
+  max-width: 500px;
   padding-top: 5px;
   border-radius: 15px;
 `;
@@ -40,7 +49,7 @@ export const Comment = styled.li`
   padding: 15px;
   border-radius: 15px;
   display: flex;
-
+  width: 100%;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   font-size: 15px;
   &:hover {
@@ -48,12 +57,15 @@ export const Comment = styled.li`
     color: #385185;
     transition: 0.5s;
   }
-  & > div > .writer {
+  & > .commentContent > div > .writer {
     font-weight: 600;
   }
 `;
 export const PostWrap = styled.div`
   padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: calc(100% - 150px);
 `;
 
 export const CommentBtn = styled.button`
@@ -62,6 +74,7 @@ export const CommentBtn = styled.button`
   border: 2px solid #707070;
   border-radius: 20px;
   background-color: #707070;
+  min-width: 80px;
   color: white;
   font-size: 17px;
   &:focus {
@@ -77,15 +90,17 @@ export const CommentBtn = styled.button`
 export const CommentWrap = styled.div`
   display: flex;
   padding-top: 10px;
+  max-height: 50px;
+
   justify-content: space-between;
 `;
 
 export const EmptyText = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+
   height: 100%;
-  padding: 1rem;
+  margin: 10px;
   text-align: start;
 `;
 
@@ -109,4 +124,8 @@ export const ProfileImg = styled.div`
   & > img {
     width: 100%;
   }
+`;
+export const AuthorID = styled.div`
+  font-size: 20px;
+  line-height: 50px;
 `;
