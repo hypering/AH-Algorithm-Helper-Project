@@ -20,10 +20,12 @@ const Header = () => {
         type: 'SET_IS_LOGINED',
         payload: { isLogined: false, userKey: '', userId: '' },
       });
+
       history.push('/');
       alert('로그아웃 되었습니다.');
     });
   };
+
   return (
     <Container>
       <div className="logo">
