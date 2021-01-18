@@ -19,7 +19,7 @@ module.exports = {
   entry: path.join(__dirname, './src/index.js'),
   output: {
     publicPath: '/',
-    path: path.join(__dirname, '/build'),
+    path: path.join(__dirname, '../be/public'),
     filename: 'bundle.js',
   },
   resolve: {
