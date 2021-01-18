@@ -8,6 +8,10 @@
 |------|---|---|
 |<div align ="center"><h4>김민창</h4><div>|<div align ="center"><h4>이기훈</h4><div>|<div align ="center"><h4>박진형</h4><div>|
 |- 42서울을 위하여 🌵|- Just Life 🍀|- 42서울을 위하여 🌱|
+  
+## 배포 🍁
+
+http://49.50.166.11:4000/
 
 ## 기술 스택 🌻
 
