@@ -47,6 +47,10 @@ app.use('/api/problem', ProblemRouter);
 app.use('/api/board', BoardRouter);
 app.use('/api/getip', GetIpRouter);
 app.use('/api/user', UserRouter);
+process.env.ENV === 'prod' &&
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/indes.html'));
+  });
 
 const booting = async () => {
   await dbStarter();
