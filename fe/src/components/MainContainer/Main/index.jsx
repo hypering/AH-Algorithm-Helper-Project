@@ -9,6 +9,7 @@ import SignUp from './Account/SignUp';
 import { UserDispatch, IsLoginedState } from '../../../App.jsx';
 import { Container } from './style';
 import Profile from './Account/Profile';
+import Edit from './Account/Edit';
 
 const Main = ({ curIp }) => {
   const dispatch = useContext(UserDispatch);
@@ -52,6 +53,7 @@ const Main = ({ curIp }) => {
         <Route path="/picker" component={Picker} />
         <Route path="/callback" component={Callback} />
         <Route path="/account/signup" component={SignUp} />
+        <Route exact path="/account/edit" component={Edit} />
         <Route path="/account/:userId" component={Profile} />
         <Route render={() => <div>404 NOT FOUND</div>} />
       </Switch>

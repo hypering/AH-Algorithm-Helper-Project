@@ -9,8 +9,9 @@ const userSchema = new Schema(
     nickName: String,
     email: String,
     createAt: { type: Date, default: Date.now },
-    posts:[String],
-    profile:{type:String, default:"defaultProfile.jpg"}
+    posts: [String],
+    introduction: String,
+    profile: { type: String, default: 'defaultProfile.jpg' },
   },
   { versionKey: false },
 );

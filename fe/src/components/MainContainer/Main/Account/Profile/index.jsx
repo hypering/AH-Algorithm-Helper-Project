@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Post from '../../Board/Board/Post';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import { IsLoginedState } from '../../../../../App';
+
 const Container = styled.div`
   display: flex;
   width: 1720px;
@@ -12,6 +17,7 @@ const Container = styled.div`
   align-items: center;
   font-size: 12px;
 `;
+
 const ProfileContainer = styled.div`
   display: flex;
   width: 600px;
@@ -51,9 +57,10 @@ const Profile = ({ match }) => {
   const [posts, setPosts] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const { userId } = match.params;
-
+  const isLogined = useContext(IsLoginedState);
   useEffect(() => {
     fetch(`${process.env.BASE_URL}/user/getUser`, {
+
       method: 'Post',
       headers: {
         Accept: 'application/json',
@@ -65,10 +72,8 @@ const Profile = ({ match }) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((json) => {
-          console.log(json);
           setPosts(json.posts);
           setUserInfo(json.queryUser);
-          console.log(posts);
           setLoaded(true);
         });
       } else {
@@ -76,7 +81,6 @@ const Profile = ({ match }) => {
       }
     });
   }, []);
-
   return loaded ? (
     <Container>
       <ProfileContainer>
@@ -92,9 +96,19 @@ const Profile = ({ match }) => {
           )}
         </ProfileImg>
         <div className="ProfileContent">
-          <UserNameContainer>{userInfo && userInfo.userId}</UserNameContainer>
+          <UserNameContainer>
+            {userInfo && userInfo.userId}
+            <Link to="/account/edit">
+              {isLogined && isLogined.userId === userId && (
+                <FontAwesomeIcon icon={faUserEdit} color="#707070" />
+              )}
+            </Link>
+          </UserNameContainer>
+
           <UserIntContainer>
-            {userInfo && userInfo.introduction
+            {userInfo &&
+            userInfo.introduction &&
+            userInfo.introduction.length >= 1
               ? userInfo.introduction
               : '자기소개가 없습니다.'}
           </UserIntContainer>

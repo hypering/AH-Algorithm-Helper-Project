@@ -5,8 +5,8 @@ import { Container } from './style';
 const Write = () => {
   const [tags, setTags] = useState();
   const [content, setContent] = useState();
-  const [img, setImg] = useState();
-  const [imgName, setImgName] = useState();
+  const [img, setImg] = useState('');
+  const [imgName, setImgName] = useState('');
   const form = useRef();
   const writeOnClick = async (e) => {
     e.preventDefault();
@@ -43,7 +43,6 @@ const Write = () => {
         .querySelector('.container_InputImage')
         .querySelector('input').files[0];
       const fileName = file.name;
-      console.log(fileName);
       setImg(value);
       setImgName(Date.now() + '_' + fileName);
     }
@@ -70,7 +69,7 @@ const Write = () => {
               name="img"
               className="input_Image"
               accept="image/*"
-              value={img}
+              value={img || ''}
               onChange={onChange}
             ></input>
           </div>

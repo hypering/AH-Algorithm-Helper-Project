@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-
+import { IsLoginedState } from '../../../../../App';
+import { Redirect } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   width: 1720px;
@@ -63,6 +64,7 @@ const SignupButton = styled.button`
   }
 `;
 const SignUp = () => {
+  const isLogined = useContext(IsLoginedState);
   const [userId, setUserId] = useState('');
   const [idValid, setIdValid] = useState(false);
   const [userPw, setUserPw] = useState('');
@@ -137,8 +139,9 @@ const SignUp = () => {
     }
     setErrorMsg({ idError, pwdError, emailError });
   }, [idValid, userPw, userEmail]);
-
-  return (
+  return isLogined && isLogined.isLogined ? (
+    <Redirect to="/"></Redirect>
+  ) : (
     <Container>
       <SignUpContainer>
         <SignupHeader>SignUp</SignupHeader>
