@@ -49,7 +49,7 @@ app.use('/api/getip', GetIpRouter);
 app.use('/api/user', UserRouter);
 process.env.ENV === 'prod' &&
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/indes.html'));
+    res.sendFile(path.join(__dirname, './public/index.html'));
   });
 
 const booting = async () => {
