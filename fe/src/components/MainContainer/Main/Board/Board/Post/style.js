@@ -14,12 +14,15 @@ export const Container = styled.div`
     !props.isModal && 'box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);'};
 
   text-align: start;
-  &:hover {
+  ${(props) =>
+    !props.isModal &&
+    ` &:hover {
     cursor: pointer;
     background-color: #ebeef1;
     opacity: 0.9;
     transition: 0.5s;
-  }
+  }`}
+
   margin-bottom: 10px;
   & > .userInfo {
     display: flex;
@@ -61,5 +64,6 @@ export const ProfileImg = styled.div`
 
   & > img {
     width: 100%;
+    height: 100%;
   }
 `;
