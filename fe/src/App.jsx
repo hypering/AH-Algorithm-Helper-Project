@@ -19,6 +19,7 @@ function App() {
     isLogined: false,
     userKey: '',
     userId: '',
+    profile: '',
   });
 
   if (!loading) {
