@@ -10,10 +10,14 @@ const router = express.Router();
 // 403 : 인증정보 실패시 에러코드
 router.post('/', async (req, res) => {
   if (req.session.user) {
-    res
-      .status(200)
-      .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
-  } else res.status(403).json({ isLogined: false, userKey: '', userId: '' });
+    console.log(req.session);
+    res.status(200).json({
+      isLogined: true,
+      userKey: req.session.user._id,
+      userId: req.session.user.userId,
+      profile: req.session.user.profile,
+    });
+  } else res.status(403).json({ isLogined: false, userKey: '', userId: '', userProfile: '' });
 });
 router.post('/edit', upload.single('img'), async (req, res) => {
   const { userIntrod, userEmail } = req.body;
@@ -22,6 +26,8 @@ router.post('/edit', upload.single('img'), async (req, res) => {
   queryUser.introduction = String(userIntrod);
   queryUser.profile = req.session.user._id;
   await queryUser.save();
+  req.session.user = queryUser;
+  console.log(req.session.user);
   res.writeHead(302, { Location: `http://127.0.0.1:3000/account/${req.session.user.userId}` });
   res.end();
 });
@@ -142,7 +148,12 @@ router.post('/login', Validation.isUser, async (req, res) => {
   }
 
   req.session.user = existId;
-  res.status(200).json({ isLogined: true, userKey: existId._id, userId: existId.userId });
+  res.status(200).json({
+    isLogined: true,
+    userKey: existId._id,
+    userId: existId.userId,
+    profile: existId.profile,
+  });
 });
 
 // 로컬 로그아웃
@@ -190,9 +201,12 @@ router.post('/github', async (req, res) => {
 
     if (existId) {
       req.session.user = existId;
-      res
-        .status(200)
-        .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
+      res.status(200).json({
+        isLogined: true,
+        userKey: req.session.user._id,
+        userId: req.session.user.userId,
+        userProfile: req.session.user.profile,
+      });
       return;
     }
 
@@ -205,7 +219,12 @@ router.post('/github', async (req, res) => {
     req.session.user = User;
     res
       .status(200)
-      .json({ isLogined: true, userKey: req.session.user._id, userId: req.session.user.userId });
+      .json({
+        isLogined: true,
+        userKey: req.session.user._id,
+        userId: req.session.user.userId,
+        profile: req.session.user.profile,
+      });
   } catch (error) {
     console.log(error);
   }
