@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import BtnExecute from '../../Buttons/Execute';
-import { Container, SubContainer } from './style';
+import { Container, SubContainer, ThumbnailContainer } from './style';
 
 const Write = () => {
   const [tags, setTags] = useState();
@@ -99,7 +99,11 @@ const Write = () => {
             <BtnExecute onClick={writeOnClick}></BtnExecute>
           </div>
         </form>
-        <SubContainer>{url ? <img src={url} alt="#" /> : ''}</SubContainer>
+        <SubContainer>
+          <ThumbnailContainer>
+            {url ? <img src={url} alt="#" /> : ''}
+          </ThumbnailContainer>
+        </SubContainer>
       </Container>
     </>
   );
