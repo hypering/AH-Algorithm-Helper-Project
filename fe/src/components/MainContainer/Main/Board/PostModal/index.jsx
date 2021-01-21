@@ -46,7 +46,6 @@ const PostModal = ({ posts, post, setModalPost, setPosts }) => {
       <ButtonExit onClick={onExitClick}>
         <svg
           aria-label="닫기"
-          className="_8-yf5 "
           fill="#ffffff"
           height="24"
           viewBox="0 0 48 48"
