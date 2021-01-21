@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: row;
   height: 100%;
   width: 100%;
+  overflow: hidden;
   & > form {
     display: flex;
     flex-direction: column;
@@ -58,10 +59,17 @@ export const Container = styled.div`
 export const SubContainer = styled.div`
   display: flex;
   width: 40%;
+  overflow: hidden;
   @media screen and (max-width: 900px) {
     display: none;
   }
+`;
+
+export const ThumbnailContainer = styled.div`
+  display: flex;
+
   & > img {
+    display: flex;
     border-radius: 12px;
     margin-left: 20px;
     margin-top: 80px;
