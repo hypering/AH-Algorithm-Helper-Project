@@ -6,4 +6,5 @@ export const Container = styled.div`
   min-height: 30px;
   font-size: 14px;
   text-align: center;
+  min-width: 500px;
 `;
