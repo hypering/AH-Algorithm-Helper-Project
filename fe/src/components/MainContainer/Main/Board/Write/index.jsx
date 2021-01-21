@@ -1,13 +1,15 @@
 import React, { useRef, useState } from 'react';
 import BtnExecute from '../../Buttons/Execute';
-import { Container } from './style';
+import { Container, SubContainer } from './style';
 
 const Write = () => {
   const [tags, setTags] = useState();
   const [content, setContent] = useState();
   const [img, setImg] = useState('');
+  const [url, setUrl] = useState('');
   const [imgName, setImgName] = useState('');
   const form = useRef();
+
   const writeOnClick = async (e) => {
     e.preventDefault();
 
@@ -39,6 +41,8 @@ const Write = () => {
     } else if (name === 'tags') {
       setTags(value);
     } else if (name === 'img') {
+      setUrl(URL.createObjectURL(e.target.files[0]));
+
       const file = document
         .querySelector('.container_InputImage')
         .querySelector('input').files[0];
@@ -95,6 +99,7 @@ const Write = () => {
             <BtnExecute onClick={writeOnClick}></BtnExecute>
           </div>
         </form>
+        <SubContainer>{url ? <img src={url} alt="#" /> : ''}</SubContainer>
       </Container>
     </>
   );
