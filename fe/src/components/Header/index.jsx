@@ -18,7 +18,7 @@ const Header = () => {
       res.status === 200;
       dispatch({
         type: 'SET_IS_LOGINED',
-        payload: { isLogined: false, userKey: '', userId: '' },
+        payload: { isLogined: false, userKey: '', userId: '', profile: '' },
       });
 
       history.push('/');
