@@ -14,7 +14,7 @@ const FreeBoard = ({ curIp }) => {
   const [url, setUrl] = useState('/board/search');
   const [searchType, setSearchType] = useState('author');
   useEffect(() => {
-    fetch(`${process.env.BASE_URL}/board`, {
+    fetch(`${process.env.BASE_URL}/board?startIdx=0`, {
       method: 'get',
     })
       .then((response) => response.json())

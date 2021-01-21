@@ -6,7 +6,8 @@ const { userModel } = require('../models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const boardDates = await boardModel.find();
+  const { startIdx } = req.query;
+  const boardDates = await boardModel.find().skip(startIdx).limit(5);
 
   const refinedDatas = await Promise.all(
     boardDates.map(async (element) => {
