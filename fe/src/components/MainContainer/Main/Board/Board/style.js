@@ -26,6 +26,7 @@ export const Container = styled.div`
 export const Loading = styled.div`
   max-width: 500px;
   background-color: white;
+  text-align: center;
   font-weight: 900;
   font-size: 15px;
 `;
