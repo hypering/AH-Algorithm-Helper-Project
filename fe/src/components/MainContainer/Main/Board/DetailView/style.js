@@ -123,6 +123,7 @@ export const ProfileImg = styled.div`
   overflow: hidden;
   & > img {
     width: 100%;
+    height: 100%;
   }
 `;
 export const AuthorID = styled.div`
