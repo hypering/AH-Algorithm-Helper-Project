@@ -7,6 +7,7 @@ export const ResContainer = styled.div`
   width: 60%;
   margin-left: 15px;
   max-width: 60%;
+  overflow: hidden;
 `;
 
 export const Results = styled.div`

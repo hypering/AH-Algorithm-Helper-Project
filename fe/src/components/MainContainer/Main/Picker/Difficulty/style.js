@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 15px;
+  overflow: hidden;
 `;
 
 export const Subtitle = styled.span`
