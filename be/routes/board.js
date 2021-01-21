@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const { startIdx } = req.query;
-  const boardDates = await boardModel.find().skip(startIdx).limit(5);
+  const boardDates = await boardModel.find().skip(Number(startIdx)).limit(5);
 
   const refinedDatas = await Promise.all(
     boardDates.map(async (element) => {
