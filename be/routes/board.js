@@ -69,7 +69,10 @@ router.post('/imageupload', upload.single('img'), function (req, res) {
 
 router.post('/write', async (req, res) => {
   const { content, tags, imgName } = req.body;
-  const hash = tags.split(',');
+
+  const hash = tags.split(',').filter((e) => {
+    return e.length >= 1;
+  });
   const author = req.session.user._id;
   const newPost = await boardModel.create({
     author,

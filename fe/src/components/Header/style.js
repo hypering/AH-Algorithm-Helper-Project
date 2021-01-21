@@ -27,9 +27,11 @@ const kf = keyframes`
 
 export const Container = styled.div`
   display: flex;
+
   justify-content: center;
   border-bottom: 2px solid #707070;
   height: 100px;
+  min-width: 400px;
   min-height: 100px;
   line-height: 100px;
   background-color: #efefef;

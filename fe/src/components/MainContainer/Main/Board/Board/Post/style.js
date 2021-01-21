@@ -1,12 +1,18 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  ${(props) => (props.isModal ? 'width:500px' : 'width: 100%;')};
+
   display: flex;
   flex-direction: column;
   padding: 15px;
-  border-radius: 15px;
+  max-width: 500px;
+  border-radius: ${(props) => (props.isModal ? '0px' : '15px')};
   font-size: 15px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+  background-color: white;
+  ${(props) =>
+    !props.isModal && 'box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);'};
+
   text-align: start;
   &:hover {
     cursor: pointer;
@@ -28,6 +34,12 @@ export const Container = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  & > .postImg {
+    max-width: ${(props) => (props.fromProfile ? '250px' : '9999px')};
+    max-width: ${(props) => (props.isModal ? '500px' : '9999px')};
+    & > img {
+    }
+  }
 `;
 
 export const SvgWrap = styled.ul`
@@ -44,7 +56,9 @@ export const ProfileImg = styled.div`
   height: 50px;
   border-radius: 50%;
   margin-right: 20px;
+
   overflow: hidden;
+
   & > img {
     width: 100%;
   }

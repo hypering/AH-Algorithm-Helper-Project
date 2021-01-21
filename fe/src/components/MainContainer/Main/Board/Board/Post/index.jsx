@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import SvgIcon from './SvgIcon';
 import { Container, SvgWrap, ImgIcon, ProfileImg } from './style';
-import { CommentDispatchContext } from '../../../Board';
+import { CommentDispatchContext } from '../../../../Main';
 import { IsLoginedState } from '../../../../../../App';
 import { Link } from 'react-router-dom';
 const Post = ({
@@ -13,12 +13,13 @@ const Post = ({
   id,
   curIp,
   fromProfile,
+  setModalPost,
+  isModal,
 }) => {
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
-    if (fromProfile) {
-    } else {
+    if (!isModal && !fromProfile) {
       dispatch({
         type: 'CHANGE_VALUE',
         payload: '',
@@ -40,12 +41,14 @@ const Post = ({
             setBoards(updatedPosts);
           }
         });
+    } else if (fromProfile) {
+      setModalPost(post);
     }
   };
 
   const heartClick = (e) => {
     e.stopPropagation();
-    if (!fromProfile) setSelectedBoard(post);
+    if (!fromProfile && !isModal) setSelectedBoard(post);
     if (isLogined && isLogined.isLogined === true) {
       fetch(`${process.env.BASE_URL}/board/heartup`, {
         method: 'post',
@@ -78,7 +81,13 @@ const Post = ({
   };
 
   return (
-    <Container onClick={onClick} key={id} id={id}>
+    <Container
+      fromProfile={fromProfile}
+      isModal={isModal}
+      onClick={onClick}
+      key={id}
+      id={id}
+    >
       <div className="userInfo">
         <Link to={`/account/${post.author}`}>
           <ProfileImg>
@@ -95,8 +104,9 @@ const Post = ({
         </Link>
         <span className="userId">{post.author}</span>
       </div>
-      <div className="postContent">{post.content}</div>
-      <div>
+      {!isModal && <div className="postContent">{post.content}</div>}
+
+      <div className="postImg">
         {post.img_url != '' ? (
           <ImgIcon
             src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}

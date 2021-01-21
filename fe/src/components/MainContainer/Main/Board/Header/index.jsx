@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import {
   Container,
-  HeaderWrap,
+  HeaderLeft,
+  HeaderRight,
   SelectBox,
   InputBox,
   ButtonBox,
@@ -36,17 +37,16 @@ const Header = ({
   };
   return (
     <Container>
-      <HeaderWrap>
+      <HeaderLeft>
         <h5>자유게시판</h5>
-
+        <div>자유게시판에 오신 것을 환영합니다!</div>
+      </HeaderLeft>
+      <HeaderRight>
         <FontAwesomeIcon
           icon={faPenSquare}
           color="#707070"
           onClick={onWriteClick}
         />
-      </HeaderWrap>
-      <HeaderWrap>
-        <div>자유게시판에 오신 것을 환영합니다!</div>
         <SearchBox>
           <SelectBox value={searchType} name="target" onChange={onTypeChange}>
             <option value="tag">해쉬태그</option>
@@ -64,7 +64,7 @@ const Header = ({
             </ButtonBox>
           </Link>
         </SearchBox>
-      </HeaderWrap>
+      </HeaderRight>
     </Container>
   );
 };

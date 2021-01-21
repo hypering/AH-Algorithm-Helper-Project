@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { CommentStateContext } from '../../Board';
-import { CommentDispatchContext } from '../../Board';
+import { CommentStateContext } from '../../../Main';
+import { CommentDispatchContext } from '../../../Main';
 import { getDate } from '../../../../../lib/getTimer';
 import {
   Container,
@@ -14,10 +14,11 @@ import {
   CommentText,
   ProfileImg,
   UserInfoContainer,
+  AuthorID,
 } from './style';
 import { IsLoginedState } from '../../../../../App';
 import { Link } from 'react-router-dom';
-const DetailView = ({ posts, post, setBoards }) => {
+const DetailView = ({ posts, post, setBoards, isModal }) => {
   const isLogined = useContext(IsLoginedState);
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
@@ -33,6 +34,7 @@ const DetailView = ({ posts, post, setBoards }) => {
       alert('댓글을 입력하세요!');
       return;
     }
+    const nowDate = getDate(new Date());
     const response = await fetch(
       `${process.env.BASE_URL}/board/comment/write`,
       {
@@ -45,7 +47,7 @@ const DetailView = ({ posts, post, setBoards }) => {
         credentials: 'include',
         body: JSON.stringify({
           boardId: post._id,
-          createAt: getDate(new Date()),
+          createAt: nowDate,
           context: value,
           writerId: isLogined.userKey,
         }),
@@ -69,6 +71,7 @@ const DetailView = ({ posts, post, setBoards }) => {
       context: value,
       writerKey: isLogined.userKey,
       writerId: isLogined.userId,
+      profile: 'defaultProfile.jpg',
     });
 
     const updatedPosts = [...posts];
@@ -76,7 +79,7 @@ const DetailView = ({ posts, post, setBoards }) => {
   };
 
   return (
-    <Container>
+    <Container isModal={isModal}>
       <Link to={`/account/${post.author}`}>
         <UserInfoContainer>
           <ProfileImg>
@@ -90,98 +93,100 @@ const DetailView = ({ posts, post, setBoards }) => {
               />
             )}
           </ProfileImg>
-          {post.author}
+          <AuthorID>{post.author} </AuthorID>
         </UserInfoContainer>
       </Link>
-      {post.img_url != '' ? (
-        <div>
-          <ImgIcon
-            src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
-          ></ImgIcon>
-        </div>
-      ) : (
-        ''
-      )}
-      <ContentWrap>{post.content}</ContentWrap>
-      <PostWrap>
-        {post.comment.length > 0 ? (
-          <ul>
-            {post.comment.map((ele) => {
-              const deleteOnClick = async () => {
-                if (ele.writerKey !== isLogined.userKey) return;
-                const conFirm = confirm('정말 댓글을 삭제하시겠습니까?');
-                if (conFirm === false) return;
-                const response = await fetch(
-                  `${process.env.BASE_URL}/board/comment/delete`,
-                  {
-                    method: 'post',
-                    headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json',
-                    },
-                    mode: 'cors',
-                    credentials: 'include',
-                    body: JSON.stringify({
-                      boardId: post._id,
-                      key: ele._id,
-                    }),
-                  }
-                );
-                if (response.status !== 200) {
-                  alert('댓글 삭제에 실패하였습니다.');
-                  return;
-                }
-                for (let i = 0; i < post.comment.length; i++) {
-                  if (post.comment[i]._id === ele._id) {
-                    post.comment.splice(i, 1);
-                  }
-                }
-                setBoards([...posts]);
-              };
-
-              return (
-                <Comment key={ele._id} onClick={deleteOnClick}>
-                  <Link to={`/account/` + ele.writerId}>
-                    <ProfileImg>
-                      {ele.profile && (
-                        <img
-                          src={
-                            `https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/` +
-                            ele.profile
-                          }
-                          alt="프로필 이미지"
-                        />
-                      )}
-                    </ProfileImg>
-                  </Link>
-                  <div className="commentContent">
-                    <div>
-                      <span className="writer">{ele.writerId} </span>
-                      {getDate(ele.createAt)}
-                    </div>
-                    <div>{ele.context}</div>
-                  </div>
-                </Comment>
-              );
-            })}
-          </ul>
+      <div className="postContent">
+        {post.img_url != '' && !isModal ? (
+          <div>
+            <ImgIcon
+              src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
+            ></ImgIcon>
+          </div>
         ) : (
-          <h6>No Comment</h6>
+          ''
         )}
-      </PostWrap>
-      {isLogined.isLogined && (
-        <CommentWrap>
-          <CommentText
-            name="content"
-            id="boardContent"
-            cols="120"
-            rows="5"
-            value={value}
-            onChange={onChange}
-          />
-          <CommentBtn onClick={onClick}>등록</CommentBtn>
-        </CommentWrap>
-      )}
+        <ContentWrap>{post.content}</ContentWrap>
+        <PostWrap>
+          {post.comment.length > 0 ? (
+            <ul>
+              {post.comment.map((ele) => {
+                const deleteOnClick = async (e) => {
+                  if (ele.writerKey !== isLogined.userKey) return;
+                  const conFirm = confirm('정말 댓글을 삭제하시겠습니까?');
+                  if (conFirm === false) return;
+                  const response = await fetch(
+                    `${process.env.BASE_URL}/board/comment/delete`,
+                    {
+                      method: 'post',
+                      headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                      },
+                      mode: 'cors',
+                      credentials: 'include',
+                      body: JSON.stringify({
+                        boardId: post._id,
+                        key: ele._id,
+                      }),
+                    }
+                  );
+                  if (response.status !== 200) {
+                    alert('댓글 삭제에 실패하였습니다.');
+                    return;
+                  }
+                  for (let i = 0; i < post.comment.length; i++) {
+                    if (post.comment[i]._id === ele._id) {
+                      post.comment.splice(i, 1);
+                    }
+                  }
+                  setBoards([...posts]);
+                };
+
+                return (
+                  <Comment key={ele._id} onClick={deleteOnClick}>
+                    <Link to={`/account/` + ele.writerId}>
+                      <ProfileImg>
+                        {ele.profile && (
+                          <img
+                            src={
+                              `https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/` +
+                              ele.profile
+                            }
+                            alt="프로필 이미지"
+                          />
+                        )}
+                      </ProfileImg>
+                    </Link>
+                    <div className="commentContent">
+                      <div>
+                        <span className="writer">{ele.writerId} </span>
+                        {getDate(ele.createAt)}
+                      </div>
+                      <div>{ele.context}</div>
+                    </div>
+                  </Comment>
+                );
+              })}
+            </ul>
+          ) : (
+            <h6>No Comment</h6>
+          )}
+        </PostWrap>
+        {isLogined.isLogined && (
+          <CommentWrap>
+            <CommentText
+              name="content"
+              id="boardContent"
+              cols="120"
+              rows="5"
+              value={value}
+              onChange={onChange}
+            />
+            <CommentBtn onClick={onClick}>등록</CommentBtn>
+          </CommentWrap>
+        )}
+      </div>
     </Container>
   );
 };

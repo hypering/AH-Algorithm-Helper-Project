@@ -126,7 +126,7 @@ const Edit = () => {
   }, []);
 
   useEffect(() => {
-    if (user && user.email.match(emailRegExp)) {
+    if (user && user.email && user.email.match(emailRegExp)) {
       setDisable(false);
     } else setDisable(true);
   }, [user]);
@@ -149,9 +149,8 @@ const Edit = () => {
   const onProfileImgClick = () => {
     profileImg.current.click();
   };
-  return loaded && !isLogined && !isLogined.isLogined ? (
-    <Redirect to="/" />
-  ) : (
+
+  return (
     <Container>
       <form
         method="post"
