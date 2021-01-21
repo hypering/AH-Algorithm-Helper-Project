@@ -46,6 +46,7 @@ const FreeBoard = ({ curIp }) => {
             <DetailView
               posts={boards}
               post={selectedBoard}
+              setPost={setSelectedBoard}
               setBoards={setBoards}
               setSelectedBoard={setSelectedBoard}
             />
