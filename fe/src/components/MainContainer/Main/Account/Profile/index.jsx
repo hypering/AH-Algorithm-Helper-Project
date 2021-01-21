@@ -5,7 +5,7 @@ import PostModal from '../../Board/PostModal';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { IsLoginedState } from '../../../../../App';
+import { IsLoginedState, UserDispatch } from '../../../../../App';
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +33,7 @@ const ProfileImg = styled.div`
   overflow: hidden;
   & > img {
     width: 100%;
+    height: 100%;
   }
 `;
 const UserNameContainer = styled.div`
@@ -70,6 +71,8 @@ const Profile = ({ match }) => {
   const [modalPost, setModalPost] = useState(null);
   const { userId } = match.params;
   const isLogined = useContext(IsLoginedState);
+
+  const dispatch = useContext(UserDispatch);
   useEffect(() => {
     fetch(`${process.env.BASE_URL}/user/getUser`, {
       method: 'Post',
