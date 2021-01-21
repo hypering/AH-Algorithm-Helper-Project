@@ -36,6 +36,7 @@ const ProfileImgContainer = styled.div`
     & > .hoverText {
       font-size: 10px;
       word-break: keep-all;
+      cursor: pointer;
     }
   }
 
@@ -140,6 +141,17 @@ const Edit = () => {
     } else if (name === 'userIntrod') {
       setUser({ ...user, introduction: value });
     } else if (name === 'img') {
+      const { files } = e.target;
+      if (files) {
+        const reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onloadend = (finishedEvent) => {
+          const {
+            currentTarget: { result },
+          } = finishedEvent;
+          setUser({ ...user, profile: result });
+        };
+      }
       setImg(value);
     }
   };
@@ -160,11 +172,17 @@ const Edit = () => {
               {user && (
                 <img
                   onClick={onProfileImgClick}
-                  src={`https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/${user.profile}`}
+                  src={
+                    profileImg && profileImg.current.files[0]
+                      ? `${user.profile}`
+                      : `https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/${user.profile}`
+                  }
                 />
               )}
               <div className="hover">
-                <div className="hoverText">프로필 사진 변경</div>
+                <div className="hoverText" onClick={onProfileImgClick}>
+                  프로필 사진 변경
+                </div>
               </div>
             </ProfileImgContainer>
 
