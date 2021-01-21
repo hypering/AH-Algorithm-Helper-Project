@@ -19,19 +19,14 @@ const UserRouter = require('./routes/user');
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-process.env.ENV === 'development'
-  ? app.use(
-      cors({
-        origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-        credentials: true,
-      }),
-    )
-  : app.use(
-      cors({
-        origin: ['http://49.50.166.11:80'],
-        credentials: true,
-      }),
-    );
+
+process.env.ENV === 'development' &&
+  app.use(
+    cors({
+      origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+      credentials: true,
+    }),
+  );
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -52,6 +47,10 @@ app.use('/api/problem', ProblemRouter);
 app.use('/api/board', BoardRouter);
 app.use('/api/getip', GetIpRouter);
 app.use('/api/user', UserRouter);
+process.env.ENV === 'prod' &&
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
 
 const booting = async () => {
   await dbStarter();

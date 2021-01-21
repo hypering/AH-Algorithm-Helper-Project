@@ -53,7 +53,7 @@ router.post('/getUser', async (req, res) => {
   );
   let posts = [];
 
-  for (i = 0; i < queryUser.posts.length; i++) {
+  for (let i = 0; i < queryUser.posts.length; i++) {
     const queryPost = await boardModel.findOne({ _id: queryUser.posts[i] });
     posts.push(queryPost);
   }
@@ -116,7 +116,7 @@ router.post('/join', Validation.isUser, async (req, res) => {
   if (process.env.ENV === 'development') {
     res.writeHead(302, { Location: 'http://127.0.0.1:3000/' });
   } else {
-    res.writeHead(302, { Location: 'http://49.50.166.11:80/' });
+    res.writeHead(302, { Location: 'http://49.50.166.11:4000/' });
   }
   res.end();
 });
@@ -155,8 +155,11 @@ router.post('/logout', Validation.isUser, async (req, res) => {
 router.post('/github', async (req, res) => {
   try {
     const { code } = req.body;
-    const clientId = process.env.DEV_CLIENT_ID;
-    const secret = process.env.DEV_CLIENT_SECRET;
+    const clientId =
+      process.env.ENV === 'prod' ? process.env.PROD_CLIENT_ID : process.env.DEV_CLIENT_ID;
+    const secret =
+      process.env.ENV === 'prod' ? process.env.PROD_CLIENT_SECRET : process.env.DEV_CLIENT_SECRET;
+
     const { data } = await axios.post(
       'https://github.com/login/oauth/access_token',
       {
