@@ -71,7 +71,7 @@ const DetailView = ({ posts, post, setBoards, isModal }) => {
       context: value,
       writerKey: isLogined.userKey,
       writerId: isLogined.userId,
-      profile: 'defaultProfile.jpg',
+      profile: isLogined.profile,
     });
 
     const updatedPosts = [...posts];
