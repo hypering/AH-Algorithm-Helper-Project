@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, createContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Board from './Board';
 import DetailView from './DetailView';

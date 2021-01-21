@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { IsLoginedState } from '../../../../../App';
-import { Redirect } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -105,7 +103,6 @@ const Edit = () => {
   const [disable, setDisable] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const profileImg = useRef();
-  const isLogined = useContext(IsLoginedState);
   const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   useEffect(() => {
     fetch(`${process.env.BASE_URL}/user/getUserForEdit`, {
