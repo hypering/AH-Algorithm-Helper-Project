@@ -22,3 +22,10 @@ export const Container = styled.div`
     box-shadow: inset 0px 0px 5px white;
   }
 `;
+
+export const Loading = styled.div`
+  max-width: 500px;
+  background-color: white;
+  font-weight: 900;
+  font-size: 15px;
+`;
