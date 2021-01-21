@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
             context: e.context,
             writerKey: e.writerId,
             writerId: queryCommentUser.userId,
-            profile: queryUser.profile,
+            profile: queryCommentUser.profile,
           };
         }),
       );
