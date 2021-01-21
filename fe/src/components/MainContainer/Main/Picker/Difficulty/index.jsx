@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Container, DropBoxContainer, Subtitle } from './style';
 
 const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
@@ -29,6 +29,14 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
       ]);
     }
   };
+
+  useEffect(() => {
+    minRef1.current.value = 0;
+    minRef2.current.value = 1;
+    maxRef1.current.value = 0;
+    maxRef2.current.value = 1;
+  }, []);
+
   return (
     <Container>
       <Subtitle>난이도</Subtitle>
