@@ -11,7 +11,7 @@ const FreeBoard = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [value, setValue] = useState('');
-  const [url, setUrl] = useState('/board/search');
+  const [url, setUrl] = useState('/search');
   const [searchType, setSearchType] = useState('author');
 
   useEffect(() => {
@@ -54,18 +54,6 @@ const FreeBoard = ({ curIp }) => {
           </SubContainer>
         </Route>
 
-        <Route path="/board/search">
-          <Search
-            value={value}
-            posts={boards}
-            setValue={setValue}
-            setBoards={setBoards}
-            selectedBoard={selectedBoard}
-            setSelectedBoard={setSelectedBoard}
-            searchType={searchType}
-            curIp={curIp}
-          ></Search>
-        </Route>
         <Route render={() => <div>404 NOT FOUND</div>} />
       </Switch>
     </Container>

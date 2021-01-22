@@ -8,7 +8,7 @@ import {
   ButtonBox,
   SearchBox,
 } from './style';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { IsLoginedState } from '../../../../../App';
@@ -25,7 +25,7 @@ const Header = ({
   const onChange = (e) => {
     const { value } = e.target;
     setValue(value);
-    setUrl(`/board/search?type=${searchType}&value=${value}`);
+    setUrl(`/search?type=${searchType}&value=${value}`);
   };
 
   const onTypeChange = (e) => {
@@ -58,11 +58,11 @@ const Header = ({
             value={value}
             onChange={onChange}
           />
-          <Link to={url}>
+          <NavLink to={url}>
             <ButtonBox>
               <FontAwesomeIcon icon={faSearch} color="#707070" />
             </ButtonBox>
-          </Link>
+          </NavLink>
         </SearchBox>
       </HeaderRight>
     </Container>
