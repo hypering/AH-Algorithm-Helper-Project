@@ -63,6 +63,7 @@ const FreeBoard = ({ curIp }) => {
             selectedBoard={selectedBoard}
             setSelectedBoard={setSelectedBoard}
             searchType={searchType}
+            curIp={curIp}
           ></Search>
         </Route>
         <Route render={() => <div>404 NOT FOUND</div>} />

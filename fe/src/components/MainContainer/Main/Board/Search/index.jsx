@@ -14,6 +14,7 @@ const Search = ({
   selectedBoard,
   setSelectedBoard,
   searchType,
+  curIp,
 }) => {
   const [searchResult, setSearchResult] = useState(null);
   const location = useLocation();
@@ -50,10 +51,16 @@ const Search = ({
                 id={result._id}
                 key={result._id}
                 setSelectedBoard={setSelectedBoard}
+                curIp={curIp}
               ></Post>
             ))}
           </SubContainer>
-          <DetailView post={selectedBoard} />
+          <DetailView
+            posts={posts}
+            setBoards={setBoards}
+            setSelectedBoard={setSelectedBoard}
+            post={selectedBoard}
+          />
         </Container>
       ) : (
         <div>검색 결과 없음</div>
