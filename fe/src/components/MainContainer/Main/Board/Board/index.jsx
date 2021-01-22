@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Post from './Post';
-import { Container } from './style';
+import { Container, Loading } from './style';
+
+const getAddBoardDatas = async (posts, setLoading, setBoards, startIdx) => {
+  setLoading(true);
+  fetch(`${process.env.BASE_URL}/board?startIdx=${startIdx}`, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((board) => {
+      setBoards(posts.concat(board));
+      setLoading(false);
+    });
+};
 
 const Board = ({ setBoards, posts, setSelectedBoard, curIp }) => {
+  const [loading, setLoading] = useState(false);
+
+  const ScrollEventHandler = (e) => {
+    const scrollHeight = e.target.scrollHeight;
+    const scrollTop = e.target.scrollTop;
+    const clientHeight = e.target.clientHeight;
+    const startIdx = posts !== null ? posts.length : 0;
+    if (scrollTop + clientHeight >= scrollHeight && !loading) {
+      getAddBoardDatas(posts, setLoading, setBoards, startIdx);
+    }
+  };
+
   return (
-    <Container>
+    <Container onScroll={ScrollEventHandler}>
       {posts &&
         posts.map((element) => (
           <Post
@@ -17,6 +41,7 @@ const Board = ({ setBoards, posts, setSelectedBoard, curIp }) => {
             curIp={curIp}
           />
         ))}
+      {loading && <Loading>Loading...!</Loading>}
     </Container>
   );
 };

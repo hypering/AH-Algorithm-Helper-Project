@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, createContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Board from './Board';
 import DetailView from './DetailView';
@@ -13,8 +13,9 @@ const FreeBoard = ({ curIp }) => {
   const [value, setValue] = useState('');
   const [url, setUrl] = useState('/board/search');
   const [searchType, setSearchType] = useState('author');
+
   useEffect(() => {
-    fetch(`${process.env.BASE_URL}/board`, {
+    fetch(`${process.env.BASE_URL}/board?startIdx=0`, {
       method: 'get',
     })
       .then((response) => response.json())
