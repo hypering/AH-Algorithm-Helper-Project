@@ -18,7 +18,7 @@ import {
 } from './style';
 import { IsLoginedState } from '../../../../../App';
 import { Link } from 'react-router-dom';
-const DetailView = ({ posts, post, setBoards, isModal }) => {
+const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
   const isLogined = useContext(IsLoginedState);
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
@@ -71,15 +71,52 @@ const DetailView = ({ posts, post, setBoards, isModal }) => {
       context: value,
       writerKey: isLogined.userKey,
       writerId: isLogined.userId,
-      profile: 'defaultProfile.jpg',
+      profile: isLogined.profile,
     });
 
     const updatedPosts = [...posts];
     setBoards(updatedPosts);
   };
-
+  const onDeleteClick = async (e) => {
+    const answer = confirm('정말 글을 삭제하시겠습니까?');
+    if (answer) {
+      const response = await fetch(`${process.env.BASE_URL}/board/delete`, {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify({
+          boardId: post._id,
+        }),
+      });
+      if (response.status === 200) {
+        const idx = posts.findIndex((e) => post._id === e._id);
+        posts.splice(idx, 1);
+        setPost(null);
+      }
+    }
+  };
   return (
     <Container isModal={isModal}>
+      {post.authorKey === isLogined.userKey && (
+        <svg
+          aria-label="닫기"
+          fill="#00000"
+          height="24"
+          viewBox="0 0 48 48"
+          width="24"
+          onClick={onDeleteClick}
+        >
+          <path
+            clipRule="evenodd"
+            d="M41.8 9.8L27.5 24l14.2 14.2c.6.6.6 1.5 0 2.1l-1.4 1.4c-.6.6-1.5.6-2.1 0L24 27.5 9.8 41.8c-.6.6-1.5.6-2.1 0l-1.4-1.4c-.6-.6-.6-1.5 0-2.1L20.5 24 6.2 9.8c-.6-.6-.6-1.5 0-2.1l1.4-1.4c.6-.6 1.5-.6 2.1 0L24 20.5 38.3 6.2c.6-.6 1.5-.6 2.1 0l1.4 1.4c.6.6.6 1.6 0 2.2z"
+            fillRule="evenodd"
+          ></path>
+        </svg>
+      )}
       <Link to={`/account/${post.author}`}>
         <UserInfoContainer>
           <ProfileImg>
@@ -144,7 +181,7 @@ const DetailView = ({ posts, post, setBoards, isModal }) => {
                 };
 
                 return (
-                  <Comment key={ele._id} onClick={deleteOnClick}>
+                  <Comment key={ele._id}>
                     <Link to={`/account/` + ele.writerId}>
                       <ProfileImg>
                         {ele.profile && (
@@ -158,7 +195,7 @@ const DetailView = ({ posts, post, setBoards, isModal }) => {
                         )}
                       </ProfileImg>
                     </Link>
-                    <div className="commentContent">
+                    <div className="commentContent" onClick={deleteOnClick}>
                       <div>
                         <span className="writer">{ele.writerId} </span>
                         {getDate(ele.createAt)}

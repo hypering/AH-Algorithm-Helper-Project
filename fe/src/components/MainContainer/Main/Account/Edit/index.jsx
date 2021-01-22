@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { IsLoginedState } from '../../../../../App';
-import { Redirect } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -38,6 +36,7 @@ const ProfileImgContainer = styled.div`
     & > .hoverText {
       font-size: 10px;
       word-break: keep-all;
+      cursor: pointer;
     }
   }
 
@@ -105,7 +104,6 @@ const Edit = () => {
   const [disable, setDisable] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const profileImg = useRef();
-  const isLogined = useContext(IsLoginedState);
   const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   useEffect(() => {
     fetch(`${process.env.BASE_URL}/user/getUserForEdit`, {
@@ -143,6 +141,17 @@ const Edit = () => {
     } else if (name === 'userIntrod') {
       setUser({ ...user, introduction: value });
     } else if (name === 'img') {
+      const { files } = e.target;
+      if (files) {
+        const reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onloadend = (finishedEvent) => {
+          const {
+            currentTarget: { result },
+          } = finishedEvent;
+          setUser({ ...user, profile: result });
+        };
+      }
       setImg(value);
     }
   };
@@ -163,11 +172,17 @@ const Edit = () => {
               {user && (
                 <img
                   onClick={onProfileImgClick}
-                  src={`https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/${user.profile}`}
+                  src={
+                    profileImg && profileImg.current.files[0]
+                      ? `${user.profile}`
+                      : `https://kr.object.ncloudstorage.com/algorithm-helper/users/profile/${user.profile}`
+                  }
                 />
               )}
               <div className="hover">
-                <div className="hoverText">프로필 사진 변경</div>
+                <div className="hoverText" onClick={onProfileImgClick}>
+                  프로필 사진 변경
+                </div>
               </div>
             </ProfileImgContainer>
 

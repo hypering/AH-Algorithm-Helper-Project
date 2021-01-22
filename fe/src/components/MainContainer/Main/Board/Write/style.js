@@ -2,9 +2,15 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  height: 80%;
-  width: 50%;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  & > form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+  }
   & > form > .container_Head {
     display: flex;
     flex-direction: row;
@@ -48,5 +54,26 @@ export const Container = styled.div`
     flex-direction: row;
     justify-content: flex-end;
     margin-top: 10px;
+  }
+`;
+export const SubContainer = styled.div`
+  display: flex;
+  width: 40%;
+  overflow: hidden;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+`;
+
+export const ThumbnailContainer = styled.div`
+  display: flex;
+
+  & > img {
+    display: flex;
+    border-radius: 12px;
+    margin-left: 20px;
+    margin-top: 80px;
+    width: 300px;
+    height: 300px;
   }
 `;

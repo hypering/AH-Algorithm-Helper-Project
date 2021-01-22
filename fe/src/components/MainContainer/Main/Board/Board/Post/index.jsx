@@ -64,8 +64,6 @@ const Post = ({
         .then((json) => {
           if (json.status === 200) {
             post.heart.push(isLogined.userKey);
-            console.log(post.heart.length);
-
             const updatedPosts = [...posts];
             if (fromProfile) setPosts(updatedPosts);
             setBoards(updatedPosts);

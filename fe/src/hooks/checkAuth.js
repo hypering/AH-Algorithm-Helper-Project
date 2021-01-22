@@ -22,11 +22,11 @@ const useCheckAuth = () => {
         .then((response) => response.json())
         .then((json) => {
           dispatch({ type: 'SET_IS_LOGINED', payload: json });
-          if (!json.isLogined) {
-            history.push('/');
-          } else {
-            if (location.pathname == '/') history.push('/picker');
+          if (json.isLogined) {
             if (location.pathname == '/account/signup') history.push('/picker');
+            else if (location.pathname == '/') history.push('/picker');
+          } else {
+            if (location.pathname == '/account/edit') history.push('/');
           }
         });
     } catch (error) {

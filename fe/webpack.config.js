@@ -19,8 +19,8 @@ module.exports = {
   entry: path.join(__dirname, './src/index.js'),
   output: {
     publicPath: '/',
-    path: path.join(__dirname, '../be/public'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, '/build'),
+    filename: '[name].[hash].js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -40,6 +40,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           configFile: './babel.config.js',
+          plugins: ['react-hot-loader/babel'],
         },
       },
       {

@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
             context: e.context,
             writerKey: e.writerId,
             writerId: queryCommentUser.userId,
-            profile: queryUser.profile,
+            profile: queryCommentUser.profile,
           };
         }),
       );
@@ -33,6 +33,7 @@ router.get('/', async (req, res) => {
         comment: refinedComment,
         clicked: element.clicked,
         author: queryUser.userId,
+        authorKey: queryUser._id,
         img_url: element.img_url,
         content: element.content,
         profile: queryUser.profile,
@@ -156,4 +157,13 @@ router.post('/comment/delete', async (req, res) => {
   res.status(201).json(true);
 });
 
+router.post('/delete', async (req, res) => {
+  const { boardId } = req.body;
+  const queryContent = await boardModel.deleteOne({ _id: boardId });
+
+  if (queryContent !== undefined) {
+    res.status(200).json(true);
+  }
+  res.status(201).json(false);
+});
 module.exports = router;

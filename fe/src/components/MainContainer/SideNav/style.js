@@ -15,12 +15,13 @@ export const Menus = styled.div`
   & > a {
     display: flex;
   }
+  & > .active {
+    background-color: #707070;
+    color: white;
+  }
 `;
 
 export const Menu = styled.span`
-  &:hover {
-    background-color: #efefef;
-  }
   width: 100%;
 
   cursor: pointer;

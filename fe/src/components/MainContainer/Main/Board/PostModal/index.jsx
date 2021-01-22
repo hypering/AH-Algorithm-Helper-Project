@@ -18,6 +18,8 @@ const ModalContainer = styled.div`
   margin: auto;
   opacity: 1;
   z-index: 13;
+  border-radius: 5px;
+  padding: 1rem;
   background-color: white;
   max-width: 935px;
   max-height: 560px;
@@ -44,7 +46,6 @@ const PostModal = ({ posts, post, setModalPost, setPosts }) => {
       <ButtonExit onClick={onExitClick}>
         <svg
           aria-label="닫기"
-          className="_8-yf5 "
           fill="#ffffff"
           height="24"
           viewBox="0 0 48 48"

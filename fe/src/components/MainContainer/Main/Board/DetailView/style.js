@@ -7,9 +7,16 @@ export const Container = styled.div`
 
   margin: 10px;
   text-align: start;
-
+  position: relative;
   background-color: white;
-
+  & > svg {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    cursor: pointer;
+    right: 20px;
+    top: 5px;
+  }
   & > .postContent {
     display: flex;
     flex-grow: 1;
@@ -123,6 +130,7 @@ export const ProfileImg = styled.div`
   overflow: hidden;
   & > img {
     width: 100%;
+    height: 100%;
   }
 `;
 export const AuthorID = styled.div`
