@@ -1,92 +1,22 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import styled from '@emotion/styled';
-import LoginButton from './LoginButton';
-import { UserDispatch } from '../../../../App';
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`;
-const LoginContainer = styled.div`
-  width: 50%;
-  min-width: 220px;
-  padding-bottom: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #efefef;
-  & > .errorMsgContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
 
-    margin: 10px 0 10px 0;
-  }
-  & > .errorMsgContainer > .errorMsg {
-    color: red;
-    font-size: 12px;
-  }
-  & > .item {
-    width: 100%;
-  }
-  & > .item > .inputBox {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
-    justify-content: center;
-    & > div {
-      width: 120px;
-      text-align: right;
-      margin-right: 5px;
-      & > span {
-        font-size: 14px;
-      }
-    }
-    & > input {
-      outline: 0;
-      padding: 5px 10px 5px 10px;
-      overflow: hidden;
-      position: relative;
-    }
-  }
-`;
-const LoginHeader = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  color: #707070;
-`;
-const LoginWrap = styled.div`
-  width: 100%;
-`;
-const Partition = styled.div`
-  border: 1px solid #efefef;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  width: 210px;
-`;
-const SignUpButton = styled.button`
-  min-width: 200px;
-  background-color: #707070;
-  color: white;
-  font-size: 12px;
-  margin-top: 5px;
-  padding: 10px 15px 10px 15px;
-  border-radius: 10px;
-  border: 0;
-  outline: 0;
-  cursor: pointer;
-  & > a {
-    text-decoration: none;
-    color: white;
-  }
-`;
+import LoginButton from 'components/MainContainer/Main/Account/Login/LoginButton';
+import { UserDispatch } from 'App';
+import {
+  Container,
+  ErrorMsg,
+  ErrorMsgContainer,
+  Item,
+  Items,
+  LoginContainer,
+  LoginHeader,
+  LoginWrap,
+  Partition,
+  SignUpButton,
+} from './style';
+
 const Login = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
@@ -111,7 +41,6 @@ const Login = () => {
         setErrorMsg('계정 정보를 확인해주세요.');
       } else {
         res.json().then((json) => {
-          console.log(json);
           dispatch({ type: 'SET_IS_LOGINED', payload: json });
           history.push('/picker');
         });
@@ -137,8 +66,8 @@ const Login = () => {
     <Container>
       <LoginContainer>
         <LoginHeader>Login</LoginHeader>
-        <div className="item">
-          <div className="inputBox">
+        <Items>
+          <Item>
             <input
               type="text"
               name="userId"
@@ -146,9 +75,9 @@ const Login = () => {
               onChange={onChange}
               placeholder="ID 입력"
             ></input>
-          </div>
+          </Item>
 
-          <div className="inputBox">
+          <Item>
             <input
               type="password"
               name="userPw"
@@ -156,11 +85,11 @@ const Login = () => {
               onChange={onChange}
               placeholder="Password 입력"
             ></input>
-          </div>
-        </div>
-        <div className="errorMsgContainer">
-          <span className="errorMsg">{errorMsg}</span>
-        </div>
+          </Item>
+        </Items>
+        <ErrorMsgContainer>
+          <ErrorMsg>{errorMsg}</ErrorMsg>
+        </ErrorMsgContainer>
         <LoginWrap>
           <LoginButton disable={disable} onClick={onClick} />
         </LoginWrap>

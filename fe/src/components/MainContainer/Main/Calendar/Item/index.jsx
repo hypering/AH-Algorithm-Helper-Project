@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDate, diffTime } from '../../../../../lib/getTimer';
+import { getDate, diffTime } from 'lib/getTimer';
 import {
   Title,
   Container,
@@ -10,7 +10,7 @@ import {
   ContestDate,
   ContestTimer,
   SvgIcon,
-} from './style';
+} from 'components/MainContainer/Main/Calendar/Item/style';
 
 const Item = ({ id, value }) => {
   let num = 0;

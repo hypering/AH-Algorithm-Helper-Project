@@ -1,5 +1,8 @@
 import React from 'react';
-import { Container, Icon } from './style';
+import {
+  Container,
+  Icon,
+} from 'components/MainContainer/Main/Board/Board/Post/SvgIcon/style';
 
 const SvgIcon = ({ bgColor, path, text, color, className, onClick }) => {
   return (

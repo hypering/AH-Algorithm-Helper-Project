@@ -12,7 +12,6 @@ const Header = () => {
   const onLogOutClick = () => {
     fetch(`${process.env.BASE_URL}/user/logout`, {
       method: 'post',
-      mode: 'cors',
       credentials: 'include',
     }).then((res) => {
       res.status === 200;

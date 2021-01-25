@@ -1,5 +1,7 @@
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef, useState } from 'react';
-import BtnExecute from '../../Buttons/Execute';
+
 import { Container, SubContainer, ThumbnailContainer } from './style';
 
 const Write = () => {
@@ -96,7 +98,12 @@ const Write = () => {
             ></input>
           </div>
           <div className="container_Foot">
-            <BtnExecute onClick={writeOnClick}></BtnExecute>
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              size="2x"
+              color="#707070"
+              onClick={writeOnClick}
+            ></FontAwesomeIcon>
           </div>
         </form>
         <SubContainer>

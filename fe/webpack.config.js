@@ -24,6 +24,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
   },
   devtool: 'eval-cheap-source-map',
   devServer: {

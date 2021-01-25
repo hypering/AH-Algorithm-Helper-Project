@@ -16,10 +16,10 @@ export const Categories = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
   }
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 export const Subtitle = styled.span`

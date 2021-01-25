@@ -1,69 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import styled from '@emotion/styled';
-import Post from '../../Board/Board/Post';
-import PostModal from '../../Board/PostModal';
+import Post from 'components/MainContainer/Main/Board/Board/Post';
+import PostModal from 'components/MainContainer/Main/Board/PostModal';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { IsLoginedState, UserDispatch } from '../../../../../App';
+import { IsLoginedState } from 'App';
+import {
+  Container,
+  ProfileContainer,
+  ProfileContent,
+  ProfileImg,
+  UserId,
+  UserIntContainer,
+  UserNameContainer,
+  UserPosts,
+} from './style';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  font-size: 12px;
-`;
-
-const ProfileContainer = styled.div`
-  display: flex;
-  width: 600px;
-  padding: 50px 20px 50px 20px;
-  border: 1px solid #efefef;
-  margin-top: 50px;
-  margin-bottom: 50px;
-`;
-const ProfileImg = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-right: 20px;
-  overflow: hidden;
-  & > img {
-    width: 100%;
-    height: 100%;
-  }
-`;
-const UserNameContainer = styled.div`
-  font-size: 20px;
-  margin-bottom: 20px;
-
-  border-bottom: 1px solid #efefef;
-`;
-
-const UserIntContainer = styled.div`
-  margin-bottom: 20px;
-`;
-const UserPosts = styled.div`
-  display: flex;
-  overflow: scroll;
-  overflow-x: hidden;
-  width: 600px;
-
-  align-items: center;
-  flex-direction: column;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-const UserId = styled.span`
-  font-weight: 600;
-  margin-right: 10px;
-`;
-const ProfileContent = styled.div``;
 const Profile = ({ match }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [posts, setPosts] = useState(null);
@@ -71,8 +23,6 @@ const Profile = ({ match }) => {
   const [modalPost, setModalPost] = useState(null);
   const { userId } = match.params;
   const isLogined = useContext(IsLoginedState);
-
-  const dispatch = useContext(UserDispatch);
   useEffect(() => {
     fetch(`${process.env.BASE_URL}/user/getUser`, {
       method: 'Post',

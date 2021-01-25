@@ -1,9 +1,12 @@
 import React, { useState, useCallback, useContext } from 'react';
 import Item from './Item';
-import ContestModal from './ContestModal';
-import { Container, ContestButton } from './style';
-import useGetContestDate from '../../../../hooks/useGetContestData';
-import { IsLoginedState } from '../../../../App';
+import ContestModal from 'components/MainContainer/Main/Calendar/ContestModal';
+import {
+  Container,
+  ContestButton,
+} from 'components/MainContainer/Main/Calendar/style';
+import useGetContestDate from 'hooks/useGetContestData';
+import { IsLoginedState } from 'App';
 
 const Calendar = () => {
   const [visible, setvisible] = useState(false);

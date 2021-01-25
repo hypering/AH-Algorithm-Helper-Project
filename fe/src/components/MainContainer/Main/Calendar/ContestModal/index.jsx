@@ -1,5 +1,5 @@
 import React from 'react';
-import onChangeHook from '../../../../../hooks/onChangeHook';
+import onChangeHook from 'hooks/onChangeHook';
 import {
   ModalOverlay,
   ModalWrapper,

@@ -1,16 +1,16 @@
 import React, { createContext, useReducer } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Picker from './Picker';
-import Calendar from './Calendar';
-import FreeBoard from './Board';
-import Login from './Login';
-import Callback from './Callback';
-import SignUp from './Account/SignUp';
-import { Container } from './style';
-import Profile from './Account/Profile';
-import Edit from './Account/Edit';
-import useCheckAuth from '../../../hooks/checkAuth';
-import Search from './Board/Search';
+import Picker from 'components/MainContainer/Main/Picker';
+import Calendar from 'components/MainContainer/Main/Calendar';
+import FreeBoard from 'components/MainContainer/Main/Board';
+import Login from 'components/MainContainer/Main/Account/Login';
+import Callback from 'components/MainContainer/Main/Account/Login/Callback';
+import SignUp from 'components/MainContainer/Main/Account/SignUp';
+import { Container } from 'components/MainContainer/Main/style';
+import Profile from 'components/MainContainer/Main/Account/Profile';
+import Edit from 'components/MainContainer/Main/Account/Edit';
+import useCheckAuth from 'hooks/checkAuth';
+import Search from 'components/MainContainer/Main/Search';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_VALUE':
@@ -22,10 +22,8 @@ const reducer = (state, action) => {
 
 const CommentDispatchContext = createContext(null);
 const CommentStateContext = createContext(null);
-
 const Main = ({ curIp }) => {
   const [state, dispatch] = useReducer(reducer, '');
-
   useCheckAuth();
   return (
     <CommentDispatchContext.Provider value={dispatch}>
