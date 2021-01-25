@@ -61,6 +61,7 @@ const PostModal = ({ posts, post, setModalPost, setPosts }) => {
       <ModalContainer>
         <Post setBoards={setPosts} posts={posts} post={post} isModal="true" />
         <DetailView
+          setModalPost={setModalPost}
           setBoards={setPosts}
           posts={posts}
           isModal="true"

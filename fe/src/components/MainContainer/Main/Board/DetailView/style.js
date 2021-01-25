@@ -18,30 +18,36 @@ export const Container = styled.div`
     top: 5px;
   }
   & > .postContent {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar-track {
-      background-color: gray;
-      border-radius: 10px;
-      box-shadow: inset 0px 0px 5px white;
-    }
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #2f3542;
-      border-radius: 10px;
-      background-clip: padding-box;
-      border: 2px solid transparent;
-    }
   }
 `;
-
+export const PostContent = styled.div`
+  height: calc(100% - 50px);
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  overflow-y: scroll;
+  flex-grow: 1;
+  margin-bottom: 50px;
+  padding-bottom: 10px;
+  &::-webkit-scrollbar-track {
+    background-color: gray;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+`;
 export const ImgIcon = styled.img`
+  object-fit: contain;
   max-width: 500px;
+  height: 100%;
   padding-top: 5px;
   border-radius: 15px;
 `;
@@ -56,6 +62,7 @@ export const Comment = styled.li`
   padding: 15px;
   border-radius: 15px;
   display: flex;
+
   width: 100%;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   font-size: 15px;
@@ -72,7 +79,7 @@ export const PostWrap = styled.div`
   padding-top: 5px;
   display: flex;
   flex-direction: column;
-  flex-basis: calc(100% - 150px);
+  flex-basis: calc(100% - 300px);
 `;
 
 export const CommentBtn = styled.button`
@@ -98,7 +105,9 @@ export const CommentWrap = styled.div`
   display: flex;
   padding-top: 10px;
   max-height: 50px;
-
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   justify-content: space-between;
 `;
 

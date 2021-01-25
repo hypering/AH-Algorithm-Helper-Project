@@ -40,7 +40,6 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           configFile: './babel.config.js',
-          plugins: ['react-hot-loader/babel'],
         },
       },
       {

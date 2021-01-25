@@ -9,9 +9,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const { startIdx } = req.query;
   const boardDatas = await boardModel.find().sort({ _id: -1 }).skip(Number(startIdx)).limit(5);
-
-  const refinedDatas = refinePostDatas(boardDatas);
-
+  const refinedDatas = await refinePostDatas(boardDatas);
   res.json(refinedDatas);
 });
 
@@ -21,17 +19,19 @@ router.post('/search', async (req, res) => {
   if (type === 'author') {
     const queryUser = await userModel.findOne({ userId: value });
 
-    const searchResults = await boardModel.find({ author: queryUser._id });
+    const searchResults = await boardModel.find({ author: queryUser._id }).sort({ _id: -1 });
     const refinedDatas = await refinePostDatas(searchResults);
 
     console.log(searchResults);
     res.status(200).json(refinedDatas);
-  } else if (type === 'hash') {
-    const searchResults = await boardModel.find({ sort: { id: -1 } });
-    searchResults.filter((post) => {
-      return post.tags.include(value);
+  } else if (type === 'tag') {
+    console.log(type);
+    const searchResults = await boardModel.find().sort({ _id: -1 });
+    console.log(searchResults);
+    const filterDatas = searchResults.filter((post) => {
+      return post.tags.includes(value);
     });
-    const refinedDatas = await refinePostDatas(searchResults);
+    const refinedDatas = await refinePostDatas(filterDatas);
     res.status(200).json(refinedDatas);
   } else res.status(204).json(false);
 });
