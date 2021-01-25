@@ -15,6 +15,7 @@ import {
   ProfileImg,
   UserInfoContainer,
   AuthorID,
+  BoardDate,
 } from './style';
 import { IsLoginedState } from '../../../../../App';
 import { Link } from 'react-router-dom';
@@ -131,6 +132,7 @@ const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
             )}
           </ProfileImg>
           <AuthorID>{post.author} </AuthorID>
+          <BoardDate>{getDate(post.createAt)}</BoardDate>
         </UserInfoContainer>
       </Link>
       <div className="postContent">

@@ -67,3 +67,8 @@ export const ProfileImg = styled.div`
     height: 100%;
   }
 `;
+
+export const BoardDate = styled.div`
+  font-size: 15px;
+  color: #808080;
+`;
