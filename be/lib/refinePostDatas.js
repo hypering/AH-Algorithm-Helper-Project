@@ -3,6 +3,7 @@ const { userModel } = require('../models');
 module.exports = async function (posts) {
   const refinedDatas = await Promise.all(
     posts.map(async (element) => {
+      console.log(element);
       const queryUser = await userModel.findOne({ _id: element.author });
       const refinedComment = await Promise.all(
         element.comment.map(async (e) => {
@@ -29,6 +30,7 @@ module.exports = async function (posts) {
         img_url: element.img_url,
         content: element.content,
         profile: queryUser.profile,
+        createAt: element.createAt,
       };
     }),
   );

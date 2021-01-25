@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import SvgIcon from './SvgIcon';
-import { Container, SvgWrap, ImgIcon, ProfileImg } from './style';
+import { Container, SvgWrap, ImgIcon, ProfileImg, BoardDate } from './style';
 import { CommentDispatchContext } from '../../../../Main';
 import { IsLoginedState } from '../../../../../../App';
 import { Link } from 'react-router-dom';
+import { getDate } from '../../../../../../lib/getTimer';
+
 const Post = ({
   posts,
   setBoards,
@@ -17,6 +19,7 @@ const Post = ({
   setModalPost,
   isModal,
 }) => {
+  console.log(post);
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {
@@ -171,6 +174,7 @@ const Post = ({
             />
           </li>
         </SvgWrap>
+        <BoardDate>{getDate(post.createAt)}</BoardDate>
       </div>
     </Container>
   );

@@ -137,3 +137,11 @@ export const AuthorID = styled.div`
   font-size: 20px;
   line-height: 50px;
 `;
+
+export const BoardDate = styled.div`
+  font-size: 15px;
+  line-height: 50px;
+  min-width: 50px;
+  color: #808080;
+  margin-left: 15px;
+`;

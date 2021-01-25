@@ -16,6 +16,7 @@ const boardSchema = new Schema(
     heart: [String],
     comment: [commentSchema],
     clicked: [String],
+    createAt: { type: Date, default: Date.now() },
   },
   { versionKey: false },
 );
@@ -23,8 +24,8 @@ const boardSchema = new Schema(
 const boardModel = mongoose.model('board', boardSchema);
 const addComment = async function (boardId, commentBody) {
   const queryPost = await boardModel.findOne({ _id: boardId });
-  const newComment = await queryPost.comment.push(commentBody);
 
+  await queryPost.comment.push(commentBody);
   await queryPost.save();
 
   return queryPost.comment[queryPost.comment.length - 1]._id;
