@@ -67,7 +67,7 @@ router.post('/getUser', async (req, res) => {
     if (queryPost !== null) posts.push(queryPost);
   }
 
-  const refinedDatas = refinePostDatas(posts);
+  const refinedDatas = await refinePostDatas(posts);
 
   if (queryUser) res.status(200).json({ posts: refinedDatas, queryUser });
   else {
