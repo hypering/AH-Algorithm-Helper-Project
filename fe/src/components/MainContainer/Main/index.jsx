@@ -10,6 +10,7 @@ import { Container } from './style';
 import Profile from './Account/Profile';
 import Edit from './Account/Edit';
 import useCheckAuth from '../../../hooks/checkAuth';
+import Search from './Board/Search';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_VALUE':
@@ -40,7 +41,11 @@ const Main = ({ curIp }) => {
             <Route path="/callback" component={Callback} />
             <Route path="/account/signup" component={SignUp} />
             <Route exact path="/account/edit" component={Edit} />
+            <Route exact path="/search">
+              <Search curIp={curIp}></Search>
+            </Route>
             <Route path="/account/:userId" component={Profile} />
+
             <Route render={() => <div>404 NOT FOUND</div>} />
           </Switch>
         </Container>

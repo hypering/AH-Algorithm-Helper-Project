@@ -4,23 +4,26 @@ const { userModel, boardModel } = require('../models');
 const Validation = require('../lib/validation');
 const axios = require('axios');
 const { upload } = require('../lib/profileUpload');
+const refinePostDatas = require('../lib/refinePostDatas');
 const router = express.Router();
 
 // 로그인 유무 확인
 // 403 : 인증정보 실패시 에러코드
 router.post('/', async (req, res) => {
   if (req.session.user) {
-    console.log(req.session);
     res.status(200).json({
       isLogined: true,
       userKey: req.session.user._id,
       userId: req.session.user.userId,
       profile: req.session.user.profile,
     });
-  } else res.status(403).json({ isLogined: false, userKey: '', userId: '', userProfile: '' });
+  } else res.status(401).json({ isLogined: false, userKey: '', userId: '', userProfile: '' });
 });
 router.post('/edit', upload.single('img'), async (req, res) => {
   const { userIntrod, userEmail } = req.body;
+  if (!req.session.user) {
+    res.status(401).json(false);
+  }
   const queryUser = await userModel.findOne({ _id: req.session.user._id });
   queryUser.email = userEmail;
   queryUser.introduction = String(userIntrod);
@@ -61,38 +64,10 @@ router.post('/getUser', async (req, res) => {
 
   for (let i = 0; i < queryUser.posts.length; i++) {
     const queryPost = await boardModel.findOne({ _id: queryUser.posts[i] });
-    posts.push(queryPost);
+    if (queryPost !== null) posts.push(queryPost);
   }
-  const refinedDatas = await Promise.all(
-    posts.map(async (element) => {
-      const queryUser = await userModel.findOne({ _id: element.author });
-      const refinedComment = await Promise.all(
-        element.comment.map(async (e) => {
-          const queryCommentUser = await userModel.findOne({ _id: e.writerId });
-          return {
-            _id: e._id,
-            createAt: e.createAt,
-            context: e.context,
-            writerKey: e.writerId,
-            writerId: queryCommentUser.userId,
-            profile: queryUser.profile,
-          };
-        }),
-      );
 
-      return {
-        _id: element._id,
-        tags: element.tags,
-        heart: element.heart,
-        comment: refinedComment,
-        clicked: element.clicked,
-        author: queryUser.userId,
-        img_url: element.img_url,
-        content: element.content,
-        profile: queryUser.profile,
-      };
-    }),
-  );
+  const refinedDatas = refinePostDatas(posts);
 
   if (queryUser) res.status(200).json({ posts: refinedDatas, queryUser });
   else {
@@ -217,14 +192,12 @@ router.post('/github', async (req, res) => {
     });
 
     req.session.user = User;
-    res
-      .status(200)
-      .json({
-        isLogined: true,
-        userKey: req.session.user._id,
-        userId: req.session.user.userId,
-        profile: req.session.user.profile,
-      });
+    res.status(200).json({
+      isLogined: true,
+      userKey: req.session.user._id,
+      userId: req.session.user.userId,
+      profile: req.session.user.profile,
+    });
   } catch (error) {
     console.log(error);
   }

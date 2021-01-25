@@ -1,5 +1,6 @@
 const express = require('express');
 const { upload } = require('../lib/imageUpload');
+const refinePostDatas = require('../lib/refinePostDatas');
 const { boardModel, addComment } = require('../models');
 const { userModel } = require('../models');
 
@@ -7,43 +8,33 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const { startIdx } = req.query;
-  const boardDates = await boardModel.find().sort({ _id: -1 }).skip(Number(startIdx)).limit(5);
+  const boardDatas = await boardModel.find().sort({ _id: -1 }).skip(Number(startIdx)).limit(5);
 
-  const refinedDatas = await Promise.all(
-    boardDates.map(async (element) => {
-      const queryUser = await userModel.findOne({ _id: element.author });
-      const refinedComment = await Promise.all(
-        element.comment.map(async (e) => {
-          const queryCommentUser = await userModel.findOne({ _id: e.writerId });
-          return {
-            _id: e._id,
-            createAt: e.createAt,
-            context: e.context,
-            writerKey: e.writerId,
-            writerId: queryCommentUser.userId,
-            profile: queryCommentUser.profile,
-          };
-        }),
-      );
-
-      return {
-        _id: element._id,
-        tags: element.tags,
-        heart: element.heart,
-        comment: refinedComment,
-        clicked: element.clicked,
-        author: queryUser.userId,
-        authorKey: queryUser._id,
-        img_url: element.img_url,
-        content: element.content,
-        profile: queryUser.profile,
-      };
-    }),
-  );
+  const refinedDatas = refinePostDatas(boardDatas);
 
   res.json(refinedDatas);
 });
 
+router.post('/search', async (req, res) => {
+  const { type, value } = req.body;
+
+  if (type === 'author') {
+    const queryUser = await userModel.findOne({ userId: value });
+
+    const searchResults = await boardModel.find({ author: queryUser._id });
+    const refinedDatas = await refinePostDatas(searchResults);
+
+    console.log(searchResults);
+    res.status(200).json(refinedDatas);
+  } else if (type === 'hash') {
+    const searchResults = await boardModel.find({ sort: { id: -1 } });
+    searchResults.filter((post) => {
+      return post.tags.include(value);
+    });
+    const refinedDatas = await refinePostDatas(searchResults);
+    res.status(200).json(refinedDatas);
+  } else res.status(204).json(false);
+});
 router.post('/viewup', async (req, res) => {
   const contentId = req.body.contentId;
   const curIp = req.body.curIp;
@@ -94,13 +85,6 @@ router.post('/write', async (req, res) => {
     res.setHeader('Location', 'http://49.50.166.11:4000/board');
   }
   res.end();
-});
-
-router.get('/search', async (req, res) => {
-  const value = req.query.value;
-
-  const searchResults = await boardModel.find({ author: value });
-  res.json({ results: searchResults });
 });
 
 router.post('/heartup', async (req, res) => {
@@ -159,11 +143,14 @@ router.post('/comment/delete', async (req, res) => {
 
 router.post('/delete', async (req, res) => {
   const { boardId } = req.body;
+  if (!req.session.user) res.status(401).json(false);
   const queryContent = await boardModel.deleteOne({ _id: boardId });
-
+  const queryUser = await userModel.findOne({ _id: req.session.user._id });
+  const idx = queryUser.posts.findIndex((e) => e === boardId);
+  queryUser.posts.splice(idx, 1);
+  await queryUser.save();
   if (queryContent !== undefined) {
     res.status(200).json(true);
-  }
-  res.status(201).json(false);
+  } else res.status(201).json(false);
 });
 module.exports = router;

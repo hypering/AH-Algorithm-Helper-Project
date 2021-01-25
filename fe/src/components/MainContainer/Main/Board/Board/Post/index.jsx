@@ -13,6 +13,7 @@ const Post = ({
   id,
   curIp,
   fromProfile,
+  fromSearch,
   setModalPost,
   isModal,
 }) => {
