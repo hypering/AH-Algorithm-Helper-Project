@@ -40,7 +40,11 @@ export const Container = styled.div`
   & > .postImg {
     max-width: ${(props) => (props.fromProfile ? '250px' : '9999px')};
     max-width: ${(props) => (props.isModal ? '500px' : '9999px')};
+    max-height: ${(props) => (props.isModal ? '420px' : '9999px')};
     & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 `;

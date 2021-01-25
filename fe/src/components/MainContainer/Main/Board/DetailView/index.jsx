@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { CommentStateContext } from '../../../Main';
 import { CommentDispatchContext } from '../../../Main';
 import { getDate } from '../../../../../lib/getTimer';
@@ -15,10 +15,19 @@ import {
   ProfileImg,
   UserInfoContainer,
   AuthorID,
+  PostContent,
 } from './style';
 import { IsLoginedState } from '../../../../../App';
 import { Link } from 'react-router-dom';
-const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
+const DetailView = ({
+  posts,
+  post,
+  setPost,
+  setBoards,
+  isModal,
+  setModalPost,
+}) => {
+  const postContentRef = useRef();
   const isLogined = useContext(IsLoginedState);
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
@@ -74,6 +83,8 @@ const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
       profile: isLogined.profile,
     });
 
+    postContentRef.current.scrollTop = postContentRef.current.scrollHeight;
+
     const updatedPosts = [...posts];
     setBoards(updatedPosts);
   };
@@ -95,7 +106,11 @@ const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
       if (response.status === 200) {
         const idx = posts.findIndex((e) => post._id === e._id);
         posts.splice(idx, 1);
-        setPost(null);
+        if (isModal) {
+          setModalPost(null);
+        } else {
+          setPost(null);
+        }
       }
     }
   };
@@ -133,13 +148,11 @@ const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
           <AuthorID>{post.author} </AuthorID>
         </UserInfoContainer>
       </Link>
-      <div className="postContent">
+      <PostContent ref={postContentRef}>
         {post.img_url != '' && !isModal ? (
-          <div>
-            <ImgIcon
-              src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
-            ></ImgIcon>
-          </div>
+          <ImgIcon
+            src={`https://kr.object.ncloudstorage.com/algorithm-helper/Boards/FreeBoard/${post.img_url}`}
+          ></ImgIcon>
         ) : (
           ''
         )}
@@ -210,20 +223,20 @@ const DetailView = ({ posts, post, setPost, setBoards, isModal }) => {
             <h6>No Comment</h6>
           )}
         </PostWrap>
-        {isLogined.isLogined && (
-          <CommentWrap>
-            <CommentText
-              name="content"
-              id="boardContent"
-              cols="120"
-              rows="5"
-              value={value}
-              onChange={onChange}
-            />
-            <CommentBtn onClick={onClick}>등록</CommentBtn>
-          </CommentWrap>
-        )}
-      </div>
+      </PostContent>
+      {isLogined.isLogined && (
+        <CommentWrap>
+          <CommentText
+            name="content"
+            id="boardContent"
+            cols="120"
+            rows="5"
+            value={value}
+            onChange={onChange}
+          />
+          <CommentBtn onClick={onClick}>등록</CommentBtn>
+        </CommentWrap>
+      )}
     </Container>
   );
 };
