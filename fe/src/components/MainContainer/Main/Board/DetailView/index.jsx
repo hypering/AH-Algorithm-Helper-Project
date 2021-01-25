@@ -16,6 +16,7 @@ import {
   UserInfoContainer,
   AuthorID,
   PostContent,
+  BoardDate,
 } from './style';
 import { IsLoginedState } from '../../../../../App';
 import { Link } from 'react-router-dom';
@@ -146,6 +147,7 @@ const DetailView = ({
             )}
           </ProfileImg>
           <AuthorID>{post.author} </AuthorID>
+          <BoardDate>{getDate(post.createAt)}</BoardDate>
         </UserInfoContainer>
       </Link>
       <PostContent ref={postContentRef}>
