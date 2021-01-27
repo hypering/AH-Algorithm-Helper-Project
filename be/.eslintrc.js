@@ -12,8 +12,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    indent: ['error', 2], // 들여쓰기 1칸
-    quotes: ['error', 'single'], // 더블쿼터 사용
-    semi: 2, // 세미클론 사용
+    indent: ['error', 2],
+    quotes: ['error', 'single'],
+    semi: 2,
   },
 };
