@@ -1,29 +1,20 @@
 const express = require('express');
-const { contestModel } = require('../models');
+const ContestService = require('../services/contest');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   const now = new Date();
   now.setHours(now.getHours());
-  const contestDates = await contestModel
-    .find({
-      startDate: { $gte: now },
-    })
-    .sort({ startDate: 0 });
-  res.json(contestDates);
+  const contestDatas = await ContestService.selectContest({ now });
+
+  res.json(contestDatas);
 });
 
 router.post('/add', async (req, res) => {
   const { name, title, startDate, url } = req.body;
+  const result = await ContestService.addContest({ name, title, startDate, url });
 
-  await contestModel.create({
-    name,
-    title,
-    startDate,
-    url,
-  });
-
-  res.status(200).json(true);
+  res.status(200).json(result);
 });
 
 router.post('/delete', async (req, res) => {
@@ -33,11 +24,10 @@ router.post('/delete', async (req, res) => {
   }
   const { contest_id } = req.body;
 
-  const response = await contestModel.deleteOne({
-    _id: contest_id,
-  });
-  if (response.deletedCount) res.status(200).json(true);
-  else res.status(201).json(false);
+  const result = await ContestService.deleteContest({ contest_id });
+
+  if (result) return res.status(200).json(result);
+  return res.status(201).json(result);
 });
 
 module.exports = router;

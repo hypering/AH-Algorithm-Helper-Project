@@ -1,14 +1,9 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const { userModel, boardModel } = require('../models');
 const Validation = require('../lib/validation');
-const axios = require('axios');
 const { upload } = require('../lib/profileUpload');
-const refinePostDatas = require('../lib/refinePostDatas');
+const UserService = require('../services/user');
 const router = express.Router();
 
-// 로그인 유무 확인
-// 403 : 인증정보 실패시 에러코드
 router.post('/', async (req, res) => {
   if (req.session.user) {
     res.status(200).json({
@@ -19,60 +14,50 @@ router.post('/', async (req, res) => {
     });
   } else res.status(401).json({ isLogined: false, userKey: '', userId: '', userProfile: '' });
 });
+
 router.post('/edit', upload.single('img'), async (req, res) => {
-  const { userIntrod, userEmail } = req.body;
-  if (!req.session.user) {
+  const user = req.session.user;
+  if (!user) {
     res.status(401).json(false);
   }
-  const queryUser = await userModel.findOne({ _id: req.session.user._id });
-  queryUser.email = userEmail;
-  queryUser.introduction = String(userIntrod);
-  queryUser.profile = req.session.user._id;
-  await queryUser.save();
+  const { userIntrod, userEmail } = req.body;
+  const queryUser = await UserService.editUser({ user, userIntrod, userEmail });
+
   req.session.user = queryUser;
-  console.log(req.session.user);
-  res.writeHead(302, { Location: `http://127.0.0.1:3000/account/${req.session.user.userId}` });
+
+  res.writeHead(302, { Location: `http://127.0.0.1:3000/account/${user.userId}` });
   res.end();
 });
+
 router.post('/idcheck', async (req, res) => {
   const { inputId } = req.body;
-  const queryUser = await userModel.findOne({ userId: inputId });
+  const queryUser = await UserService.checkId({ inputId });
+
   if (queryUser) {
-    res.status(409);
-    res.json(false);
+    res.status(409).json(false);
   } else {
-    res.status(200);
-    res.json(true);
+    res.status(200).json(true);
   }
 });
-router.post('/getUserForEdit', async (req, res) => {
-  const userKey = req.session.user._id;
-  const queryUser = await userModel.findOne({ _id: userKey });
 
+router.post('/getUserForEdit', async (req, res) => {
   if (!req.session.user) return res.status(403).json(false);
+
+  const userKey = req.session.user._id;
+  const queryUser = await UserService.getUserForEdit({ userKey });
+
   if (!queryUser) return res.status(204).json(false);
 
   return res.status(200).json(queryUser);
 });
+
 router.post('/getUser', async (req, res) => {
   const { userId } = req.body;
-  const queryUser = await userModel.findOne(
-    { userId: userId },
-    { userId: true, posts: true, email: true, introduction: true, profile: true },
-  );
-  let posts = [];
+  const { queryUser, refinePostDatas } = await UserService.getUser({ userId });
 
-  for (let i = 0; i < queryUser.posts.length; i++) {
-    const queryPost = await boardModel.findOne({ _id: queryUser.posts[i] });
-    if (queryPost !== null) posts.push(queryPost);
-  }
+  if (!queryUser) return res.status(404).json(false);
 
-  const refinedDatas = await refinePostDatas(posts);
-
-  if (queryUser) res.status(200).json({ posts: refinedDatas, queryUser });
-  else {
-    res.status(404).json(false);
-  }
+  res.status(200).json({ posts: refinePostDatas, queryUser });
 });
 
 // 로컬 회원가입
@@ -80,20 +65,12 @@ router.post('/getUser', async (req, res) => {
 router.post('/join', Validation.isUser, async (req, res) => {
   const { userId, userPw, nickname, userEmail } = req.body;
 
-  const existId = await userModel.findOne({
-    userId,
-  });
-  if (existId) {
-    res.status(409).json(false);
-    return;
+  const result = await UserService.joinUser({ userId, userPw, nickname, userEmail });
+
+  if (!result) {
+    return res.status(409).json(false);
   }
-  const hashPw = await bcrypt.hash(userPw, 10);
-  await userModel.create({
-    userId,
-    userPw: hashPw,
-    nickname,
-    email: userEmail,
-  });
+
   if (process.env.ENV === 'development') {
     res.writeHead(302, { Location: 'http://127.0.0.1:3000/' });
   } else {
@@ -102,24 +79,12 @@ router.post('/join', Validation.isUser, async (req, res) => {
   res.end();
 });
 
-// 로컬 로그인
-// 401: 로그인 실패시 상태코드
 router.post('/login', Validation.isUser, async (req, res) => {
   const { userId, userPw } = req.body;
 
-  const existId = await userModel.findOne({
-    userId,
-  });
-
+  const existId = await UserService.loginUser({ userId, userPw });
   if (!existId) {
-    res.status(401).json(false);
-    return;
-  }
-
-  const isLogined = await bcrypt.compare(userPw, existId.userPw);
-  if (!isLogined) {
-    res.status(401).json(false);
-    return;
+    return res.status(401).json(false);
   }
 
   req.session.user = existId;
@@ -131,7 +96,6 @@ router.post('/login', Validation.isUser, async (req, res) => {
   });
 });
 
-// 로컬 로그아웃
 router.post('/logout', Validation.isUser, async (req, res) => {
   req.session.destroy();
 
@@ -139,68 +103,21 @@ router.post('/logout', Validation.isUser, async (req, res) => {
 });
 
 router.post('/github', async (req, res) => {
-  try {
-    const { code } = req.body;
-    const clientId =
-      process.env.ENV === 'prod' ? process.env.PROD_CLIENT_ID : process.env.DEV_CLIENT_ID;
-    const secret =
-      process.env.ENV === 'prod' ? process.env.PROD_CLIENT_SECRET : process.env.DEV_CLIENT_SECRET;
+  const { code } = req.body;
+  const clientId =
+    process.env.ENV === 'prod' ? process.env.PROD_CLIENT_ID : process.env.DEV_CLIENT_ID;
+  const secret =
+    process.env.ENV === 'prod' ? process.env.PROD_CLIENT_SECRET : process.env.DEV_CLIENT_SECRET;
 
-    const { data } = await axios.post(
-      'https://github.com/login/oauth/access_token',
-      {
-        code,
-        client_id: clientId,
-        client_secret: secret,
-      },
-      {
-        headers: {
-          accept: 'application/json',
-        },
-      },
-    );
-    const searchParams = new URLSearchParams(data);
-    const accessToken = searchParams.get('access_token');
+  const existId = await UserService.githubLogin({ code, clientId, secret });
 
-    const USER_PROFILE_URL = 'https://api.github.com/user';
-    const { data: userInfomation } = await axios.get(USER_PROFILE_URL, {
-      headers: {
-        Authorization: `token ${accessToken}`,
-      },
-      withCredentials: true,
-    });
-
-    const existId = await userModel.findOne({
-      userId: userInfomation.login + userInfomation.id,
-    });
-
-    if (existId) {
-      req.session.user = existId;
-      res.status(200).json({
-        isLogined: true,
-        userKey: req.session.user._id,
-        userId: req.session.user.userId,
-        userProfile: req.session.user.profile,
-      });
-      return;
-    }
-
-    const User = await userModel.create({
-      userId: userInfomation.login + userInfomation.id,
-      nickname: userInfomation.login,
-      email: userInfomation.email,
-    });
-
-    req.session.user = User;
-    res.status(200).json({
-      isLogined: true,
-      userKey: req.session.user._id,
-      userId: req.session.user.userId,
-      profile: req.session.user.profile,
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  req.session.user = existId;
+  res.status(200).json({
+    isLogined: true,
+    userKey: existId._id,
+    userId: existId.userId,
+    userProfile: existId.profile,
+  });
 });
 
 module.exports = router;
