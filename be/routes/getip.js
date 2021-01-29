@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
+  console.log('asd');
   const ip_addr =
     (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
 
