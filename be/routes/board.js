@@ -15,9 +15,9 @@ router.post('/search', async (req, res) => {
   const { type, value } = req.body;
 
   const searchResult = await BoardService.searchBoard({ type, value });
-
-  if (type === 'author' || type === 'tag') return res.status(200).json(searchResult);
-  res.status(204).json(false);
+  if (searchResult === false) {
+    res.status(204).json(false);
+  } else if (type === 'author' || type === 'tag') return res.status(200).json(searchResult);
 });
 
 router.post('/viewup', async (req, res) => {
@@ -80,7 +80,7 @@ router.post('/comment/delete', async (req, res) => {
   const { boardId, key } = req.body;
 
   const deleteCommentResult = await BoardService.deleteBoardComment({ boardId, key });
-
+  console.log(boardId, key);
   if (deleteCommentResult) res.status(200).json(true);
   else res.status(201).json(false);
 });

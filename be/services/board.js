@@ -12,15 +12,19 @@ const BoardService = {
   searchBoard: async ({ type, value }) => {
     if (type === 'author') {
       const queryUser = await userModel.findOne({ userId: value });
+      if (queryUser === null) return false;
       const searchResults = await boardModel.find({ author: queryUser._id }).sort({ _id: -1 });
+      if (searchResults === null) return false;
       const refinedDatas = await refinePostDatas(searchResults);
 
       return refinedDatas;
     } else if (type === 'tag') {
       const searchResults = await boardModel.find().sort({ _id: -1 });
+      if (searchResults === null) return false;
       const filterDatas = searchResults.filter((post) => {
         return post.tags.includes(value);
       });
+      if (filterDatas === null) return false;
       const refinedDatas = await refinePostDatas(filterDatas);
 
       return refinedDatas;
