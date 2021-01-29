@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Categories, Subtitle } from './style';
 import Category from 'components/MainContainer/Main/Picker/Categories/Category';
-const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
+const CategoryContainer = ({ queryOptions, setQueryOptions }) => {
   const categories = [
     '수학',
     '다이나믹 프로그래밍',
@@ -55,8 +55,8 @@ const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
           <Category
             key={element}
             name={element}
-            selectedCate={selectedCate}
-            setSelctedCate={setSelectedCate}
+            queryOptions={queryOptions}
+            setQueryOptions={setQueryOptions}
           ></Category>
         ))}
       </Categories>
