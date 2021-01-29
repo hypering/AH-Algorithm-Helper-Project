@@ -69,7 +69,7 @@ const DetailView = ({
     }
 
     post.comment.push({
-      _id: response.newCommentId,
+      _id: response,
       createAt: nowDate,
       context: value,
       writerKey: isLogined.userKey,
