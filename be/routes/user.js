@@ -4,7 +4,7 @@ const { upload } = require('../lib/profileUpload');
 const UserService = require('../services/user');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
   if (req.session.user) {
     res.status(200).json({
       isLogined: true,
