@@ -9,6 +9,7 @@ import {
   SignUpContainer,
   SignupHeader,
 } from './style';
+import API from '../../../../../lib/api';
 
 const SignUp = () => {
   const isLogined = useContext(IsLoginedState);
@@ -35,23 +36,14 @@ const SignUp = () => {
     }
   };
 
+  const checkUser = async () => {
+    const result = API.post('user/idcheck', { inputId: userId });
+    if (result) setIdValid(true);
+    else setIdValid(false);
+  };
+
   useEffect(async () => {
-    await fetch(`${process.env.BASE_URL}/user/idcheck`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputId: userId,
-      }),
-    }).then((res) => {
-      if (res.status === 200) {
-        setIdValid(true);
-      } else if (res.status == 409) {
-        setIdValid(false);
-      }
-    });
+    checkUser();
   }, [userId]);
 
   useEffect(() => {

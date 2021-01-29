@@ -6,44 +6,15 @@ import Result from 'components/MainContainer/Main/Picker/Result';
 import { MainContainer, Container, SubContainer, ButtonWrap } from './style';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import API from '../../../../lib/api';
+
 const Picker = () => {
   const [problemCnt, setProblemCnt] = useState(0);
   const [selectedCate, setSelectedCate] = useState([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState([0, 1, 0, 1]);
   const [queryResults, setQueryResults] = useState([]);
 
-  const getProblems = async (
-    url,
-    problemCnt,
-    selectedCate,
-    selectedDifficulty
-  ) => {
-    const low = 5 * selectedDifficulty[0] + selectedDifficulty[1];
-    const high = 5 * selectedDifficulty[2] + selectedDifficulty[3];
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({
-        problemCnt: problemCnt,
-        selectedCate: selectedCate,
-        selectedDifficulty: [low, high],
-      }),
-    });
-
-    const response_Data = await response.json();
-
-    if (response.ok) {
-      const res = response_Data.res;
-
-      return await res;
-    } else {
-      return await [];
-    }
-  };
   const onSubmit = async () => {
-    //모든 항목이 입력됐는지 확인해야함
     if (problemCnt < 1 || problemCnt > 10) {
       alert('1~10 숫자를 입력해주세요.');
     } else if (problemCnt == 0 || problemCnt == '') {
@@ -51,16 +22,18 @@ const Picker = () => {
     } else if (selectedCate.length === 0) {
       alert('카테고리를 선택하세요.');
     } else {
-      //요청
-      const res = await getProblems(
-        `${process.env.BASE_URL}/problem`,
-        problemCnt,
-        selectedCate,
-        selectedDifficulty
-      );
-      setQueryResults(res);
+      const low = 5 * selectedDifficulty[0] + selectedDifficulty[1];
+      const high = 5 * selectedDifficulty[2] + selectedDifficulty[3];
+
+      const problemDatas = await API.post('problem', {
+        problemCnt: problemCnt,
+        selectedCate: selectedCate,
+        selectedDifficulty: [low, high],
+      });
+      setQueryResults(problemDatas.res);
     }
   };
+
   return (
     <Container>
       <SubContainer>

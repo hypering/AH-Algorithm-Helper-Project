@@ -4,7 +4,7 @@ const { upload } = require('../lib/profileUpload');
 const UserService = require('../services/user');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
   if (req.session.user) {
     res.status(200).json({
       isLogined: true,
@@ -40,7 +40,7 @@ router.post('/idcheck', async (req, res) => {
   }
 });
 
-router.post('/getUserForEdit', async (req, res) => {
+router.get('/getUserForEdit', async (req, res) => {
   if (!req.session.user) return res.status(403).json(false);
 
   const userKey = req.session.user._id;
@@ -96,7 +96,7 @@ router.post('/login', Validation.isUser, async (req, res) => {
   });
 });
 
-router.post('/logout', Validation.isUser, async (req, res) => {
+router.get('/logout', Validation.isUser, async (req, res) => {
   req.session.destroy();
 
   res.status(200).json(true);

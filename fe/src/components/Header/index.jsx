@@ -4,25 +4,22 @@ import { Container } from './style';
 import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IsLoginedState, UserDispatch } from '../../App';
+import API from '../../lib/api';
 
 const Header = () => {
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(UserDispatch);
   const history = useHistory();
-  const onLogOutClick = () => {
-    fetch(`${process.env.BASE_URL}/user/logout`, {
-      method: 'post',
-      credentials: 'include',
-    }).then((res) => {
-      res.status === 200;
-      dispatch({
-        type: 'SET_IS_LOGINED',
-        payload: { isLogined: false, userKey: '', userId: '', profile: '' },
-      });
 
-      history.push('/');
-      alert('로그아웃 되었습니다.');
+  const onLogOutClick = async () => {
+    await API.get('user/logout');
+    dispatch({
+      type: 'SET_IS_LOGINED',
+      payload: { isLogined: false, userKey: '', userId: '', profile: '' },
     });
+
+    history.push('/');
+    alert('로그아웃 되었습니다.');
   };
 
   return (

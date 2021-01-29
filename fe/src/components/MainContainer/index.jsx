@@ -4,11 +4,14 @@ import Main from 'components/MainContainer/Main';
 import { Container } from 'components/MainContainer/style';
 import { UserDispatch } from 'App';
 import loadLoginInfo from 'hooks/loadLoginInfo';
+
 const MainContainer = ({ curIp }) => {
   const dispatch = useContext(UserDispatch);
+
   useEffect(() => {
     loadLoginInfo(dispatch);
   }, []);
+
   return (
     <Container>
       <SideNav />

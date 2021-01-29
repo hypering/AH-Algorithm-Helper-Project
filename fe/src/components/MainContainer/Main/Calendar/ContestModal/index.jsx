@@ -10,6 +10,7 @@ import {
   Name,
   InputContainer,
 } from './style';
+import API from '../../../../../lib/api';
 
 const ContestModal = ({ visible, setvisible }) => {
   const [organizer, changeOrganizer, setOrganizer] = onChangeHook();
@@ -31,28 +32,17 @@ const ContestModal = ({ visible, setvisible }) => {
       alert('선택되지 않은 항목이 있습니다.');
       return;
     }
-    const response = await fetch(`${process.env.BASE_URL}/contest/add`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify({
-        name: organizer,
-        title: name,
-        startDate: date,
-        url: link,
-      }),
+
+    await API.post('contest/add', {
+      name: organizer,
+      title: name,
+      startDate: date,
+      url: link,
     });
 
-    if (response.status !== 200) {
-      alert('사용 권한이 없습니다.');
-    } else {
-      alert('대회가 등록되었습니다!');
-      window.location.href = '/calendar';
-    }
+    alert('대회가 등록되었습니다!');
+    window.location.href = '/calendar';
+
     setOrganizer('');
     setName('');
     setDate('');

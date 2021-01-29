@@ -71,7 +71,7 @@ router.post('/comment/write', async (req, res) => {
     context,
   });
 
-  res.status(200).json({ writeCommentResult });
+  res.status(200).json(writeCommentResult);
 });
 
 router.post('/comment/delete', async (req, res) => {

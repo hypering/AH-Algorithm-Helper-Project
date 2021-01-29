@@ -5,6 +5,7 @@ import DetailView from './DetailView';
 import { Container, SubContainer } from './style';
 import { Route, Switch } from 'react-router-dom';
 import Write from './Write';
+import API from '../../../../lib/api';
 
 const FreeBoard = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
@@ -13,14 +14,13 @@ const FreeBoard = ({ curIp }) => {
   const [url, setUrl] = useState('/search');
   const [searchType, setSearchType] = useState('author');
 
+  const getBoardDatas = async () => {
+    const boardDatas = await API.get('board?startIdx=0');
+    setBoards(boardDatas);
+  };
+
   useEffect(() => {
-    fetch(`${process.env.BASE_URL}/board?startIdx=0`, {
-      method: 'get',
-    })
-      .then((response) => response.json())
-      .then((board) => {
-        setBoards(board);
-      });
+    getBoardDatas();
   }, []);
 
   return (

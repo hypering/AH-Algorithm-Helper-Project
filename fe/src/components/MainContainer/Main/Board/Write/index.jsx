@@ -25,7 +25,6 @@ const Write = () => {
       const fileField = document.querySelector('input[type="file"]');
       formData.append('nickname', imgName);
       formData.append('img', fileField.files[0]);
-
       await fetch(`${process.env.BASE_URL}/board/imageupload`, {
         method: 'post',
         mode: 'cors',
