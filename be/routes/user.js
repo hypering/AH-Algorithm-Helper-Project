@@ -40,7 +40,7 @@ router.post('/idcheck', async (req, res) => {
   }
 });
 
-router.post('/getUserForEdit', async (req, res) => {
+router.get('/getUserForEdit', async (req, res) => {
   if (!req.session.user) return res.status(403).json(false);
 
   const userKey = req.session.user._id;
@@ -96,7 +96,7 @@ router.post('/login', Validation.isUser, async (req, res) => {
   });
 });
 
-router.post('/logout', Validation.isUser, async (req, res) => {
+router.get('/logout', Validation.isUser, async (req, res) => {
   req.session.destroy();
 
   res.status(200).json(true);
