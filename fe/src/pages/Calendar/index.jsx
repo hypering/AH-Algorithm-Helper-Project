@@ -1,10 +1,7 @@
 import React, { useState, useCallback, useContext } from 'react';
-import Item from './Item';
+import Item from 'components/MainContainer/Main/Calendar/Item';
 import ContestModal from 'components/MainContainer/Main/Calendar/ContestModal';
-import {
-  Container,
-  ContestButton,
-} from 'components/MainContainer/Main/Calendar/style';
+import { Container, ContestButton } from 'pages/Calendar/style';
 import useGetContestDate from 'hooks/useGetContestData';
 import { IsLoginedState } from 'App';
 

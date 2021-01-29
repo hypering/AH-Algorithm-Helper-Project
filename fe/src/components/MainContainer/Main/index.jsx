@@ -1,16 +1,18 @@
 import React, { createContext, useReducer } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Picker from 'components/MainContainer/Main/Picker';
-import Calendar from 'components/MainContainer/Main/Calendar';
-import FreeBoard from 'components/MainContainer/Main/Board';
-import Login from 'components/MainContainer/Main/Account/Login';
-import Callback from 'components/MainContainer/Main/Account/Login/Callback';
-import SignUp from 'components/MainContainer/Main/Account/SignUp';
 import { Container } from 'components/MainContainer/Main/style';
-import Profile from 'components/MainContainer/Main/Account/Profile';
-import Edit from 'components/MainContainer/Main/Account/Edit';
 import useCheckAuth from 'hooks/checkAuth';
-import Search from 'components/MainContainer/Main/Search';
+import {
+  Profile,
+  Calendar,
+  Login,
+  FreeBoard,
+  SignUp,
+  Edit,
+  Search,
+  Picker,
+  Callback,
+} from 'pages';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_VALUE':

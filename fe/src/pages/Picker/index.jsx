@@ -6,7 +6,7 @@ import Result from 'components/MainContainer/Main/Picker/Result';
 import { MainContainer, Container, SubContainer, ButtonWrap } from './style';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import API from '../../../../lib/api';
+import API from 'lib/api';
 
 const Picker = () => {
   const [problemCnt, setProblemCnt] = useState(0);

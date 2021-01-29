@@ -1,6 +1,5 @@
 import React from 'react';
 import ResEntity from './ResEntity/index.jsx';
-// import ResEntity from './ResEntity/index.jsx';
 import { ResContainer, ResultHeader, Results, Subtitle } from './style.js';
 
 const Result = ({ queryResults }) => {

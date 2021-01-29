@@ -11,8 +11,8 @@ import {
   OverlayText,
   ProfileImgContainer,
   ButtonAccept,
-} from 'components/MainContainer/Main/Account/Edit/style';
-import API from '../../../../../lib/api';
+} from 'pages/Account/Edit/style';
+import API from 'lib/api';
 
 const Edit = () => {
   const [user, setUser] = useState(null);

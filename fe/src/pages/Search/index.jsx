@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import Post from 'components/MainContainer/Main/Board/Board/Post';
 import queryString from 'query-string';
 import DetailView from 'components/MainContainer/Main/Board/DetailView';
-import { SubContainer as Container } from 'components/MainContainer/Main/Board/style';
+import { SubContainer as Container } from 'pages/FreeBoard/style';
 import { Container as SubContainer } from 'components/MainContainer/Main/style';
-import API from '../../../../lib/api';
+import API from 'lib/api';
 
 const Search = ({ curIp }) => {
   const [selectedBoard, setSelectedBoard] = useState();
