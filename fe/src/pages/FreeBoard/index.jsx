@@ -35,6 +35,8 @@ const FreeBoard = ({ curIp }) => {
             setUrl={setUrl}
             searchType={searchType}
             setSearchType={setSearchType}
+            title="자유 게시판"
+            description="자유 게시판에 오신 것을 환영 합니다!"
           />
           <SubContainer>
             <Board
