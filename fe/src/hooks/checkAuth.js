@@ -1,34 +1,25 @@
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserDispatch } from '../App';
+import API from '../lib/api';
+
 const useCheckAuth = () => {
   const history = useHistory();
   const location = useLocation();
   const pathsToCheck = ['/account/edit', '/', '/account/signup'];
   const dispatch = useContext(UserDispatch);
+
   const checkAuth = async () => {
     if (!pathsToCheck.includes(location.pathname)) return;
-
     try {
-      fetch(`${process.env.BASE_URL}/user`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        mode: 'cors',
-        credentials: 'include',
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          dispatch({ type: 'SET_IS_LOGINED', payload: json });
-          if (json.isLogined) {
-            if (location.pathname == '/account/signup') history.push('/picker');
-            else if (location.pathname == '/') history.push('/picker');
-          } else {
-            if (location.pathname == '/account/edit') history.push('/');
-          }
-        });
+      const result = await API.get('user');
+      dispatch({ type: 'SET_IS_LOGINED', payload: result });
+      if (result.isLogined) {
+        if (location.pathname == '/account/signup') history.push('/picker');
+        else if (location.pathname == '/') history.push('/picker');
+      } else {
+        if (location.pathname == '/account/edit') history.push('/');
+      }
     } catch (error) {
       alert('로그인이 필요합니다!');
       history.push('/login');

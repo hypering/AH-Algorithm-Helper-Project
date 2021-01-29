@@ -4,17 +4,13 @@ import {
   Container,
   Loading,
 } from 'components/MainContainer/Main/Board/Board/style';
+import API from '../../../../../lib/api';
 
 const getAddBoardDatas = async (posts, setLoading, setBoards, startIdx) => {
   setLoading(true);
-  fetch(`${process.env.BASE_URL}/board?startIdx=${startIdx}`, {
-    method: 'get',
-  })
-    .then((response) => response.json())
-    .then((board) => {
-      setBoards(posts.concat(board));
-      setLoading(false);
-    });
+  const boardDatas = await API.get(`board?startIdx=${startIdx}`);
+  setBoards(posts.concat(boardDatas));
+  setLoading(false);
 };
 
 const Board = ({ setBoards, posts, setSelectedBoard, curIp }) => {

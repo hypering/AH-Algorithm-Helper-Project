@@ -19,7 +19,7 @@ export default class API {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: payload,
+      body: JSON.stringify(payload),
       credentials: 'include',
     });
     const result = await response.json();

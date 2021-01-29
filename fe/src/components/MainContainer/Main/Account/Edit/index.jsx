@@ -12,6 +12,7 @@ import {
   ProfileImgContainer,
   ButtonAccept,
 } from 'components/MainContainer/Main/Account/Edit/style';
+import API from '../../../../../lib/api';
 
 const Edit = () => {
   const [user, setUser] = useState(null);
@@ -21,22 +22,17 @@ const Edit = () => {
   const [loaded, setLoaded] = useState(false);
   const profileImg = useRef();
   const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+  const getUser = async () => {
+    const user = await API.get('user/getUserForEdit');
+    if (user) {
+      setUser(user);
+      setLoaded(true);
+    }
+  };
+
   useEffect(() => {
-    fetch(`${process.env.BASE_URL}/user/getUserForEdit`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors',
-      credentials: 'include',
-    }).then(async (response) => {
-      if (response.status === 200) {
-        const json = await response.json();
-        setUser(json);
-        setLoaded(true);
-      }
-    });
+    getUser();
   }, []);
 
   useEffect(() => {

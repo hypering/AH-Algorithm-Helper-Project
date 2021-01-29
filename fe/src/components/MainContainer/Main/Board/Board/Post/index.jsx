@@ -11,6 +11,7 @@ import { CommentDispatchContext } from 'components/MainContainer/Main';
 import { IsLoginedState } from 'App';
 import { Link } from 'react-router-dom';
 import { getDate } from 'lib/getTimer';
+import API from '../../../../../../lib/api';
 
 const Post = ({
   posts,
@@ -26,61 +27,47 @@ const Post = ({
 }) => {
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
-  const onClick = () => {
+
+  const onClick = async () => {
     if (!isModal && !fromProfile) {
       dispatch({
         type: 'CHANGE_VALUE',
         payload: '',
       });
       setSelectedBoard(post);
-      fetch(`${process.env.BASE_URL}/board/viewup`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ curIp: curIp, contentId: post._id }),
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.status === 200) {
-            post.clicked.push(curIp);
-            const updatedPosts = [...posts];
-            setBoards(updatedPosts);
-          }
-        });
+
+      const updatedPosts = await API.post('board/viewup', {
+        curIp: curIp,
+        contentId: post._id,
+      });
+
+      if (updatedPosts.status === 200) {
+        post.clicked.push(curIp);
+        const updatedPosts = [...posts];
+        setBoards(updatedPosts);
+      }
     } else if (fromProfile) {
       setModalPost(post);
     }
   };
 
-  const heartClick = (e) => {
+  const heartClick = async (e) => {
     e.stopPropagation();
     if (!fromProfile && !isModal) setSelectedBoard(post);
-    if (isLogined && isLogined.isLogined === true) {
-      fetch(`${process.env.BASE_URL}/board/heartup`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        mode: 'cors',
-        credentials: 'include',
-        body: JSON.stringify({ curIp, contentId: post._id }),
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.status === 200) {
-            post.heart.push(isLogined.userKey);
-            const updatedPosts = [...posts];
-            if (fromProfile) setPosts(updatedPosts);
-            setBoards(updatedPosts);
-
-            alert('좋아요!');
-          } else {
-            alert('이미 좋아요를 눌렀습니다.');
-          }
-        });
+    if (isLogined && isLogined.isLogined) {
+      const heartResult = await API.post('board/heartup', {
+        curIp,
+        contentId: post._id,
+      });
+      if (heartResult.status === 200) {
+        post.heart.push(isLogined.userKey);
+        const updatedPosts = [...posts];
+        if (fromProfile) setPosts(updatedPosts);
+        setBoards(updatedPosts);
+        alert('좋아요!');
+      } else {
+        alert('이미 좋아요를 눌렀습니다.');
+      }
     } else {
       alert('로그인이 필요합니다.');
     }

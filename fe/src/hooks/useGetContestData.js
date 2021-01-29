@@ -1,19 +1,9 @@
 import { useEffect } from 'react';
+import API from '../lib/api';
 
-const useGetContestAPI = (setValue) => {
-  fetch(`${process.env.BASE_URL}/contest`, {
-    method: 'get',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-    credentials: 'include',
-  })
-    .then((response) => response.json())
-    .then((contest) => {
-      setValue(contest);
-    });
+const useGetContestAPI = async (setValue) => {
+  const contestDatas = await API.get('contest');
+  setValue(contestDatas);
 };
 
 const useGetContestDate = (setValue) => {

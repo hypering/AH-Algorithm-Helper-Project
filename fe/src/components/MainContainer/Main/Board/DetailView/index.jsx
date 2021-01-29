@@ -20,6 +20,9 @@ import {
 } from './style';
 import { IsLoginedState } from '../../../../../App';
 import { Link } from 'react-router-dom';
+import API from '../../../../../lib/api';
+import { resolve } from 'path';
+
 const DetailView = ({
   posts,
   post,
@@ -32,51 +35,41 @@ const DetailView = ({
   const isLogined = useContext(IsLoginedState);
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
+
   if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
+
   const onChange = (e) => {
     dispatch({
       type: 'CHANGE_VALUE',
       payload: e.target.value,
     });
   };
+
   const onClick = async () => {
     if (value.length === 0) {
       alert('댓글을 입력하세요!');
       return;
     }
     const nowDate = getDate(new Date());
-    const response = await fetch(
-      `${process.env.BASE_URL}/board/comment/write`,
-      {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        mode: 'cors',
-        credentials: 'include',
-        body: JSON.stringify({
-          boardId: post._id,
-          createAt: nowDate,
-          context: value,
-          writerId: isLogined.userKey,
-        }),
-      }
-    );
+    const response = await API.post('board/comment/write', {
+      boardId: post._id,
+      createAt: nowDate,
+      context: value,
+      writerId: isLogined.userKey,
+    });
 
     dispatch({
       type: 'CHANGE_VALUE',
       payload: '',
     });
 
-    if (response.status !== 200) {
+    if (!response) {
       alert('댓글 등록에 실패하였습니다.');
       return;
     }
-    const { newCommentId } = await response.json();
 
     post.comment.push({
-      _id: newCommentId,
+      _id: response.newCommentId,
       createAt: nowDate,
       context: value,
       writerKey: isLogined.userKey,
@@ -89,22 +82,14 @@ const DetailView = ({
     const updatedPosts = [...posts];
     setBoards(updatedPosts);
   };
-  const onDeleteClick = async (e) => {
+
+  const onDeleteClick = async () => {
     const answer = confirm('정말 글을 삭제하시겠습니까?');
     if (answer) {
-      const response = await fetch(`${process.env.BASE_URL}/board/delete`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        mode: 'cors',
-        credentials: 'include',
-        body: JSON.stringify({
-          boardId: post._id,
-        }),
+      const deleteResult = await API.post('board/delete', {
+        boardId: post._id,
       });
-      if (response.status === 200) {
+      if (deleteResult) {
         const idx = posts.findIndex((e) => post._id === e._id);
         posts.splice(idx, 1);
         if (isModal) {
@@ -115,6 +100,7 @@ const DetailView = ({
       }
     }
   };
+
   return (
     <Container isModal={isModal}>
       {post.authorKey === isLogined.userKey && (

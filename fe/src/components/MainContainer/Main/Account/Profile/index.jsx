@@ -15,6 +15,7 @@ import {
   UserNameContainer,
   UserPosts,
 } from './style';
+import API from '../../../../../lib/api';
 
 const Profile = ({ match }) => {
   const [userInfo, setUserInfo] = useState(null);
@@ -23,27 +24,19 @@ const Profile = ({ match }) => {
   const [modalPost, setModalPost] = useState(null);
   const { userId } = match.params;
   const isLogined = useContext(IsLoginedState);
+
+  const getUser = async () => {
+    const user = await API.post('user/getUser', { userId });
+    if (!user) setLoaded(false);
+    else {
+      setPosts(user.posts);
+      setUserInfo(user.queryUser);
+      setLoaded(true);
+    }
+  };
+
   useEffect(() => {
-    fetch(`${process.env.BASE_URL}/user/getUser`, {
-      method: 'Post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId,
-      }),
-    }).then((response) => {
-      if (response.status === 200) {
-        response.json().then((json) => {
-          setPosts(json.posts);
-          setUserInfo(json.queryUser);
-          setLoaded(true);
-        });
-      } else {
-        setLoaded(false);
-      }
-    });
+    getUser();
   }, []);
 
   return loaded ? (

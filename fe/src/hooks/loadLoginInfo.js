@@ -1,16 +1,8 @@
-const loadLoginInfo = (dispatch) => {
-  fetch(`${process.env.BASE_URL}/user`, {
-    method: 'post',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-    credentials: 'include',
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch({ type: 'SET_IS_LOGINED', payload: json });
-    });
+import API from '../lib/api';
+
+const loadLoginInfo = async (dispatch) => {
+  const result = await API.get('user');
+  dispatch({ type: 'SET_IS_LOGINED', payload: result });
 };
+
 export default loadLoginInfo;

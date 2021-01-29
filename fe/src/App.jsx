@@ -1,19 +1,23 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import MainContainer from './components/MainContainer';
+import API from './lib/api';
+
 export const UserDispatch = React.createContext(null);
 export const IsLoginedState = React.createContext(null);
+
 const loginReducer = (isLogined, { type, payload }) => {
   switch (type) {
     case 'SET_IS_LOGINED':
       return payload;
+    default:
+      return isLogined;
   }
 };
 
 function App() {
   const [curIp, setIp] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const [isLogined, dispatch] = useReducer(loginReducer, {
     isLogined: false,
@@ -22,19 +26,14 @@ function App() {
     profile: '',
   });
 
-  if (!loading) {
-    fetch(`${process.env.BASE_URL}/getip`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
-      .then((res) => res.json())
-      .then((res) => setIp(res.ip))
-      .then(setLoading(true));
-  }
+  const getIP = async () => {
+    const ip = await API.get('getip', {});
+    setIp(ip.ip);
+  };
+
+  useEffect(() => {
+    getIP();
+  }, []);
 
   return (
     <>
