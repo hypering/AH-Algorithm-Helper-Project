@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
-import { CommentStateContext } from '../../../Main';
-import { CommentDispatchContext } from '../../../Main';
-import { getDate } from '../../../../../lib/getTimer';
+import { CommentStateContext } from 'components/MainContainer/Main';
+import { CommentDispatchContext } from 'components/MainContainer/Main';
+import { getDate } from 'lib/getTimer';
 import {
   Container,
   ImgIcon,
@@ -18,10 +18,9 @@ import {
   PostContent,
   BoardDate,
 } from './style';
-import { IsLoginedState } from '../../../../../App';
+import { IsLoginedState } from 'App';
 import { Link } from 'react-router-dom';
-import API from '../../../../../lib/api';
-import { resolve } from 'path';
+import API from 'lib/api';
 
 const DetailView = ({
   posts,
@@ -133,9 +132,9 @@ const DetailView = ({
             )}
           </ProfileImg>
           <AuthorID>{post.author} </AuthorID>
-          <BoardDate>{getDate(post.createAt)}</BoardDate>
         </UserInfoContainer>
       </Link>
+      <BoardDate>{getDate(post.createAt)}</BoardDate>
       <PostContent ref={postContentRef}>
         {post.img_url != '' && !isModal ? (
           <ImgIcon
