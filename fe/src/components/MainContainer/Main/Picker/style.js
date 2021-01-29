@@ -6,14 +6,20 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 15px;
-  & > span {
-    text-align: right;
-    margin-right: 120px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+`;
+export const ButtonWrap = styled.div`
+  text-align: right;
+  margin-right: 120px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  & > svg {
+    cursor: pointer;
+    &:hover {
+      color: #385185;
+      transition: 1s;
+    }
   }
 `;
-
 export const SubContainer = styled.div`
   display: flex;
   height: 13%;

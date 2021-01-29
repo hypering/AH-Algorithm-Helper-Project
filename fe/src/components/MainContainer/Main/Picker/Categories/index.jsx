@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Categories, Subtitle } from './style';
-import Category from './Category/index';
+import Category from 'components/MainContainer/Main/Picker/Categories/Category';
 const CategoryContainer = ({ selectedCate, setSelectedCate }) => {
   const categories = [
     '수학',

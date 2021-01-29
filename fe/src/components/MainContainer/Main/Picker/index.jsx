@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import CategoryContainer from './Categories/index';
-import Difficulty from './Difficulty/index';
-import ProblemCount from './ProblemCount';
-import Result from './Result';
-import { MainContainer, Container, SubContainer } from './style';
-import BtnExecute from '../Buttons/Execute.jsx';
-
+import CategoryContainer from 'components/MainContainer/Main/Picker/Categories';
+import Difficulty from 'components/MainContainer/Main/Picker/Difficulty';
+import ProblemCount from 'components/MainContainer/Main/Picker/ProblemCount';
+import Result from 'components/MainContainer/Main/Picker/Result';
+import { MainContainer, Container, SubContainer, ButtonWrap } from './style';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Picker = () => {
   const [problemCnt, setProblemCnt] = useState(0);
   const [selectedCate, setSelectedCate] = useState([]);
@@ -20,7 +20,6 @@ const Picker = () => {
   ) => {
     const low = 5 * selectedDifficulty[0] + selectedDifficulty[1];
     const high = 5 * selectedDifficulty[2] + selectedDifficulty[3];
-    console.log(problemCnt, selectedCate, selectedDifficulty);
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -37,8 +36,7 @@ const Picker = () => {
 
     if (response.ok) {
       const res = response_Data.res;
-      console.log('res =========================');
-      console.log(res);
+
       return await res;
     } else {
       return await [];
@@ -60,7 +58,7 @@ const Picker = () => {
         selectedCate,
         selectedDifficulty
       );
-      await setQueryResults(res);
+      setQueryResults(res);
     }
   };
   return (
@@ -79,9 +77,14 @@ const Picker = () => {
         />
         <Result queryResults={queryResults}></Result>
       </MainContainer>
-      <span>
-        <BtnExecute onClick={onSubmit}></BtnExecute>
-      </span>
+      <ButtonWrap>
+        <FontAwesomeIcon
+          icon={faCheckCircle}
+          size="2x"
+          color="#707070"
+          onClick={onSubmit}
+        ></FontAwesomeIcon>
+      </ButtonWrap>
     </Container>
   );
 };

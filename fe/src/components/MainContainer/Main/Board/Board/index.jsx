@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import Post from './Post';
-import { Container, Loading } from './style';
+import Post from 'components/MainContainer/Main/Board/Board/Post';
+import {
+  Container,
+  Loading,
+} from 'components/MainContainer/Main/Board/Board/style';
 
 const getAddBoardDatas = async (posts, setLoading, setBoards, startIdx) => {
   setLoading(true);

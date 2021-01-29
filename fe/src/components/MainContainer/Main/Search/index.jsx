@@ -1,21 +1,17 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Post from '../Board/Post';
+import Post from 'components/MainContainer/Main/Board/Board/Post';
 import queryString from 'query-string';
-import DetailView from '../DetailView';
-import { SubContainer as Container } from '../style';
-import { Container as SubContainer } from './style';
+import DetailView from 'components/MainContainer/Main/Board/DetailView';
+import { SubContainer as Container } from 'components/MainContainer/Main/Board/style';
+import { Container as SubContainer } from 'components/MainContainer/Main/style';
 const Search = ({ curIp }) => {
   const [selectedBoard, setSelectedBoard] = useState();
   const [searchResult, setSearchResult] = useState(null);
-  //const location = useLocation();
-
   useEffect(() => {
     const queryObj = queryString.parse(location.search);
     const type = queryObj.type;
     const value = queryObj.value;
-
     setSelectedBoard(null);
     fetch(`${process.env.BASE_URL}/board/search`, {
       method: 'post',
@@ -42,7 +38,6 @@ const Search = ({ curIp }) => {
                 key={result._id}
                 setSelectedBoard={setSelectedBoard}
                 curIp={curIp}
-                fromSearch="true"
               ></Post>
             ))}
           </SubContainer>

@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
-import SvgIcon from './SvgIcon';
-import { Container, SvgWrap, ImgIcon, ProfileImg, BoardDate } from './style';
-import { CommentDispatchContext } from '../../../../Main';
-import { IsLoginedState } from '../../../../../../App';
+import SvgIcon from 'components/MainContainer/Main/Board/Board/Post/SvgIcon';
+import {
+  Container,
+  SvgWrap,
+  ImgIcon,
+  ProfileImg,
+  BoardDate,
+} from 'components/MainContainer/Main/Board/Board/Post/style';
+import { CommentDispatchContext } from 'components/MainContainer/Main';
+import { IsLoginedState } from 'App';
 import { Link } from 'react-router-dom';
-import { getDate } from '../../../../../../lib/getTimer';
+import { getDate } from 'lib/getTimer';
 
 const Post = ({
   posts,
@@ -15,11 +21,9 @@ const Post = ({
   id,
   curIp,
   fromProfile,
-  fromSearch,
   setModalPost,
   isModal,
 }) => {
-  console.log(post);
   const isLogined = useContext(IsLoginedState);
   const dispatch = useContext(CommentDispatchContext);
   const onClick = () => {

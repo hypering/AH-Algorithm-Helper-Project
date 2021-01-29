@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { UserDispatch } from '../../../../App';
+import { UserDispatch } from '../../../../../../App';
 
 const Callback = () => {
   const searchParams = new URLSearchParams(useLocation().search);
