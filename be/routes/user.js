@@ -28,7 +28,7 @@ router.post('/edit', upload.single('img'), async (req, res) => {
   if (process.env.ENV === 'development') {
     res.writeHead(302, { Location: `http://127.0.0.1:3000/account/${user.userId}` });
   } else {
-    res.writeHead(302, { Location: `http://49.50.166.11:4000/${user.userId}` });
+    res.writeHead(302, { Location: `http://49.50.166.11:4000/account/${user.userId}` });
   }
   res.end();
 });
