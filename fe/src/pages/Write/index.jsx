@@ -102,6 +102,7 @@ const Write = () => {
               size="2x"
               color="#707070"
               onClick={writeOnClick}
+              cursor="pointer"
             ></FontAwesomeIcon>
           </div>
         </form>
