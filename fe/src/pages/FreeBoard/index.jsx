@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Header from './Header';
-import Board from './Board';
-import DetailView from './DetailView';
+import Header from 'components/MainContainer/Main/Board/Header';
+import Board from 'components/MainContainer/Main/Board/Board';
+import DetailView from 'components/MainContainer/Main/Board/DetailView';
 import { Container, SubContainer } from './style';
 import { Route, Switch } from 'react-router-dom';
-import Write from './Write';
-import API from '../../../../lib/api';
+import { Write } from 'pages';
+import API from 'lib/api';
 
 const FreeBoard = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
@@ -35,6 +35,8 @@ const FreeBoard = ({ curIp }) => {
             setUrl={setUrl}
             searchType={searchType}
             setSearchType={setSearchType}
+            title="자유 게시판"
+            description="자유 게시판에 오신 것을 환영 합니다!"
           />
           <SubContainer>
             <Board

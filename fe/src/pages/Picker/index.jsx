@@ -6,28 +6,30 @@ import Result from 'components/MainContainer/Main/Picker/Result';
 import { MainContainer, Container, SubContainer, ButtonWrap } from './style';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import API from '../../../../lib/api';
+import API from 'lib/api';
 
 const Picker = () => {
-  const [problemCnt, setProblemCnt] = useState(0);
-  const [selectedCate, setSelectedCate] = useState([]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState([0, 1, 0, 1]);
   const [queryResults, setQueryResults] = useState([]);
-
+  const [queryOptions, setQueryOptions] = useState({
+    problemCnt: 0,
+    categories: [],
+    difficulty: [0, 1, 0, 1],
+  });
   const onSubmit = async () => {
+    const { problemCnt, categories, difficulty } = queryOptions;
     if (problemCnt < 1 || problemCnt > 10) {
       alert('1~10 숫자를 입력해주세요.');
     } else if (problemCnt == 0 || problemCnt == '') {
       alert('문제 개수를 입력하세요.');
-    } else if (selectedCate.length === 0) {
+    } else if (categories.length === 0) {
       alert('카테고리를 선택하세요.');
     } else {
-      const low = 5 * selectedDifficulty[0] + selectedDifficulty[1];
-      const high = 5 * selectedDifficulty[2] + selectedDifficulty[3];
+      const low = 5 * difficulty[0] + difficulty[1];
+      const high = 5 * difficulty[2] + difficulty[3];
 
       const problemDatas = await API.post('problem', {
         problemCnt: problemCnt,
-        selectedCate: selectedCate,
+        selectedCate: categories,
         selectedDifficulty: [low, high],
       });
       setQueryResults(problemDatas.res);
@@ -38,15 +40,18 @@ const Picker = () => {
     <Container>
       <SubContainer>
         <Difficulty
-          selectedDifficulty={selectedDifficulty}
-          setSelectedDifficulty={setSelectedDifficulty}
+          queryOptions={queryOptions}
+          setQueryOptions={setQueryOptions}
         />
-        <ProblemCount problemCnt={problemCnt} setProblemCnt={setProblemCnt} />
+        <ProblemCount
+          queryOptions={queryOptions}
+          setQueryOptions={setQueryOptions}
+        />
       </SubContainer>
       <MainContainer>
         <CategoryContainer
-          selectedCate={selectedCate}
-          setSelectedCate={setSelectedCate}
+          queryOptions={queryOptions}
+          setQueryOptions={setQueryOptions}
         />
         <Result queryResults={queryResults}></Result>
       </MainContainer>

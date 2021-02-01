@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 
 import { Container } from './style';
 
-const Category = ({ name, selectedCate, setSelctedCate }) => {
+const Category = ({ name, queryOptions, setQueryOptions }) => {
   const [selected, setSelected] = useState(false);
   const onClick = () => {
-    if (selectedCate.filter((element) => name === element).length >= 1) {
-      setSelctedCate([...selectedCate.filter((element) => name !== element)]);
+    if (
+      queryOptions.categories.filter((element) => name === element).length >= 1
+    ) {
+      setQueryOptions({
+        ...queryOptions,
+        categories: [
+          queryOptions.categories.filter((element) => name !== element),
+        ],
+      });
     } else {
-      setSelctedCate([...selectedCate, name]);
+      setQueryOptions({
+        ...queryOptions,
+        categories: [...queryOptions.categories, name],
+      });
     }
     setSelected(!selected);
   };

@@ -22,7 +22,9 @@ export default class API {
       body: JSON.stringify(payload),
       credentials: 'include',
     });
-    const result = await response.json();
-    return result;
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    } else return false;
   }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Container, DropBoxContainer, Subtitle } from './style';
 
-const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
+const Difficulty = ({ queryOptions, setQueryOptions }) => {
   const minRef1 = useRef();
   const minRef2 = useRef();
   const maxRef1 = useRef();
@@ -16,17 +16,20 @@ const Difficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
           maxRef2.current.options.selectedIndex)
     ) {
       alert('최소 난이도가 최대 난이도 보다 높을 수 없습니다.');
-      minRef1.current.options.selectedIndex = selectedDifficulty[0];
-      minRef2.current.options.selectedIndex = selectedDifficulty[1] - 1;
-      maxRef1.current.options.selectedIndex = selectedDifficulty[2];
-      maxRef2.current.options.selectedIndex = selectedDifficulty[3] - 1;
+      minRef1.current.options.selectedIndex = queryOptions.difficulty[0];
+      minRef2.current.options.selectedIndex = queryOptions.difficulty[1] - 1;
+      maxRef1.current.options.selectedIndex = queryOptions.difficulty[2];
+      maxRef2.current.options.selectedIndex = queryOptions.difficulty[3] - 1;
     } else {
-      setSelectedDifficulty([
-        minRef1.current.options.selectedIndex,
-        minRef2.current.options.selectedIndex + 1,
-        maxRef1.current.options.selectedIndex,
-        maxRef2.current.options.selectedIndex + 1,
-      ]);
+      setQueryOptions({
+        ...queryOptions,
+        difficulty: [
+          minRef1.current.options.selectedIndex,
+          minRef2.current.options.selectedIndex + 1,
+          maxRef1.current.options.selectedIndex,
+          maxRef2.current.options.selectedIndex + 1,
+        ],
+      });
     }
   };
 

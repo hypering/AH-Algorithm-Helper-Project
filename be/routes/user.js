@@ -53,11 +53,11 @@ router.get('/getUserForEdit', async (req, res) => {
 
 router.post('/getUser', async (req, res) => {
   const { userId } = req.body;
-  const { queryUser, refinePostDatas } = await UserService.getUser({ userId });
+  const { queryUser, refinedDatas } = await UserService.getUser({ userId });
 
   if (!queryUser) return res.status(404).json(false);
 
-  res.status(200).json({ posts: refinePostDatas, queryUser });
+  res.status(200).json({ posts: refinedDatas, queryUser });
 });
 
 // 로컬 회원가입

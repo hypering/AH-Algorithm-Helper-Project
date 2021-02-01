@@ -15,7 +15,7 @@ import {
   UserNameContainer,
   UserPosts,
 } from './style';
-import API from '../../../../../lib/api';
+import API from 'lib/api';
 
 const Profile = ({ match }) => {
   const [userInfo, setUserInfo] = useState(null);

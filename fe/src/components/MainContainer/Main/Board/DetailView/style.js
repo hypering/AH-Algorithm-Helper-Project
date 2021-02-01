@@ -137,6 +137,7 @@ export const ProfileImg = styled.div`
   border-radius: 50%;
   margin-right: 20px;
   overflow: hidden;
+
   & > img {
     width: 100%;
     height: 100%;
@@ -149,8 +150,7 @@ export const AuthorID = styled.div`
 
 export const BoardDate = styled.div`
   font-size: 15px;
-  line-height: 50px;
+  margin-left: 70px;
   min-width: 50px;
   color: #808080;
-  margin-left: 15px;
 `;

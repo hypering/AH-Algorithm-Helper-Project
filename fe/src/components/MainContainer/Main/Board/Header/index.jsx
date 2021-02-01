@@ -1,17 +1,10 @@
 import React, { useContext } from 'react';
-import {
-  Container,
-  HeaderLeft,
-  HeaderRight,
-  SelectBox,
-  InputBox,
-  ButtonBox,
-  SearchBox,
-} from './style';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Container, HeaderLeft, HeaderRight } from './style';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenSquare, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
 import { IsLoginedState } from '../../../../../App';
+import SearchBar from '../SearchBar';
 const Header = ({
   url,
   setUrl,
@@ -19,27 +12,21 @@ const Header = ({
   setValue,
   searchType,
   setSearchType,
+  title,
+  description,
 }) => {
   const isLogined = useContext(IsLoginedState);
   const history = useHistory();
-  const onChange = (e) => {
-    const { value } = e.target;
-    setValue(value);
-    setUrl(`/search?type=${searchType}&value=${value}`);
-  };
 
-  const onTypeChange = (e) => {
-    setSearchType(e.target.value);
-  };
-  const onWriteClick = (e) => {
+  const onWriteClick = () => {
     if (isLogined && isLogined.isLogined) history.push('/board/write');
     else alert('로그인을 후 글쓰기가 가능합니다.');
   };
   return (
     <Container>
       <HeaderLeft>
-        <h5>자유게시판</h5>
-        <div>자유게시판에 오신 것을 환영합니다!</div>
+        <h5>{title}</h5>
+        <div>{description}</div>
       </HeaderLeft>
       <HeaderRight>
         <FontAwesomeIcon
@@ -47,23 +34,14 @@ const Header = ({
           color="#707070"
           onClick={onWriteClick}
         />
-        <SearchBox>
-          <SelectBox value={searchType} name="target" onChange={onTypeChange}>
-            <option value="tag">해쉬태그</option>
-            <option value="author">작성자</option>
-          </SelectBox>
-          <InputBox
-            type="text"
-            placeholder="검색"
-            value={value}
-            onChange={onChange}
-          />
-          <NavLink to={url}>
-            <ButtonBox>
-              <FontAwesomeIcon icon={faSearch} color="#707070" />
-            </ButtonBox>
-          </NavLink>
-        </SearchBox>
+        <SearchBar
+          url={url}
+          setUrl={setUrl}
+          value={value}
+          setValue={setValue}
+          searchType={searchType}
+          setSearchType={setSearchType}
+        />
       </HeaderRight>
     </Container>
   );

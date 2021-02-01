@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-
-import LoginButton from 'components/MainContainer/Main/Account/Login/LoginButton';
+import LoginButton from 'components/MainContainer/Buttons/LoginButton';
 import { UserDispatch } from 'App';
 import {
   Container,
@@ -16,7 +15,7 @@ import {
   Partition,
   SignUpButton,
 } from './style';
-import API from '../../../../../lib/api';
+import API from 'lib/api';
 
 const Login = () => {
   const history = useHistory();
