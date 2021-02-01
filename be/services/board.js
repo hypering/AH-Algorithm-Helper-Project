@@ -4,7 +4,11 @@ const { userModel } = require('../models');
 
 const BoardService = {
   selectBoard: async ({ startIdx }) => {
-    const boardDatas = await boardModel.find().sort({ _id: -1 }).skip(Number(startIdx)).limit(5);
+    const boardDatas = await boardModel
+      .find()
+      .sort({ createAt: -1 })
+      .skip(Number(startIdx))
+      .limit(5);
     const refinedDatas = await refinePostDatas(boardDatas);
 
     return refinedDatas;

@@ -97,7 +97,10 @@ const UserService = {
       const queryPost = await boardModel.findOne({ _id: queryUser.posts[i] });
       if (queryPost !== null) posts.push(queryPost);
     }
-
+    posts.sort((a, b) => {
+      return a.createAt < b.createAt ? 0 : -1;
+    });
+    console.log(posts);
     const refinedDatas = await refinePostDatas(posts);
 
     return { queryUser, refinedDatas };
