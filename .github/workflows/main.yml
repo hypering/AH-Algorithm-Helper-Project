@@ -32,5 +32,4 @@ jobs:
           cd ${{ secrets.WEB_PATH }} && git pull origin main
           cd ${{ secrets.WEB_PATH_FE }} && npm install && npm run build
           cd ${{ secrets.WEB_PATH_BE }} && npm install
-          npm run dev
  
