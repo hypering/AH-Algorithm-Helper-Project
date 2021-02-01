@@ -6,6 +6,8 @@ export const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+  min-width: 800px;
+  min-height: 700px;
   align-items: center;
   font-size: 12px;
 `;
