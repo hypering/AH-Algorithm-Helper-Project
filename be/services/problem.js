@@ -25,6 +25,9 @@ const ProblemService = {
     }
     return pickedProblems;
   },
+  deleteAllProblem: async () => {
+    await problemModel.remove({});
+  },
 };
 
 module.exports = ProblemService;
