@@ -14,4 +14,9 @@ router.post('/', async (req, res) => {
   res.json({ res: pickedProblems });
 });
 
+router.get('/delete', async (req, res) => {
+  await ProblemService.deleteAllProblem();
+  res.json(true);
+});
+
 module.exports = router;

@@ -5,14 +5,12 @@ import { Container } from './style';
 const Category = ({ name, queryOptions, setQueryOptions }) => {
   const [selected, setSelected] = useState(false);
   const onClick = () => {
-    if (
-      queryOptions.categories.filter((element) => name === element).length >= 1
-    ) {
+    if (queryOptions.categories.find((ele) => ele === name)) {
       setQueryOptions({
         ...queryOptions,
-        categories: [
-          queryOptions.categories.filter((element) => name !== element),
-        ],
+        categories: queryOptions.categories.filter(
+          (element) => name !== element
+        ),
       });
     } else {
       setQueryOptions({
