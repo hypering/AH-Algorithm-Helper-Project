@@ -47,13 +47,14 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+
       {
-        test: /\.(png|gif|svg|jpg)$/,
-        exclude: '/node_modules/',
+        test: /\.(png|gif|svg|jpe?g|ico)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
           publicPath: '/',
+          outputPath: '/Images',
         },
       },
     ],
@@ -62,6 +63,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './public/index.html'),
+      favicon: path.join(__dirname, './public/Images/logo.ico'),
     }),
     new MiniCssExtractPlugin({ filename: 'app.css' }),
     new webpack.DefinePlugin({
