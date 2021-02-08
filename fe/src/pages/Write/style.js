@@ -5,6 +5,8 @@ export const Container = styled.div`
   flex-direction: row;
   height: 100%;
   width: 100%;
+  min-width: 800px;
+  min-height: 700px;
   overflow: hidden;
   & > form {
     display: flex;

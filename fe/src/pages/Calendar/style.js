@@ -6,6 +6,7 @@ export const Container = styled.div`
   height: 100%;
   min-width: 650px;
   padding: 15px;
+  min-height: 700px;
   overflow: hidden;
   white-space: nowrap;
 `;

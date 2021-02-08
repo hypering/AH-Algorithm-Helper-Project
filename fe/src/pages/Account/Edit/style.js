@@ -3,6 +3,8 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  min-width: 800px;
+  min-height: 700px;
   justify-content: center;
   align-items: center;
 `;

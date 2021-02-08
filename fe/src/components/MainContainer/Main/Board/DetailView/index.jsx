@@ -133,7 +133,7 @@ const DetailView = ({
         )}
         <ContentWrap>{post.content}</ContentWrap>
         <PostWrap>
-          {post.comment.length > 0 ? (
+          {post && post.comment && post.comment.length > 0 ? (
             <ul>
               {post.comment.map((ele) => {
                 const deleteOnClick = async (e) => {

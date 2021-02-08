@@ -4,7 +4,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 650px;
   height: 100%;
+  min-height: 700px;
   padding: 15px;
 `;
 export const ButtonWrap = styled.div`
