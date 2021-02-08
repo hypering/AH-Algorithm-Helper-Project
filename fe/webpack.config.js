@@ -63,7 +63,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './public/index.html'),
-      favicon: path.join(__dirname, './public/Images/logo.ico'),
+      favicon: path.join(__dirname, './src/Images/logo.ico'),
     }),
     new MiniCssExtractPlugin({ filename: 'app.css' }),
     new webpack.DefinePlugin({

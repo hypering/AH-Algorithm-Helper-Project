@@ -160,69 +160,70 @@ const ResEntity = ({ num, tier, cate }) => {
   ];
   const getTier = (tier) => {
     switch (tier) {
-      case '1':
+      case 1: {
         return Tier1;
-
-      case '2':
+      }
+      case 2:
         return Tier2;
-      case '3':
+      case 3:
         return Tier3;
-      case '4':
+      case 4:
         return Tier4;
-      case '5':
+      case 5:
         return Tier5;
-      case '6':
+      case 6:
         return Tier6;
-      case '7':
+      case 7:
         return Tier7;
-      case '8':
+      case 8:
         return Tier8;
-      case '9':
+      case 9:
         return Tier9;
-      case '10':
+      case 10:
         return Tier10;
-      case '11':
+      case 11:
         return Tier11;
-      case '12':
+      case 12:
         return Tier12;
-      case '13':
+      case 13:
         return Tier13;
-      case '14':
+      case 149:
         return Tier14;
-      case '15':
+      case 15:
         return Tier15;
-      case '16':
+      case 16:
         return Tier16;
-      case '17':
+      case 17:
         return Tier17;
-      case '18':
+      case 18:
         return Tier18;
-      case '19':
+      case 19:
         return Tier19;
-      case '20':
+      case 20:
         return Tier20;
-      case '21':
+      case 21:
         return Tier21;
-      case '22':
+      case 22:
         return Tier22;
-      case '23':
+      case 23:
         return Tier23;
-      case '24':
+      case 24:
         return Tier24;
-      case '25':
+      case 25:
         return Tier25;
-      case '26':
+      case 26:
         return Tier26;
-      case '27':
+      case 27:
         return Tier27;
-      case '28':
+      case 28:
         return Tier28;
-      case '29':
+      case 29:
         return Tier29;
-      case '30':
+      case 30:
         return Tier30;
     }
   };
+  console.log(getTier(tier));
   return (
     <EntityContainer>
       <a href={'https://www.acmicpc.net/problem/' + num}>
