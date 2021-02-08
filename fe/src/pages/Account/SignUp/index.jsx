@@ -23,6 +23,8 @@ const SignUp = () => {
     pwdError: '',
     emailError: '',
   });
+  const idRegExp = /^[0-9a-z]+$/;
+
   const pwdRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
   const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const onChange = (e) => {
@@ -37,24 +39,32 @@ const SignUp = () => {
   };
 
   const checkUser = async () => {
-    const result = API.post('user/idcheck', { inputId: userId });
-    if (result) setIdValid(true);
-    else setIdValid(false);
+    const result = await API.post('user/idcheck', { inputId: userId });
+
+    if (result) {
+      setIdValid(true);
+    } else {
+      setIdValid(false);
+    }
   };
 
   useEffect(async () => {
-    checkUser();
+    if (!userId.match(idRegExp)) setIdValid(false);
+    else {
+      checkUser();
+    }
   }, [userId]);
 
   useEffect(() => {
     if (
+      userId.match(idRegExp) &&
       userPw.match(pwdRegExp) &&
       userEmail.match(emailRegExp) &&
       idValid === true
     ) {
       setDisable(false);
     } else setDisable(true);
-  }, [userPw, userEmail, idValid]);
+  }, [userId, userPw, userEmail, idValid]);
 
   useEffect(() => {
     let idError = '';
@@ -64,7 +74,9 @@ const SignUp = () => {
     if (idValid) {
       idError = '';
     } else {
-      idError = '이미 존재하는 아이디 입니다.';
+      if (userId.length >= 1 && !userId.match(idRegExp)) {
+        idError = '아이디는 영문 숫자 조합이어야 합니다.';
+      } else if (userId.length >= 1) idError = '이미 존재하는 아이디 입니다.';
     }
     if (userPw.length >= 1 && !userPw.match(pwdRegExp)) {
       pwdError = '비밀번호는 8~10자리, 영문 숫자 조합이어야 합니다.';
