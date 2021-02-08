@@ -187,7 +187,7 @@ const ResEntity = ({ num, tier, cate }) => {
         return Tier12;
       case 13:
         return Tier13;
-      case 149:
+      case 14:
         return Tier14;
       case 15:
         return Tier15;
