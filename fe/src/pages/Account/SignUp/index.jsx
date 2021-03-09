@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { IsLoginedState } from 'App';
+import { useUserState } from '../../../context/index';
 import { Redirect } from 'react-router-dom';
 import {
   Container,
@@ -12,7 +12,7 @@ import {
 import API from 'lib/api';
 
 const SignUp = () => {
-  const isLogined = useContext(IsLoginedState);
+  const isLogined = useUserState();
   const [userId, setUserId] = useState('');
   const [idValid, setIdValid] = useState(false);
   const [userPw, setUserPw] = useState('');

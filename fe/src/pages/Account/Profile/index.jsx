@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from 'components/MainContainer/Main/Board/Board/Post';
 import PostModal from 'components/MainContainer/Main/Board/PostModal';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { IsLoginedState } from 'App';
+import { useUserState } from '../../../context/index';
 import {
   Container,
   ProfileContainer,
@@ -23,7 +23,7 @@ const Profile = ({ match }) => {
   const [loaded, setLoaded] = useState(false);
   const [modalPost, setModalPost] = useState(null);
   const { userId } = match.params;
-  const isLogined = useContext(IsLoginedState);
+  const isLogined = useUserState();
 
   const getUser = async () => {
     const user = await API.post('user/getUser', { userId });

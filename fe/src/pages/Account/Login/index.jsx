@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import LoginButton from 'components/MainContainer/Buttons/LoginButton';
-import { UserDispatch } from 'App';
+import { useUserDispatch } from '../../../context/index';
 import {
   Container,
   ErrorMsg,
@@ -22,7 +22,7 @@ const Login = () => {
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
-  const dispatch = useContext(UserDispatch);
+  const dispatch = useUserDispatch();
 
   const onClick = async () => {
     const userInfo = await API.post('user/login', {

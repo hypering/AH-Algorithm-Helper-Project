@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Container } from './style';
 import { faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IsLoginedState, UserDispatch } from '../../App';
+import { useUserState, useUserDispatch } from '../../context/index';
 import API from '../../lib/api';
 
 const Header = () => {
-  const isLogined = useContext(IsLoginedState);
-  const dispatch = useContext(UserDispatch);
+  const isLogined = useUserState();
+  const dispatch = useUserDispatch();
   const history = useHistory();
 
   const onLogOutClick = async () => {

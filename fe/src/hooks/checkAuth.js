@@ -1,13 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { UserDispatch } from '../App';
+import { useUserDispatch } from '../context/index';
 import API from '../lib/api';
 
 const useCheckAuth = () => {
   const history = useHistory();
   const location = useLocation();
   const pathsToCheck = ['/account/edit', '/', '/account/signup'];
-  const dispatch = useContext(UserDispatch);
+  const dispatch = useUserDispatch();
 
   const checkAuth = async () => {
     if (!pathsToCheck.includes(location.pathname)) return;

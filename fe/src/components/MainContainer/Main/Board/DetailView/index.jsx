@@ -18,7 +18,7 @@ import {
   PostContent,
   BoardDate,
 } from './style';
-import { IsLoginedState } from 'App';
+import { useUserState } from '../../../../../context/index';
 import { Link } from 'react-router-dom';
 import API from 'lib/api';
 import PostDeleteButton from '../../../Buttons/PostDeleteButton';
@@ -32,7 +32,7 @@ const DetailView = ({
   setModalPost,
 }) => {
   const postContentRef = useRef();
-  const isLogined = useContext(IsLoginedState);
+  const isLogined = useUserState();
   const value = useContext(CommentStateContext);
   const dispatch = useContext(CommentDispatchContext);
 

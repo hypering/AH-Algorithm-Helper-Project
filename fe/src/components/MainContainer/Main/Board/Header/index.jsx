@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Container, HeaderLeft, HeaderRight } from './style';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
-import { IsLoginedState } from '../../../../../App';
+import { useUserState } from '../../../../../context/index';
 import SearchBar from '../SearchBar';
 const Header = ({
   url,
@@ -15,7 +15,7 @@ const Header = ({
   title,
   description,
 }) => {
-  const isLogined = useContext(IsLoginedState);
+  const isLogined = useUserState();
   const history = useHistory();
 
   const onWriteClick = () => {
