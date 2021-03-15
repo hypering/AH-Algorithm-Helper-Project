@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'components/MainContainer/Main/style';
-import useCheckAuth from 'hooks/checkAuth';
+import useCheckAuth from 'hooks/useCheckAuth';
 import {
   Profile,
   Calendar,
