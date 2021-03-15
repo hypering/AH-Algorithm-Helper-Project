@@ -3,7 +3,7 @@ import Item from 'components/MainContainer/Main/Calendar/Item';
 import ContestModal from 'components/MainContainer/Main/Calendar/ContestModal';
 import { Container, ContestButton } from 'pages/Calendar/style';
 import useGetContestDate from 'hooks/useGetContestData';
-import { IsLoginedState } from 'App';
+import { useUserState } from '../../context/index';
 
 const Calendar = () => {
   const [visible, setvisible] = useState(false);
@@ -11,7 +11,7 @@ const Calendar = () => {
   const onClick = useCallback(() => {
     setvisible(true);
   }, [value]);
-  const state = useContext(IsLoginedState);
+  const state = useUserState();
   useGetContestDate(setValue);
 
   return (

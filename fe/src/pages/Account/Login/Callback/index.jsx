@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { UserDispatch } from 'App';
+import { useUserDispatch } from '../../../../context/index';
 
 const Callback = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const code = searchParams.get('code');
-  const dispatch = useContext(UserDispatch);
+  const dispatch = useUserDispatch();
   const history = useHistory();
 
   const getHitHubLogin = async (code) => {

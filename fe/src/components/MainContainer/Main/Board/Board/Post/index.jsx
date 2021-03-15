@@ -8,7 +8,7 @@ import {
   BoardDate,
 } from 'components/MainContainer/Main/Board/Board/Post/style';
 import { CommentDispatchContext } from 'components/MainContainer/Main';
-import { IsLoginedState } from 'App';
+import { useUserState } from '../../../../../../context/index';
 import { Link } from 'react-router-dom';
 import { getDate } from 'lib/getTimer';
 import API from '../../../../../../lib/api';
@@ -25,7 +25,7 @@ const Post = ({
   setModalPost,
   isModal,
 }) => {
-  const isLogined = useContext(IsLoginedState);
+  const isLogined = useUserState();
   const dispatch = useContext(CommentDispatchContext);
 
   const onClick = async () => {
