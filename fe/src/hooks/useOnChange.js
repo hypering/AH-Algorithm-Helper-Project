@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const onChangeHook = () => {
+const useOnChange = () => {
   const [value, setValue] = useState('');
 
   const handler = (e) => {
@@ -10,4 +10,4 @@ const onChangeHook = () => {
   return [value, handler, setValue];
 };
 
-export default onChangeHook;
+export default useOnChange;
