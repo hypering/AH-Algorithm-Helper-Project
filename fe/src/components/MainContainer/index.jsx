@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import SideNav from 'components/MainContainer/SideNav';
 import Main from 'components/MainContainer/Main';
 import { Container } from 'components/MainContainer/style';
