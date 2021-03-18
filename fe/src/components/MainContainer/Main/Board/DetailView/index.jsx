@@ -23,7 +23,7 @@ import {
 } from '../../../../../context/index';
 import { Link } from 'react-router-dom';
 import API from 'lib/api';
-import PostDeleteButton from '../../../Buttons/PostDeleteButton';
+import PostDeleteButton from '../../../../Buttons/PostDeleteButton';
 
 const DetailView = ({
   posts,

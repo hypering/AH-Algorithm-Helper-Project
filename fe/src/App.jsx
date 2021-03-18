@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import MainContext from './context/index';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import MainContainer from './components/MainContainer';
 import API from './lib/api';
+import { MainPage } from 'pages';
 
 function App() {
   const [curIp, setIp] = useState('');
@@ -21,7 +21,7 @@ function App() {
     <>
       <MainContext>
         <Header />
-        <MainContainer curIp={curIp} />
+        <MainPage curIp={curIp} />
         <Footer />
       </MainContext>
     </>

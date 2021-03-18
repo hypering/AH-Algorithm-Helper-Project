@@ -8,3 +8,4 @@ export { default as Search } from 'pages/Search';
 export { default as Picker } from 'pages/Picker';
 export { default as Callback } from 'pages/Account/Login/Callback';
 export { default as Write } from 'pages/Write';
+export { default as MainPage } from 'pages/MainPage';

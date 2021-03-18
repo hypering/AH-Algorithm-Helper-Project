@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import SideNav from 'components/MainContainer/SideNav';
 import Main from 'components/MainContainer/Main';
-import { Container } from 'components/MainContainer/style';
-import { useUserDispatch } from '../../context/index';
+import { Container } from './style';
+import { useUserDispatch } from '../../context';
 import API from '../../lib/api';
 
 const loadLoginInfo = async (dispatch) => {
@@ -10,7 +10,7 @@ const loadLoginInfo = async (dispatch) => {
   dispatch({ type: 'SET_IS_LOGINED', payload: result });
 };
 
-const MainContainer = ({ curIp }) => {
+const MainPage = ({ curIp }) => {
   const dispatch = useUserDispatch();
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const MainContainer = ({ curIp }) => {
   );
 };
 
-export default MainContainer;
+export default MainPage;
