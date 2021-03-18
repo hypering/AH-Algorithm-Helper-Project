@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import LoginButton from 'components/MainContainer/Buttons/LoginButton';
+import LoginButton from '../../../components/Buttons/LoginButton';
 import { useUserDispatch } from '../../../context/index';
 import {
   Container,
