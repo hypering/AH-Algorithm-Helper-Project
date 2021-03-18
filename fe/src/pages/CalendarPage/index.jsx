@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useContext } from 'react';
 import Item from 'components/MainContainer/Main/Calendar/Item';
 import ContestModal from 'components/MainContainer/Main/Calendar/ContestModal';
-import { Container, ContestButton } from 'pages/Calendar/style';
+import { Container, ContestButton } from './style';
 import useGetContestDate from 'hooks/useGetContestData';
 import { useUserState } from '../../context/index';
 
-const Calendar = () => {
+const CalendarPage = () => {
   const [visible, setvisible] = useState(false);
   const [value, setValue] = useState(null);
   const onClick = useCallback(() => {
@@ -28,4 +28,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default CalendarPage;

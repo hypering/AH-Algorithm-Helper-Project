@@ -17,7 +17,7 @@ import {
 } from './style';
 import API from 'lib/api';
 
-const Profile = ({ match }) => {
+const ProfilePage = ({ match }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [posts, setPosts] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -104,4 +104,4 @@ const Profile = ({ match }) => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

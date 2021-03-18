@@ -4,10 +4,10 @@ import Board from 'components/MainContainer/Main/Board/Board';
 import DetailView from 'components/MainContainer/Main/Board/DetailView';
 import { Container, SubContainer } from './style';
 import { Route, Switch } from 'react-router-dom';
-import { Write } from 'pages';
+import { WritePage } from 'pages';
 import API from 'lib/api';
 
-const FreeBoard = ({ curIp }) => {
+const FreeBoardPage = ({ curIp }) => {
   const [boards, setBoards] = useState(null);
   const [selectedBoard, setSelectedBoard] = useState(null);
   const [value, setValue] = useState('');
@@ -26,7 +26,7 @@ const FreeBoard = ({ curIp }) => {
   return (
     <Container>
       <Switch>
-        <Route exact path="/board/write" component={Write} />
+        <Route exact path="/board/write" component={WritePage} />
         <Route exact path="/board">
           <Header
             value={value}
@@ -61,4 +61,4 @@ const FreeBoard = ({ curIp }) => {
   );
 };
 
-export default FreeBoard;
+export default FreeBoardPage;

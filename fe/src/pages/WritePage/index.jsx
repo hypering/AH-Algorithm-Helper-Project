@@ -1,10 +1,9 @@
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef, useState } from 'react';
-
 import { Container, SubContainer, ThumbnailContainer } from './style';
 
-const Write = () => {
+const WritePage = () => {
   const [tags, setTags] = useState();
   const [content, setContent] = useState();
   const [img, setImg] = useState('');
@@ -116,4 +115,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default WritePage;

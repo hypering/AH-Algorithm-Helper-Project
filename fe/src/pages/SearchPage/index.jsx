@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import Post from 'components/MainContainer/Main/Board/Board/Post';
 import queryString from 'query-string';
 import DetailView from 'components/MainContainer/Main/Board/DetailView';
-import { Container, SubContainer } from 'pages/FreeBoard/style';
-import { PostsContainer } from 'pages/Search/style';
+import { PostsContainer, Container, SubContainer } from './style';
 import API from 'lib/api';
 import Header from '../../components/MainContainer/Main/Board/Header';
 
-const Search = ({ curIp }) => {
+const SearchPage = ({ curIp }) => {
   const [selectedBoard, setSelectedBoard] = useState();
   const [searchResult, setSearchResult] = useState(null);
 
@@ -74,4 +73,4 @@ const Search = ({ curIp }) => {
     </>
   );
 };
-export default Search;
+export default SearchPage;

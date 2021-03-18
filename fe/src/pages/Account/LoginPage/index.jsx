@@ -17,7 +17,7 @@ import {
 } from './style';
 import API from 'lib/api';
 
-const Login = () => {
+const LoginPage = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);
@@ -90,4 +90,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

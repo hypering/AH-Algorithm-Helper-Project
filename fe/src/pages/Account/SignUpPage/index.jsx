@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { useUserState } from '../../../context/index';
 import { Redirect } from 'react-router-dom';
 import {
@@ -11,7 +10,7 @@ import {
 } from './style';
 import API from 'lib/api';
 
-const SignUp = () => {
+const SignUpPage = () => {
   const isLogined = useUserState();
   const [userId, setUserId] = useState('');
   const [idValid, setIdValid] = useState(false);
@@ -138,4 +137,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;
