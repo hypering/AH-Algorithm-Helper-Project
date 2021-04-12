@@ -1,5 +1,5 @@
 import React from 'react';
-import ExitButton from '../../../Buttons/ExitButton';
+import ExitButton from '../../../../Buttons/ExitButton';
 import Post from '../Board/Post';
 import DetailView from '../DetailView';
 import { Container, ModalContainer } from './style';

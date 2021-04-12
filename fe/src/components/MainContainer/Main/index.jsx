@@ -1,57 +1,42 @@
-import React, { createContext, useReducer } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'components/MainContainer/Main/style';
-import useCheckAuth from 'hooks/checkAuth';
+import useCheckAuth from 'hooks/useCheckAuth';
 import {
-  Profile,
-  Calendar,
-  Login,
-  FreeBoard,
-  SignUp,
-  Edit,
-  Search,
-  Picker,
+  ProfilePage,
+  CalendarPage,
+  LoginPage,
+  FreeBoardPage,
+  SignUpPage,
+  EditPage,
+  SearchPage,
+  PickerPage,
   Callback,
 } from 'pages';
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'CHANGE_VALUE':
-      return action.payload;
-    default:
-      return state;
-  }
-};
 
-const CommentDispatchContext = createContext(null);
-const CommentStateContext = createContext(null);
 const Main = ({ curIp }) => {
-  const [state, dispatch] = useReducer(reducer, '');
   useCheckAuth();
   return (
-    <CommentDispatchContext.Provider value={dispatch}>
-      <CommentStateContext.Provider value={state}>
-        <Container>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route path="/calendar" component={Calendar} />
-            <Route path="/board">
-              <FreeBoard curIp={curIp}></FreeBoard>
-            </Route>
-            <Route path="/picker" component={Picker} />
-            <Route path="/callback" component={Callback} />
-            <Route path="/account/signup" component={SignUp} />
-            <Route exact path="/account/edit" component={Edit} />
-            <Route exact path="/search">
-              <Search curIp={curIp}></Search>
-            </Route>
-            <Route path="/account/:userId" component={Profile} />
+    <Container>
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+        <Route path="/calendar" component={CalendarPage} />
+        <Route path="/board">
+          <FreeBoardPage curIp={curIp} />
+        </Route>
+        <Route path="/picker" component={PickerPage} />
+        <Route path="/callback" component={Callback} />
+        <Route path="/account/signup" component={SignUpPage} />
+        <Route exact path="/account/edit" component={EditPage} />
+        <Route exact path="/search">
+          <SearchPage curIp={curIp} />
+        </Route>
+        <Route path="/account/:userId" component={ProfilePage} />
 
-            <Route render={() => <div>404 NOT FOUND</div>} />
-          </Switch>
-        </Container>
-      </CommentStateContext.Provider>
-    </CommentDispatchContext.Provider>
+        <Route render={() => <div>404 NOT FOUND</div>} />
+      </Switch>
+    </Container>
   );
 };
-export { CommentDispatchContext, CommentStateContext };
+
 export default Main;

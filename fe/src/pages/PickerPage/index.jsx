@@ -8,7 +8,7 @@ import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import API from 'lib/api';
 
-const Picker = () => {
+const PickerPage = () => {
   const [queryResults, setQueryResults] = useState([]);
   const [queryOptions, setQueryOptions] = useState({
     problemCnt: 0,
@@ -67,4 +67,4 @@ const Picker = () => {
   );
 };
 
-export default Picker;
+export default PickerPage;

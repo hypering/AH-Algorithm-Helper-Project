@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import SvgIcon from 'components/MainContainer/Main/Board/Board/Post/SvgIcon';
 import {
   Container,
@@ -7,7 +7,7 @@ import {
   ProfileImg,
   BoardDate,
 } from 'components/MainContainer/Main/Board/Board/Post/style';
-import { CommentDispatchContext } from 'components/MainContainer/Main';
+import { useCommentDispatch } from '../../../../../../context/index';
 import { useUserState } from '../../../../../../context/index';
 import { Link } from 'react-router-dom';
 import { getDate } from 'lib/getTimer';
@@ -26,13 +26,13 @@ const Post = ({
   isModal,
 }) => {
   const isLogined = useUserState();
-  const dispatch = useContext(CommentDispatchContext);
+  const dispatch = useCommentDispatch();
 
   const onClick = async () => {
     if (!isModal && !fromProfile) {
       dispatch({
         type: 'CHANGE_VALUE',
-        payload: '',
+        payload: { value: '' },
       });
       setSelectedBoard(post);
 

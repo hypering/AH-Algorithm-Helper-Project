@@ -11,10 +11,10 @@ import {
   OverlayText,
   ProfileImgContainer,
   ButtonAccept,
-} from 'pages/Account/Edit/style';
+} from './style';
 import API from 'lib/api';
 
-const Edit = () => {
+const EditPage = () => {
   const [user, setUser] = useState(null);
   const [img, setImg] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
@@ -151,4 +151,4 @@ const Edit = () => {
     </Container>
   );
 };
-export default Edit;
+export default EditPage;

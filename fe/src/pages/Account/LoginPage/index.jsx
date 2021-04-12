@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import LoginButton from 'components/MainContainer/Buttons/LoginButton';
+import LoginButton from '../../../components/Buttons/LoginButton';
 import { useUserDispatch } from '../../../context/index';
 import {
   Container,
@@ -17,7 +17,7 @@ import {
 } from './style';
 import API from 'lib/api';
 
-const Login = () => {
+const LoginPage = () => {
   const history = useHistory();
   const [input, setInput] = useState({ userId: '', userPwd: '' });
   const [disable, setDisable] = useState(true);
@@ -90,4 +90,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

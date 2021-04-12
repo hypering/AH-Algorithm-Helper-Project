@@ -1,6 +1,4 @@
-import React, { useContext, useRef } from 'react';
-import { CommentStateContext } from 'components/MainContainer/Main';
-import { CommentDispatchContext } from 'components/MainContainer/Main';
+import React, { useRef } from 'react';
 import { getDate } from 'lib/getTimer';
 import {
   Container,
@@ -18,10 +16,14 @@ import {
   PostContent,
   BoardDate,
 } from './style';
-import { useUserState } from '../../../../../context/index';
+import {
+  useUserState,
+  useCommentState,
+  useCommentDispatch,
+} from '../../../../../context/index';
 import { Link } from 'react-router-dom';
 import API from 'lib/api';
-import PostDeleteButton from '../../../Buttons/PostDeleteButton';
+import PostDeleteButton from '../../../../Buttons/PostDeleteButton';
 
 const DetailView = ({
   posts,
@@ -33,20 +35,20 @@ const DetailView = ({
 }) => {
   const postContentRef = useRef();
   const isLogined = useUserState();
-  const value = useContext(CommentStateContext);
-  const dispatch = useContext(CommentDispatchContext);
+  const value = useCommentState();
+  const dispatch = useCommentDispatch();
 
   if (!post) return <EmptyText>선택된 글이 없습니다.</EmptyText>;
 
   const onChange = (e) => {
     dispatch({
       type: 'CHANGE_VALUE',
-      payload: e.target.value,
+      payload: { value: e.target.value },
     });
   };
 
   const onClick = async () => {
-    if (value.length === 0) {
+    if (value.value.length === 0) {
       alert('댓글을 입력하세요!');
       return;
     }
@@ -54,13 +56,13 @@ const DetailView = ({
     const response = await API.post('board/comment/write', {
       boardId: post._id,
       createAt: nowDate,
-      context: value,
+      context: value.value,
       writerId: isLogined.userKey,
     });
 
     dispatch({
       type: 'CHANGE_VALUE',
-      payload: '',
+      payload: { value: '' },
     });
 
     if (!response) {
@@ -71,7 +73,7 @@ const DetailView = ({
     post.comment.push({
       _id: response,
       createAt: nowDate,
-      context: value,
+      context: value.value,
       writerKey: isLogined.userKey,
       writerId: isLogined.userId,
       profile: isLogined.profile,
@@ -206,7 +208,7 @@ const DetailView = ({
             id="boardContent"
             cols="120"
             rows="5"
-            value={value}
+            value={value.value}
             onChange={onChange}
           />
           <CommentBtn onClick={onClick}>등록</CommentBtn>

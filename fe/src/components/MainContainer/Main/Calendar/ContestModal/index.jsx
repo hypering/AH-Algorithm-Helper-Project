@@ -1,5 +1,5 @@
 import React from 'react';
-import onChangeHook from 'hooks/onChangeHook';
+import useOnChange from 'hooks/useOnChange';
 import {
   ModalOverlay,
   ModalWrapper,
@@ -13,10 +13,10 @@ import {
 import API from '../../../../../lib/api';
 
 const ContestModal = ({ visible, setvisible }) => {
-  const [organizer, changeOrganizer, setOrganizer] = onChangeHook();
-  const [name, changeName, setName] = onChangeHook();
-  const [date, changeDate, setDate] = onChangeHook();
-  const [link, changeLink, setLink] = onChangeHook();
+  const [organizer, changeOrganizer, setOrganizer] = useOnChange();
+  const [name, changeName, setName] = useOnChange();
+  const [date, changeDate, setDate] = useOnChange();
+  const [link, changeLink, setLink] = useOnChange();
 
   const cancelonClick = () => {
     setvisible(false);
