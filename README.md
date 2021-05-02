@@ -2,6 +2,8 @@
 
 ![](https://i.imgur.com/cFK6CTI.png)
 
+## 배포 중단 (개인적인 문제로 잠시동안 배포를 중단합니다.)
+
 ## 그룹원 🏵
 
 |<a href="https://github.com/superpangE"><img src = "https://avatars0.githubusercontent.com/u/62474560?s=460&v=4" width="200" height="200"/></a>|<a href="https://github.com/hypering"><img src = "https://avatars0.githubusercontent.com/u/76029773?s=460&v=4" width="200" height="200"/></a>|<a href="https://github.com/pjh612"><img src = "https://avatars2.githubusercontent.com/u/62292492?s=460&v=4" width="200" height="200"/></a>|
