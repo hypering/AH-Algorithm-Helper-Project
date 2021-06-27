@@ -15,7 +15,7 @@
 
 2020-12-17 ~ 2021-02-08
   
-## 배포 🍁
+## 배포 🍁 (비용 문제로 서비스 임시 정지)
 
 http://49.50.166.11:4000/
 <br>
@@ -56,6 +56,6 @@ http://49.50.166.11:4000/
 
 </div>
 
-![](https://i.imgur.com/a5fdcEG.png)
+![](https://user-images.githubusercontent.com/76029773/123533273-dcfe3400-d74e-11eb-95b7-d24984f166db.PNG)
 
 <h2>더 자세한 내용은</h2> <h2><a href = "https://github.com/hypering/AH-Algorithm-Helper-Project/wiki">Wiki</a></h2> <h2>를 확인하세요!</h2>
